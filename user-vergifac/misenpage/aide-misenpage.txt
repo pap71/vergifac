@@ -1,0 +1,246 @@
+/*  Fichier de mise en page de l'impression d'un document (facture, devis, etc)
+
+/*  les lignes qui commence par /* sont des commentaires d'aide,
+/*   les lignes vides ou commençant par un espace 
+/*   sont ignorées du programme. 
+/*  les lignes de commande de la mise en page sont identifié par un
+/*   code en début de ligne (sans espace)
+
+/*  Ce fichier permet de definir la mise en page des informations
+/*   de la facture (ou document). 
+/*  -presence ou non
+/*  -position dans la page
+/*  -police avec effet (normal, gras, oblique) taille
+
+/*  Ce fichier comporte plusieurs séquences de commandes
+/*   qui doivent être lues succéssivement dans le bon ordre.
+/*  1_  Taille et polices de l'impression
+/*  2_  Informations d'en tête du document
+/*  3_  Lignes  de la facture (ou document)
+/*  4_  Paramètrage des pages suivantes
+
+/*	1_ Taille et polices de l'impression
+
+/* les lignes commencent par # et doivent rester au début du fichier
+/* taille de la page définie en nombre de points en largeur et hauteur
+/* exemple feuille de papier A4 ( 21 cm x 29,7 cm) vertical
+/* WIDTH=largeur 612 points ( soit environ 10cm= 291 points 5cm=146)
+/* HEIGHT=hauteur 792 points ( soit environ 10cm= 267 points 20cm=533)
+
+#WIDTH	612
+#HEIGHT	792
+
+/*  Polices ( maximum 20)
+/* p=xxxx (max 7 caracteres) nom libre 
+/* font="..." Nom d'une police sur cette machine
+
+#p=arial	font="Arial"
+#p=sans		font="Sans"
+#p=garuda	font="Garuda"
+#p=conden	font="DejaVu Serif Condensed"
+#p=mono		font="Monospace"
+#p=book		font="URW Bookman L"
+#p=chan		font="URW Chancery L"
+#p=puri		font="Purisa"
+
+/*  2_ Informations d'en tête du document
+
+/* Pour chaque information, on indique sa position dans la page
+/* x=nn position en largeur depuis la gauche de la page 
+/*  nn doit être compatible avec la valeur #WIDTH
+/* exemple #WIDTH 612  si x=306 l'information sera imprimée
+/* à partir du milieu (en largeur) de la page.  
+/* y=mm  position en hauteur depuis le haut de la page 
+/*  mm doit être compatible avec la valeur #HEIGHT
+
+/* pol=xxxx  police choisie définie avant dans une ligne #p=xxxx ..etc
+/* siz=nn  taille des caractères
+/* slant=italic  ou slant=oblique si slant= absent = normal
+/* w=bold (gras) si w= absent = normal 
+
+/*  Informations d'en tête du document
+/*  la ligne doit précisement débuter par le code de l'information
+/*  les codes sont:
+/* typdoc = type du document choisi dans la boite déroulante de 
+/*    la fenêtre 'Saisie de Facture'
+/*    Facture 0, Devis  , Facture Proforma, Commande , xxxx
+/*    Le texte imprimé est défini dans la fenêtre 'Code' accessible
+/*    par le bouton 'Code' depuis la fenêtre 'Saisie de Facture'.
+/*    '.doc0' , '.doc1', 'doc2', etc
+/*    avec le libellé correspondant modifiable par l'utilisateur.
+
+typdoc	 x=50	y=150	pol=garuda siz=12 w=bold
+
+/* numdoc = numéro de facture (ou document)
+/* datdoc = date 
+/* ad1 , ad2, ad3, pays, codpos, ad4(ville) = adresse destinataire
+numdoc	 x=160	y=150	pol=arial siz=11
+datdoc	 x=140	y=180	pol=arial siz=10
+ad1	 x=320	y=160	pol=sans siz=10
+ad2 	 x=320	y=175	pol=arial siz=10
+ad3 	 x=320	y=190	pol=arial siz=10
+pays	 x=320	y=205	pol=arial siz=9
+codpos	 x=360	y=205	pol=arial siz=10
+ad4	 x=400	y=205	pol=arial siz=10
+/* si une des lignes précédente est absente ou mis en commentaire
+/* l'information correspondante n'est pas imprimée.
+
+/* On peut faire figurer des textes quelconques nécessaire au document
+/* selon que l'on n'utilise ou pas du papier préimprimé.
+/* la ligne doit précisement débuter par 'entvar' suivi des paramêtres.
+/* Le texte à imprimer doit impérativement être saisi sur la ligne suivante.
+
+entvar	 x=150	y=20	pol=garuda siz=16
+Société   Albert & Compagnie
+
+entvar	 x=150	y=38	pol=garuda siz=10
+23 Boulevard Bolivar F71123 Aix en Brousse
+
+entvar	 x=160	y=60	pol=conden siz=7 slant=italic
+Capital 150000 euros €      -      SIRET 987 654 321 00002
+
+entvar	 x=60	y=180	pol=garuda siz=9
+Aix en Brousse le 
+
+entvar	 x=95	y=235	pol=garuda siz=9
+Libelle
+
+entvar	 x=290	y=235	pol=garuda siz=9
+Quantité      Unité   Taxe            Prix.Unitaire            Montant
+
+/*  Textes sur plusieurs lignes
+/*  pour éditer (par exemple) des mentions légales
+/*  ou des informations diverses
+/*  Le texte doit être inséré entre 2 lignes de commande
+/*  ligne de départ 'textml' avec les mêmes paramètres que 'entvar'
+/*  avec 1 paramétre supplémentaire dtxy= nn = espacement entre les lignes
+/*  ligne de fin code = 'fintextml' 
+
+textml   x=45	y=710	pol=garuda siz=9 dtxy=10
+La mise en page de ce document est définie par 
+ le fichier 'aide-misenpage.txt'
+Vous pouvez retrouver une mise en page semblable
+ en choisissant le fichier de mise en page
+         misenpage2.txt
+  où les lignes d'aides n'ont pas été reprises.
+N'hésitez pas à tester les autres fichiers de mise en page
+fintextml
+
+textml   x=400	y=720	pol=book siz=12 dtxy=15
+    ATTENTION
+    FERMETURE 
+Vendredi 24 décembre   
+fintextml
+
+
+/*  tracer un trait 'line'
+/*  x=nn y=mm  coordonnées du point de départ
+/*  xf=nn yf=mm coordonnées du point d'arrivée
+/*  si yf absent le programme fait yf=y (ligne horizontale)
+/*  si xf absent le programme fait yf=x (ligne verticale)
+/*  w=kk épaisseur de la ligne 
+/*line	x=150	y=50 	xf=370	w=0.8
+/*line	x=260	y=250 	yf=770	w=0.8
+/*line	x=340	y=250 	yf=770	w=0.8
+/*line	x=490	y=250 	yf=770	w=0.8
+
+line	x=25	y=222 	yf=690	w=0.8
+line	x=260	y=222 	yf=690	w=0.8
+line	x=340	y=222 	yf=690	w=0.8
+line	x=370	y=222 	yf=690	w=0.8
+line	x=395	y=222 	yf=690	w=0.8
+line	x=490	y=222 	yf=690	w=0.8
+line	x=585	y=222 	yf=690	w=0.8
+line	x=25	y=690 	xf=585	w=0.8
+
+
+/*  tracer un rectangle
+/*  x=nn y=mm  coordonnées du point de départ haut gauche
+/*  xf=nn largeur
+/*  yf=mm hauteur
+/*  w=kk épaisseur de la ligne 
+rect	x=45	y=132 	xl=205 yh=28	w=0.8
+rect	x=25	y=222 	xl=560 yh=20	w=0.8
+
+/*   3_  Lignes  de la facture (ou document)
+
+/*  ydeb  
+/*   y=mm position en hauteur du début de l'impression des lignes
+/*     ( depuis le haut de la page)
+/*   dy=kk  taille de l'interligne 
+/*   yfin=mm position en hauteur de la fin de l'impression des lignes
+/*   qui provoquera un saut de page.
+ydeb	y=260	dy=12	yfin=750
+
+/*  Informations ligne de facture
+/*  Remarque: Pour que les montants soient allignés les un sous les autres
+/*   il faut choisir une police monospace
+
+/* libvar	lignes de libellés sans calcul
+
+libvar	x=30	pol=book siz=9
+
+/*  pour les lignes détails
+/* libprod	libelle du produit ou service facturé		
+/* quant	quantité
+/* unit		unité
+/* ctax		code taxe
+/* pu		prix unitaire
+/* val		montant de la ligne  quant x pu
+/* codprod	code produit  ( ici ignoré)
+
+libprod	x=45	pol=arial siz=9		
+quant	x=280	pol=mono siz=9
+unit	x=350	pol=arial siz=9
+ctax	x=380	pol=arial siz=9
+pu	x=390	pol=mono siz=9
+val	x=500	pol=mono siz=9
+
+/*  pour les lignes de totalisation 
+/* stot		sous total
+/* libtot	libelle des lignes de totalisation (définis dans 'Codes')
+/* valtot	Montants des totaux (hors taxes, toutes taxes)
+/* 		Montants taxes prennent parametres lignes détails
+
+stot	x=480	pol=mono siz=10 slant=italic
+libtot	x=30	pol=garuda siz=10
+valtot	x=500	pol=mono siz=10	w=bold 
+
+/*  4_  Paramètrage des pages suivantes
+/*	(le nombre de lignes de la facture necessite de changer de page).
+
+/*  IMPORTANT le programme doit trouver le code 'PAGSUIV'
+/*   pour gérer les pages supplémentaires donc ne pas l'éffacer.
+
+PAGSUIV
+
+/* ydebsuiv	idem ydeb mais pour les pages suivantes
+/*   y=mm position en hauteur du début de l'impression des lignes
+/*     ( depuis le haut de la page)
+/*   dy=kk  taille de l'interligne 
+/*   yfin=mm position en hauteur de la fin de l'impression des lignes
+/*   qui provoquera un saut de page.
+
+ydebsuiv	y=55	dy=12	yfin=750
+
+/*	on peut utiliser les codes entvar, line, rect
+
+entvar	 x=80	y=20	pol=book siz=9
+Société   Albert & Compagnie      23 Boulevard Bolivar F71123 Aix en Brousse
+rect	x=25	y=30 	xl=560 yh=20	w=0.8
+entvar	 x=95	y=43	pol=garuda siz=9
+Libelle
+entvar	 x=290	y=43	pol=garuda siz=9
+Quantité      Unité   Taxe            Prix.Unitaire            Montant
+line	x=25	y=30 	yf=770	w=0.8
+line	x=260	y=30 	yf=770	w=0.8
+line	x=340	y=30 	yf=770	w=0.8
+line	x=370	y=30 	yf=770	w=0.8
+line	x=395	y=30 	yf=770	w=0.8
+line	x=490	y=30 	yf=770	w=0.8
+line	x=585	y=30 	yf=770	w=0.8
+
+
+
+
+

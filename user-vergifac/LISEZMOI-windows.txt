@@ -1,0 +1,64 @@
+Les programmes vergifac.exe vergisc.exe utilise la bibliothèque GTK.
+Celle-ci n'est pas installée en standard sur Windows.
+Si besoin lire le fichier Install-GTK-Windows.txt
+
+Pour les utilisateurs de la version précédente de vergifac lire le fichier version.txt pour réutiliser les fichiers personnels.
+
+On suppose que wvergifac.zip a été décompressé dans un répertoire et que ce répertoire est affiché.
+Activer le répertoire 'wvergifac' pour lister ses fichiers.
+
+========  Test de la mise en page des documents
+	(duplicata du fichier 'aide-misenpage.txt')
+
+Avant de lancer vergifac.exe pour étudier la mise en page.
+Activer le répertoire 'misenpage' pour lister ses fichiers.
+clic sur le fichier 'aide-misenpage.txt'
+clic droite -> copier
+Edition  -> coller
+clic droite sur le fichier 'aide-misenpage (copie).txt'-> renommer
+renommer en (par exemple) 'aide-mamipag.txt'.
+
+Lors des tests de mise en page on pourra modifier ce fichier avec un éditeur de texte en gardant l'original intact.
+
+Réactiver le répertoire 'wvergifac' pour lister ses fichiers.
+
+
+========= Configuration du démarrage de vergifac.exe
+Pour fonctionner simplement le répertoire de travail doit être le répertoire wvergifac. 
+Activer le répertoire 'wvergifac' pour lister ses fichiers.
+
+Le plus simple est de créer un raccourci.
+	Avec la souris click droit sur vergifac.exe
+	choisir 'créer un raccourci'
+	(le raccourci s'insère dans le répertoire
+
+	click droit sur vergifac.exe-Raccourci
+	choisir 'propriétés'
+	Vérifier la cible et 'démarrer dans' qui doivent pointer sur le bon répertoire. (=wvergifac)
+
+Ensuite on fait glisser vergifac.exe-Raccourci sur le bureau.
+ou	
+Encore une fois dans le répertoire avec la souris click droit sur vergifac.exe-Raccourci
+Choisir selon votre desir de déplacer le lien
+-sur le bureau
+-menu démarrer
+qui permettra de lancer facilement le programme.
+
+
+
+======  Pour les tests Ouvrir le dossier 'dbtestfac.db'
+
+
+========  Autres informations si vergifac n'arrive pas à démarrer
+
+Le répertoire actif doit être celui où ce trouve le programme vergifac.exe.
+Ceci permet au programme de trouver sans problème:
+-le ou les dossiers base de données
+  -- pour le test dbtestfac.db
+-les sous répertoires de travail
+ -doc-aide
+ -histo-fac
+ -memo-doc
+ -misenpage
+ -outils
+

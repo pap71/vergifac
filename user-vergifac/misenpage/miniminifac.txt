@@ -1,0 +1,48 @@
+/* exemple tiers feuille de papier A4 
+#WIDTH	264
+#HEIGHT	612
+/*  Polices ( maximum 20)
+/* p=xxxx (4 caracteres) nom libre 
+/* font="..." Nom d'une police sur cette machine
+#p=pol0	font="Arial"	slant=nor	w=nor
+#p=pol1	font="Sans"	slant=nor	w=bold
+#p=pol2	font="Garuda"	slant=nor	w=bold
+#p=pol3	font="Garuda"	slant=italic
+#p=pol4	font="Garuda"	slant=oblique	w=bold
+#p=pol5	font="DejaVu Serif Condensed"	slant=nor	w=nor
+#p=mono	font="Monospace"	slant=nor	w=nor
+#p=monb	font="Monospace"	slant=nor	w=bold
+#p=chan font="URW Chancery L"
+#p=puri font="Purisa"
+
+entvar	 x=60	y=15	pol=pol4 siz=16
+La Bonne Table
+entvar	 x=0	y=28	pol=pol5 siz=8
+12 Place des Remparts F71123 Aix en Brousse - Tél 03 32 65 98 41
+
+/*typdoc	 x=170	y=50	pol=pol2 siz=12
+entvar	 x=12	y=50	pol=pol4 siz=10
+Table
+numdoc	 x=46	y=50	pol=pol0 siz=11
+entvar	 x=80	y=50	pol=pol4 siz=10
+Service
+ad1	 x=120	y=50	pol=sans siz=10
+
+datdoc	 x=190	y=50	pol=pol0 siz=10
+
+ydeb	y=90	dy=12 yfin=590
+quant	x=0 pol=pol0 siz=9
+libprod	x=35	pol=pol0 siz=9
+/*unit	x=350	pol=pol0 siz=9
+/*ctax	x=380	pol=pol0 siz=9
+pu	x=130	pol=mono siz=9
+val	x=180	pol=mono siz=10
+libtot	x=30	pol=pol2 siz=10
+valtot	x=180	pol=monb siz=10
+libvar	x=30	pol=puri siz=9
+
+PAGSUIV
+ydebsuiv	y=50	dy=12	yfin=590
+entvar	 x=0	y=20	pol=book siz=9
+La Bonne Table 12 Place des Remparts F71123 Aix en Brousse - Tél 03 32 65 98 41
+

@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+
+
+
+
+  
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type"><title>Vergifac Mise en page des factures</title></head><body>
+<a href="ManuelVERGIFAC.html">Menu</a> ---- <a href="saisiefac.html">Saisie
+Facture</a> ------ <a href="miseenpage.html">Mise en Page</a> ------- <a href="gestclient.html">Gestion Clients</a> -------- <a href="gestprod.html">Gestion Produits</a> --------- <a href="Param.html">Paramètres</a><br>
+
+<h1 style="text-align: center;">VERGIFAC&nbsp; --&nbsp; Mise en Page<br>
+</h1>
+
+Les documents finaux (factures, devis, etc) sont 'imprimés' dans un
+fichier de format PDF. Ce format est un standard universel. En principe
+toutes les machines ont un programme qui permet de les visualiser et de
+les imprimer.<br>
+
+Ce format est aussi très utilisé pour transmettre des documents par
+mail.<br>
+
+<br>
+
+Création du fichier PDF: Fenêtre 'Saisie de Facture' bouton
+'Impression'.<br>
+
+On peut relancer l'impression <span style="font-weight: bold;">AUTANT
+DE FOIS QUE NÉCESSAIRE</span>.(*)<br>
+
+- après modification de la saisie<br>
+
+- après changement ou modification du fichier de commande de mise en page. <br>
+
+<br>
+
+(*)_ Sur linux (Ubuntu et Evince afficheur de pdf) le fichier pdf
+modifié est automatiquement actualisé.<br>
+
+_Sur Windows ( Acrobat Reader afficheur de pdf) le fichier n'est pas
+actualisé tant que acrobat reader est actif. Donc entre deux essais, il
+faut fermer acrobat reader.<br>
+
+<br>
+
+Vergifac imprime les documents en suivant les directives d'un fichier
+de commande de mise en page selon les souhaits de l'utilisateur lui
+permettant de 'programmer' la présentation de son document.<br>
+<br>
+<span style="font-weight: bold;">Choix du fichier de mise en page</span><br>
+Dans la fenêtre 'Saisie Facture' -&gt; clic bouton 'Fic mis en page' -&gt; choisir un fichier (.txt).<br>
+_Conseil: pour mettre au point votre fichier de commande, faites des
+essais sur une copie d'un fichier de commande de démonstration. Ouvrir
+ce fichier -&gt; modifier -&gt; enregistrer -&gt; relancer l'impression.<br>
+&nbsp;
+
+<br>
+<span style="font-weight: bold;">Caractéristiques du fichier de commande de mise en page</span>.<br>
+
+_C'est un fichier texte qu'il faut ouvrir avec un
+éditeur de texte (notepad, gedit, etc). <br>
+_Vergifac le trouve dans le
+dossier 'misenpage'.<br>
+
+
+_Le codage des caractères doit être en <span style="font-weight: bold;">utf8.</span> Si non le premier accent arrête l'impression.<br>
+&nbsp; Avec gedit (linux) ou notepad (windows) faire - Fichier -
+Enregistrer sous. Choisir pour 'Codage' utf8. A faire une fois à la
+création, le fichier est désormais codé en utf8.<br>
+_La première ligne du fichier ne doit pas être une commande (obligatoire pour les fichiers textes crées avec windows).<br>
+&nbsp; ( mettre un commentaire ligne commençant par /*).<br>
+_Polices: pour trouver les polices de votre machine, cherchez la liste ou lancez un
+programme qui les listent et saisir les noms de celles que vous
+souhaitez utiliser dans le fichier de commandes. Exemple de programme
+qui liste les polices: Editeur de textes (word, open office writer),
+traitement d'images (gimp, etc), notepad de windows, etc.<br>
+Si la police est inconnue sur votre machine, Vergifac (cairo) la remplace sans rien dire.<br>
+<br>
+
+________extrait fichier de commande<br>
+
+numdoc&nbsp;&nbsp; &nbsp; x=160 &nbsp;&nbsp;&nbsp; y=150
+&nbsp;&nbsp;&nbsp; pol=arial siz=11<br>
+
+datdoc &nbsp;&nbsp;&nbsp; x=140 &nbsp;&nbsp;&nbsp; y=180
+&nbsp;&nbsp;&nbsp; pol=arial siz=10<br>
+
+ad1&nbsp;&nbsp; &nbsp; x=320 &nbsp;&nbsp;&nbsp; y=160&nbsp;&nbsp;
+&nbsp; pol=sans&nbsp;&nbsp; &nbsp; siz=10<br>
+
+ad2 x=320 y=175 pol=arial siz=10<br>
+
+ad3 x=320 y=190 pol=arial siz=10<br>
+
+pays x=320 y=205 pol=arial siz=9<br>
+
+codpos x=360 y=205 pol=arial siz=10<br>
+
+ad4 x=400 y=205 pol=arial siz=10<br>
+
+<br>
+
+________extrait fichier pdf résultant<br>
+
+<img style="border: 1px solid ; width: 903px; height: 177px;" alt="extrait pdf" src="mispag1.png"><br>
+
+<br>
+
+exemple: la première ligne de l'adresse du destinataire.<br>
+
+<br>
+
+ad1&nbsp;&nbsp; &nbsp; x=320 &nbsp;&nbsp;&nbsp; y=160
+&nbsp;&nbsp;&nbsp; pol=sans &nbsp;&nbsp;&nbsp; siz=10<br>
+
+<br>
+
+ad1 = code de l'information première ligne adresse à imprimer.<br>
+
+x=320 position dans la page depuis la marge gauche<br>
+
+y=160 position dans la page depuis le haut de la page<br>
+
+pol=sans police d'impression<br>
+
+siz=10 taille des caractères<br>
+
+<br>
+
+si le document doit être expédier par la poste dans une enveloppe à
+fenêtre, il suffit de modifier si besoin x= y= etc pour que l'adresse
+soit bien visible.<br>
+
+<br>
+
+_____________modification de la ligne<br>
+
+ad1&nbsp;&nbsp; &nbsp; x=220 &nbsp;&nbsp;&nbsp; y=170
+&nbsp;&nbsp;&nbsp; pol=book &nbsp;&nbsp;&nbsp; siz=8<br>
+
+<br>
+
+_____________résultat<br>
+
+<img style="border: 1px solid ; width: 908px; height: 174px;" alt="pdf2" src="mispag2.png"><br>
+
+<br><br>
+
+<br>
+
+<br>
+
+================= DÉTAIL DES COMMANDES<br>
+
+Des explications détaillées des commandes se trouvent dans le fichier: <span style="font-weight: bold;">aide-misenpage.txt</span> du dossier
+'misenpage'.<br>
+
+
+Ce fichier est aussi un fichier de commande.<br>
+
+
+On y trouve donc l'explication et la commande.<br>
+
+Sur une copie de ce fichier la première modification sera sans doute
+pour les commandes 'entvar' pour imprimer le document avec votre
+en-tête.<br>
+<br>
+entvar&nbsp;&nbsp;&nbsp; &nbsp;x=150&nbsp;&nbsp;&nbsp; y=20&nbsp;&nbsp;&nbsp; pol=garuda siz=16
+<br>
+<span style="text-decoration: line-through;">Société&nbsp;&nbsp; Albert &amp; Compagnie
+</span>........................remplacer par votre en-tête<br>
+entvar&nbsp;&nbsp;&nbsp; &nbsp;x=150&nbsp;&nbsp;&nbsp; y=38&nbsp;&nbsp;&nbsp; pol=garuda siz=10
+<br>
+<span style="text-decoration: line-through;">23 Boulevard Bolivar F71123 Aix en Brousse
+</span><br>
+etc..<br>
+<br>
+
+<br>
+========== EXEMPLES ( à partir des fichiers de démonstration)<br>
+
+<br>
+
+<img style="border: 1px solid ; width: 514px; height: 422px;" alt="exemple aidemisenpage" src="exempdf1.png"><br>
+
+<br>preimp.txt l'imprimante est chargée avec du papier à en-tête.<br>
+
+<img style="border: 1px solid ; width: 506px; height: 425px;" alt="primp.txt" src="exempdf2.png"><br>
+
+entete.txt l'en-tête est un fichier image de type png qui sera intégrée
+au document.<br>
+
+<img style="border: 1px solid ; width: 511px; height: 433px;" alt="entete.txt" src="exempdf3.png"><br>
+
+minifac.txt (facture type commerce sur moitié de feuille A4). Doc relu restau.txt.<br>
+<img style="border: 1px solid ; width: 470px; height: 491px;" alt="Facture 'commerce'" src="restau.png"><br>
+
+<br>
+
+<br>
+
+<br>
+
+</body></html>

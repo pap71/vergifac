@@ -1,0 +1,28 @@
+VERGIFAC logiciel de facturation
+VERGISC  logiciel de comptabilité
+	Versions Linux et Windows
+	http://www.pouillyfuisse-delorme.com/mdcpt/cc.html
+
+ITERMD   Outils logiciels pour applications de simulation
+	Pour Linux et Windows
+	 http://www.pouillyfuisse-delorme.com/mdcpt/itermd.html
+
+ Auteur	Michel Delorme	Logiciel Libre	Free software
+
+Logiciel libre
+
+fourni avec l'autorisation pour quiconque de l'utiliser, de le copier, et/ou de le distribuer, sous une forme conforme à l'original ou avec des modifications, gratuitement ou contre paiement.
+
+Free software
+
+that comes with permission for anyone to use, copy, and/or distribute, either verbatim or with modifications, either gratis or for a fee. 
+
+=== CREDITS
+www.gtk.org
+www.cairographics.org
+www.sqlite.org
+distributions Linux
+
+=== SPONSOR
+http://www.pouillyfuisse-delorme.com
+

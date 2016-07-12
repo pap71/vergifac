@@ -1,0 +1,109 @@
+pour linux si besoin installer
+libsqlite3-dev
+libgtk2.0-dev 
+
+pour Windows si besoin installer GTK
+inclure sqlite3.c disponible sur www.sqlite.org
+
+
+==== modules répertoire 'util'
+Outils d'aide à la création et (surtout) modification de fenêtres GTK pour des applications de gestion avec des données de type 'EDIT GTK' : 
+voir exemple simple:
+https://github.com/pap71/demogen.git
+
+==== modules répertoire 'src'
+==			fastmenu.c
+initialisation de l'application et menu général
+
+==			mesfast.c
+messages de l'application et routines d'affichage
+
+==			paramsfac.c
+saisie de paramètres divers et des codes et taux de taxes
+
+==			sqlcliDB.c
+sqlite3 et les fonctions callback
+
+==			saiscli.c
+saisie et enregistrement des fiches clients dans la data base
+
+==			listcli.c
+liste et recherche selon plusieurs critères des clients dans la data base
+peut transmettre à saifac.c une adresse sélectionnée
+
+==			saiprod.c
+saisie et enregistrement des fiches 'produits' dans la data base
+
+==			listprod.c
+liste et recherche selon plusieurs critères des produits dans la data base
+peut transmettre à saifac.c un produit sélectionné
+
+==			saifac.c
+saisie de documents (factures, devis, etc) dans un tableau
+dont
+adresse destinataire
+produits
+libellés divers
+préparation de l'impression
+calculs 
+
+==			saifaccod.c
+accessible depuis saifac.c
+mémorise certains libellés utilisés par saifac.c
+
+==			memodoc.c
+accessible depuis saifac.c
+sauve et relit le tableau de saifac.c
+
+==			editfast.c
+accessible depuis saifac.c
+mise en page du document final (facture) dans un fichier pdf
+en suivant les commandes du fichier de mise en page sélectionné.
+
+
+===			détail saifac.c
+saisie du document facture ou autre
+
+============== int traifac(MEMO_T_WIDG *pw,int temchang)
+=traitement des rubriques saisies d'une ligne du tableau.
+
+case CSFcodprod: colonne code
+si 1er car = '.'  traité par gencode(..
+si vide ligne marquée LQQ
+si une saisie=clef recherche dans table produit de la bd
+  si clef existe
+	recopie dans le tableau
+	 libellé,unité,prix unitaire, code taxe
+	insère des lignes si besoin (lignes nécessaires non vides)
+	vérifie code taxe (au cas le code de la db n'existe plus)
+	si insertion exécute actu_sfac(..
+  si clef inconnue
+    ne fait rien
+
+case CSFpriunit:   prix unitaire suivi du (re)traitement de quantité
+ (si saisie ou modification sinon valeur de la db)
+ si erreur de saisie valeur = 0 
+ se poursuit par traitement quantité
+
+case CSFquant: quantité
+  calcul systématique de quant x priunit (même si priunit pas encore 
+	saisi)
+  si montant a changé execute actu_sfac(..
+  la ligne est marquée DETAIL
+
+case CSFcodtax:
+  verif code et execute actu_sfac(..
+
+CSFlibprod  et CSFunit pas de traitements particuliers
+
+========== void afcell_sfac(int idcol, int liga)
+= affiche chaque rubrique du tableau
+si la ligne a été chargée automatiquement depuis la db
+ rétablie le bouton insere
+ (if (autop.acti == 1) inhilistprod_sfac();)
+
+==========  int gencode(char *code,int liga)
+ traitement des lignes dont le 1er car est '.'
+   declanche calculs de fin de document (total ht,ttc,taxes)
+   commandes affichage (traits séparateurs, saut de pages)
+

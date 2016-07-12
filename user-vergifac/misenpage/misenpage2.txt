@@ -1,0 +1,110 @@
+/*  Fichier de mise en page de l'impression d'un document (facture, devis, etc)
+
+#WIDTH	612
+#HEIGHT	792
+
+/*  Polices ( maximum 20)
+#p=arial	font="Arial"
+#p=sans	font="Sans"
+#p=garuda	font="Garuda"
+#p=conden	font="DejaVu Serif Condensed"
+#p=mono	font="Monospace"
+#p=book	font="URW Bookman L"
+#p=chan	font="URW Chancery L"
+#p=puri	font="Purisa"
+
+/*  En tête du document
+entvar	 x=150	y=20	pol=garuda siz=16
+Société   Albert & Compagnie
+entvar	 x=150	y=38	pol=garuda siz=10
+23 Boulevard Bolivar F71123 Aix en Brousse
+entvar	 x=160	y=60	pol=conden siz=7 slant=italic
+Capital 150000 euros €      -      SIRET 987 654 321 00002
+
+rect	x=45	y=132 	xl=205 yh=28	w=0.8
+typdoc	 x=50	y=150	pol=garuda siz=12 w=bold
+numdoc	 x=160	y=150	pol=arial siz=11
+entvar	 x=60	y=180	pol=garuda siz=9
+Aix en Brousse le 
+datdoc	 x=140	y=180	pol=arial siz=10
+
+ad1	 x=320	y=160	pol=sans siz=10
+ad2 	 x=320	y=175	pol=arial siz=10
+ad3 	 x=320	y=190	pol=arial siz=10
+pays	 x=320	y=205	pol=arial siz=9
+codpos	 x=360	y=205	pol=arial siz=10
+ad4	 x=400	y=205	pol=arial siz=10
+
+textml   x=45	y=710	pol=garuda siz=9 dtxy=10
+Ouverture de nos bureaux 
+   Lundi  8h30-12h  14h-18h
+   Mardi  8h30-12h  14h-18h
+   Mercredi  8h30-12h  14h-20h
+   Jeudi  8h30-12h  14h-18h
+   Vendredi  8h30-12h  14h-17h
+fintextml
+textml   x=400	y=720	pol=book siz=12 dtxy=15
+    ATTENTION
+    FERMETURE 
+Vendredi 24 décembre   
+fintextml
+
+/*  Libellés des colonnes
+rect	x=25	y=222 	xl=560 yh=20	w=0.8
+entvar	 x=95	y=235	pol=garuda siz=9
+Libelle
+entvar	 x=291	y=235	pol=garuda siz=9
+Quantité     Unité   Taxe            Prix Unitaire            Montant
+
+/*  lignes des colonnes
+line	x=25	y=222 	yf=690	w=0.8
+line	x=260	y=222 	yf=690	w=0.8
+line	x=340	y=222 	yf=690	w=0.8
+line	x=370	y=222 	yf=690	w=0.8
+line	x=395	y=222 	yf=690	w=0.8
+line	x=490	y=222 	yf=690	w=0.8
+line	x=585	y=222 	yf=690	w=0.8
+line	x=25	y=690 	xf=585	w=0.8
+
+/*   3_  Lignes  de la facture (ou document)
+
+ydeb	y=260	dy=12	yfin=750
+
+libvar	x=30	pol=book siz=9
+
+/*  les lignes détails
+
+libprod	x=45	pol=arial siz=9		
+quant	x=280	pol=mono siz=9
+unit	x=350	pol=arial siz=9
+ctax	x=380	pol=arial siz=9
+pu	x=390	pol=mono siz=9
+val	x=500	pol=mono siz=9
+
+/*  les lignes de totalisation 
+
+stot	x=500	pol=mono siz=10 slant=italic
+libtot	x=30	pol=garuda siz=10
+valtot	x=500	pol=mono siz=10	w=bold 
+
+/*  4_  Paramètrage des pages suivantes
+
+PAGSUIV
+
+ydebsuiv	y=55	dy=12	yfin=750
+
+entvar	 x=80	y=20	pol=book siz=9
+Société   Albert & Compagnie      23 Boulevard Bolivar F71123 Aix en Brousse
+rect	x=25	y=30 	xl=560 yh=20	w=0.8
+entvar	 x=95	y=43	pol=garuda siz=9
+Libelle
+entvar	 x=290	y=43	pol=garuda siz=9
+Quantité      Unité   Taxe            Prix.Unitaire            Montant
+line	x=25	y=30 	yf=770	w=0.8
+line	x=260	y=30 	yf=770	w=0.8
+line	x=340	y=30 	yf=770	w=0.8
+line	x=370	y=30 	yf=770	w=0.8
+line	x=395	y=30 	yf=770	w=0.8
+line	x=490	y=30 	yf=770	w=0.8
+line	x=585	y=30 	yf=770	w=0.8
+

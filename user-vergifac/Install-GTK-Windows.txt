@@ -1,0 +1,28 @@
+﻿INSTALLER GTK SUR WINDOWS.
+
+﻿Les programmes vergifac.exe vergisc.exe utilise la bibliothèque GTK.
+Celle-ci n'est pas installée en standard sur Windows.
+Ce topo explique comment installer la bibliothèque GTK et les programmes qui l'utilise sur une machine sous le système d'exploitation Windows.
+
+====== méthode la plus simple
+
+Recherche sur le web:	GTK Windows
+-----> Plusieurs propositions
+par exemple
+http://sourceforge.net/projects/gtk-win/
+
+télécharger:	gtk2-runtime-2.24.10-2012-10-10-ash.exe
+   ou la dernière version de GTK2
+  ( attention GTK3 ne convient pas actuellement)
+
+Exécuter (ouvrir) le paquet
+suivre les instructions (option recommended) jusqu'à la fin.
+
+(Dans le menu des applications de windows GTK2 Runtime 
+il ya l'option uninstall qui permet de tous supprimer si besoin).
+
+Désormais votre machine est capable d'executer des programmes utilisant GTK.
+
+
+
+

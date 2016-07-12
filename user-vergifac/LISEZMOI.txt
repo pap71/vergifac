@@ -1,0 +1,67 @@
+Pour les utilisateurs de la version précédente de vergifac lire le fichier version.txt pour réutiliser les fichiers personnels.
+
+On suppose que vergifac.zip a été décompressé dans un répertoire et que ce répertoire est affiché.
+Activer le répertoire 'vergifac' pour lister ses fichiers.
+
+========  Test de la mise en page des documents
+	(duplicata du fichier 'aide-misenpage.txt')
+
+Avant de lancer vergifac pour étudier la mise en page.
+Activer le répertoire 'misenpage' pour lister ses fichiers.
+clic sur le fichier 'aide-misenpage.txt'
+clic droite -> copier
+Edition  -> coller
+clic droite sur le fichier 'aide-misenpage (copie).txt'-> renommer
+renommer en (par exemple) 'aide-mamipag.txt'.
+
+Lors des tests de mise en page on pourra modifier ce fichier avec un éditeur de texte en gardant l'original intact.
+
+Réactiver le répertoire 'vergifac' pour lister ses fichiers.
+
+
+========= Configuration du démarrage de vergifac (Linux)
+
+Activer le répertoire 'vergifac' pour lister ses fichiers.
+
+	2 choix
+== Lancer vergifac depuis son répertoire
+clic sur 'lance-vergifac.sh'
+(si besoin choisir 'lancer dans un terminal' ou 'lancer'.
+
+== Installer le lancement de vergifac depuis le bureau ou le menu
+(pour ne plus avoir besoin d'activer à chaque usage le répertoire de vergifac)
+clic 'credesktop.sh'
+(si besoin choisir 'lancer dans un terminal' ou 'lancer'.
+vergifac peut être lancé depuis le menu Application -> Bureautique
+
+REMARQUE
+Si les commandes précédentes sont éditer au lieu de s'exécuter.
+navigateur de fichier -> clic 'Editer' -> Préférences -> Comportement
+cocher 'demander à chaque fois'
+
+________ Unity (bureau ubuntu)
+Après lancement de credesktop.sh activer le tableau de bord 'unity'
+rechercher vergifac
+glisser dans le lanceur
+
+
+======  Pour les tests Ouvrir le dossier 'dbtestfac.db'
+
+
+========  Autres informations si vergifac n'arrive pas à démarrer
+Suivant votre système Linux 32 bits ou 64 bits
+il faut lancer le programme 
+vergifac pour un système 32 bits
+vergifac64 pour un système 64 bits
+
+Le répertoire actif doit être celui où ce trouve le programme vergifac(64).
+Ceci permet au programme de trouver sans problème:
+-le ou les dossiers base de données
+  -- pour le test dbtestfac.db
+-les sous répertoires de travail
+ -doc-aide
+ -histo-fac
+ -memo-doc
+ -misenpage
+ -outils
+

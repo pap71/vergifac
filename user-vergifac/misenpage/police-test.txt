@@ -1,0 +1,57 @@
+#WIDTH	612
+#HEIGHT	792
+
+/*  Polices ( maximum 20)
+/* p=xxxx (max 7 caracteres) nom libre 
+/* font="..." Nom d'une police sur cette machine
+
+#p=conden	font="DejaVu Serif Condensed"
+#p=arial	font="Arial"
+#p=sans		font="Sans"
+#p=garuda	font="Garuda"
+#p=conden	font="DejaVu Serif Condensed"
+#p=mono		font="Monospace"
+#p=chan		font="URW Chancery L"
+#p=book		font="URW Bookman L"
+#p=puri		font="Purisa"
+#p=puri		font="Purisa"
+
+entvar	 x=10	y=20	pol=garuda siz=10
+23 Boulevard Bolivar F71123 Aix en Brousse pol=garuda siz=10
+
+entvar	 x=10	y=40	pol=garuda siz=10 w= bold
+23 Boulevard Bolivar F71123 Aix en Brousse pol=garuda siz=10  w= bold
+
+entvar	 x=10	y=60	pol=sans siz=10 
+23 Boulevard Bolivar F71123 Aix en Brousse pol=sans siz=10  
+
+entvar	 x=10	y=80	pol=sans siz=10 w= bold
+23 Boulevard Bolivar F71123 Aix en Brousse pol=sans siz=10  w= bold
+
+entvar	 x=10	y=100	pol=conden siz=7 
+23 Boulevard Bolivar F71123 Aix en Brousse pol=conden siz=7  
+
+entvar	 x=10	y=120	pol=puri siz=11 
+23 Boulevard Bolivar F71123 Aix en Brousse pol=puri siz=11  
+
+entvar	 x=10	y=140	pol=arial siz=11 
+23 Boulevard Bolivar F71123 Aix en Brousse pol=arial siz=11  
+
+entvar	 x=10	y=160	pol=book siz=11 
+23 Boulevard Bolivar F71123 Aix en Brousse pol=book siz=11  
+
+entvar	 x=10	y=180	pol=chan siz=11 
+23 Boulevard Bolivar F71123 Aix en Brousse pol=chan siz=11  
+
+entvar	 x=10	y=200	pol=chan siz=14 
+23 Boulevard Bolivar F71123 Aix en Brousse pol=chan siz=14  
+
+
+
+
+entvar	 x=20	y=300	pol=garuda siz=10 w= bold
+    123456789,52        pol=garuda siz=10  w= bold
+
+entvar	 x=20	y=320	pol=mono siz=10 w= bold
+    123456789,52        pol=mono siz=10  w= bold
+

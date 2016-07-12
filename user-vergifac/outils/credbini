@@ -1,0 +1,72 @@
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE Cli (
+	Clefacc VARCHAR(12),
+	Type VARCHAR(2),
+	Add1 VARCHAR(50),
+	Add2 VARCHAR(50),
+	Add3 VARCHAR(50),
+	Pays VARCHAR(4),
+	Codpos VARCHAR(8),
+	Add4 VARCHAR(40),
+	Datcre VARCHAR(12),
+	Datmod VARCHAR(12),
+	Tel VARCHAR(18),
+	Mail VARCHAR(40),
+	Notes BLOB
+);
+CREATE TABLE Prod (
+	Cleprod VARCHAR(12),
+	Libprod BLOB,
+	Priunit float(10.2), 
+	Codtax VARCHAR(2),
+	Unit VARCHAR(4),
+	Datcre VARCHAR(12),
+	Datmod VARCHAR(12),
+	Notes BLOB
+);
+CREATE TABLE Codfac (
+Nuli Integer PRIMARY KEY NOT NULL,
+Code char(8),
+Suit char(1),
+Lib varchar(50)
+);
+INSERT INTO "Codfac" VALUES(1,'.ttt',' ','lignes HT  genere  .v_1, .tht,  .tax, .v_2, .ttc');
+INSERT INTO "Codfac" VALUES(2,'.tex',' ','sans taxes (export) genere les lignes .v_2, .ttx');
+INSERT INTO "Codfac" VALUES(3,'.eee',' ','lignes TTC genere .v_2,.tax');
+INSERT INTO "Codfac" VALUES(4,'.tht',' ','TOTAL HORS TAXES (euros)');
+INSERT INTO "Codfac" VALUES(5,'.tax',' ','   T.V.A');
+INSERT INTO "Codfac" VALUES(6,'.ttc',' ','TOTAL TOUTES TAXES (euros)');
+INSERT INTO "Codfac" VALUES(7,'.ttx',' ','TOTAL EXPORT (euros)');
+INSERT INTO "Codfac" VALUES(8,'.tpp',' ','SOUS TOTAL');
+INSERT INTO "Codfac" VALUES(9,'.spag',' ','force un saut de page à  l''impression');
+INSERT INTO "Codfac" VALUES(10,'',' ','');
+INSERT INTO "Codfac" VALUES(11,'.doc0',' ','FACTURE');
+INSERT INTO "Codfac" VALUES(12,'.doc1',' ','DEVIS');
+INSERT INTO "Codfac" VALUES(13,'.doc2',' ','Facture Proforma');
+INSERT INTO "Codfac" VALUES(14,'.doc3',' ','COMMANDE');
+INSERT INTO "Codfac" VALUES(15,'.doc4',' ','RAPPEL');
+INSERT INTO "Codfac" VALUES(16,'.val','+','Valeur en votre aimable réglement');
+INSERT INTO "Codfac" VALUES(17,'',' ',' à  reception.');
+INSERT INTO "Codfac" VALUES(18,'.prop','+','La propriété des marchandises ci-dessus ');
+INSERT INTO "Codfac" VALUES(19,'','+','n''est cédée que jusqu''au réglement');
+INSERT INTO "Codfac" VALUES(20,'','+','complet.    (loi du 12/05/1980)');
+INSERT INTO "Codfac" VALUES(21,'','+','En cas de litige, seul le tribunal');
+INSERT INTO "Codfac" VALUES(22,'','+','d''Aix en Brousse est compétent.');
+INSERT INTO "Codfac" VALUES(23,'',' ','');
+INSERT INTO "Codfac" VALUES(24,'',' ','');
+INSERT INTO "Codfac" VALUES(25,'',' ','');
+CREATE TABLE Ttaux (
+Idparam char(4) NOT NULL,
+Nuli Integer PRIMARY KEY NOT NULL,
+Don1 varchar(128) NOT NULL);
+INSERT INTO "Ttaux" VALUES('TAUX',1,'r 7');
+INSERT INTO "Ttaux" VALUES('TAUX',2,'s 5.5');
+INSERT INTO "Ttaux" VALUES('TAUX',3,'n 19.6');
+CREATE TABLE Param (
+Idparam char(4) NOT NULL,
+Nuli Integer PRIMARY KEY NOT NULL,
+Don1 varchar(128) NOT NULL);
+INSERT INTO "Param" VALUES('LIFA',1,'120');
+INSERT INTO "Param" VALUES('MIPA',2,'./misenpage/aide-misenpage.txt');
+COMMIT;
