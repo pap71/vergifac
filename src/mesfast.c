@@ -63,6 +63,7 @@ gboolean message(int num)
 {
 GtkWidget *pAbout;
 //pAbout = gtk_message_dialog_new (GTK_WINDOW(winp),
+	gdk_beep();
 pAbout = gtk_message_dialog_new (NULL,
    GTK_DIALOG_MODAL,
    GTK_MESSAGE_INFO,
@@ -79,6 +80,7 @@ gboolean messavar(char* vmes)
 {
 GtkWidget *pAbout;
 //pAbout = gtk_message_dialog_new (GTK_WINDOW(winp),
+	gdk_beep();
 pAbout = gtk_message_dialog_new (NULL,
    GTK_DIALOG_MODAL,
    GTK_MESSAGE_INFO,
@@ -95,6 +97,7 @@ int question(int num)
 {
 GtkWidget *pDialog;
 int ret=0;
+	gdk_beep();
 pDialog = gtk_message_dialog_new(NULL, 
 	GTK_DIALOG_MODAL,
 	GTK_MESSAGE_QUESTION,

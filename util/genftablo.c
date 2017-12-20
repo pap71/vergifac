@@ -17,6 +17,7 @@
  * along with vergifac.  If not, see <http://www.gnu.org/licenses/>.
  */
 //  Routines de creation de fenetre et tableaux
+//  Routines de creation de fenetre et tableaux
 #include <gtk/gtk.h>
 //#include <gdk/gdkkeysyms.h>
 #include <string.h>
@@ -36,6 +37,7 @@ MEMO_T_WIDG *svpw,*inpw;
 int bloqchang=0; // inhibe signal change si affichage
 
 static char buf[80];
+static char zmes[64];
 
 //__________________fenetre tableau
 void chang_l_fnc (GtkEntry *widls, MEMO_T_WIDG *pw)
@@ -48,22 +50,25 @@ if (bloqchang == 1) return;
 
 svpw = pw;	//sauvegarde du widget saisie  a traiter
 if (pl->typ == SSPEC)	{ // traitement specifique
-  if (pl->fonc)  {
+  if (pl->fonc) {
    (*(pl->fonc)) (pw,1) ;
-		 }
+				}
    return;
- 			}
+ 						}
 else if (pl->typ > 19 )	{//&& lt > 0)   {
     lt=chang_ctrl(widls,pl->typ);
-			}
-else 	{
+										}
+/* la suite de la fonction ne sert qu'au passage forcé 
+ à la zone suivante ce qui perturbe les modif (insertion) 
+  à reserver aux saisies d'un seul caractere ? */
+else if ( pl->laf == 1)	{
     editable = GTK_EDITABLE (widls);
     text = gtk_editable_get_chars (editable, 0, -1);
     lt = strlen(text);
     g_free(text);
-	}
-if ( lt == pl->laf )
- g_signal_emit_by_name(widls,"move-focus",GTK_DIR_TAB_FORWARD,pw);
+	if ( lt == pl->laf )
+  g_signal_emit_by_name(widls,"move-focus",GTK_DIR_TAB_FORWARD,pl);
+						}
 }
 
 gboolean maj_l_fnc()	//  controle, maj
@@ -76,45 +81,52 @@ gchar *text;
 char *pa;
 double *paf; // modif 2/10/2015 pb edition float* paf;
 int* pai;
-    editable = GTK_EDITABLE (pw->wdg);
-    text = gtk_editable_get_chars (editable, 0, -1);
-    lt = strlen(text);
-pa = pw->memcell;
-if (pl->typ == SAISNUM)   {
+editable = GTK_EDITABLE (pw->wdg);
+text = gtk_editable_get_chars (editable, 0, -1);
+lt = strlen(text);
+// test saisie trop longue
+if ( lt > pl->laf)	{
+ sprintf(zmes,"zone saisie trop longue de %d car",lt-pl->laf);
+ messavar(zmes);	//  message(1);
+  ret = -1;
+					}
+if (ret == 0) 	{
+ pa = pw->memcell;
+ if (pl->typ == SAISNUM)   {
   paf = (double*) pa;
   *(paf) = g_strtod(text,NULL);
 			}
-else if (pl->typ == SAISINT)   {
+ else if (pl->typ == SAISINT)   {
   pai = (int*) pa;
   *(pai) = atoi(text);
 			}
-else if (pl->typ == SAISDAT)   {
+ else if (pl->typ == SAISDAT)   {
   if ( (ret = contdate((char*)text)) >= 0)
    strncpy((char*)pa,da.sdat,pl->laf);
   else message(13);
 			}
-else {  // SAISMON, SAICHAR,SSPEC
+ else {  // SAISMON, SAICHAR,SSPEC
 	// saisie sur 1 car force a 2
- if (pl->laf == 1)	{
+  if (pl->laf == 1)	{
    if ( text[0] == ' ' && lt > 1)	text[0] = text[1];
    pa[0]=text[0];
 				}
- else	{
- if ( lt > pl->laf)  message(1);
-  strncpy((char*)pa,text,pl->laf);
+  else	{
+   strncpy((char*)pa,text,pl->laf);
 	}
 	}
-if (pl->fonc && ret >= 0)  {	// ret =date vide ou ok
+ if (pl->fonc && ret >= 0)  {	// ret =date vide ou ok
    ret = (*(pl->fonc)) (pw,0);
 		 }
 //printf("maj col %d lig %d\n",pl->idcol,pw->liga);
+		}	// fin ret == 0
 svpw = NULL;	// tout le traitement apres saisie a du etre fait
 if (ret == -1) {
  if (pl->laf == 1)  gtk_editable_delete_text((GtkEditable*) editable,0,-1);
-   gtk_editable_set_position((GtkEditable*) editable,0);
-   g_free(text);
-   gtk_widget_grab_focus (pw->wdg);
-   return TRUE;
+ gtk_editable_set_position((GtkEditable*) editable,0);
+ g_free(text);
+ gtk_widget_grab_focus (pw->wdg);
+ return TRUE;
 		}
 g_free(text);
 return FALSE;
@@ -156,6 +168,7 @@ printf("foc-int2 svpw->w=%p  lig=%d co=%d\n",svpw->wdg,svpw->liga,pl->idcol);
 
 void crewdg_l_fnc (MEMO_T_WIDG *pw)
 {
+int lafsais;
 DEF_L_FnC *pl = pw->pdefc;
 if ( pl->typ < 10)	{
  pw->wdg = gtk_label_new(NULL);
@@ -165,7 +178,11 @@ if ( pl->typ < 10)	{
 else {
 	// saisie sur 1 car force a 2
  if (pl->laf == 1)  pw->wdg = gtk_entry_new_with_max_length(2);
- else	  pw->wdg = gtk_entry_new_with_max_length(pl->laf);
+ else	{
+	lafsais = pl->laf * 2;
+	pw->wdg = gtk_entry_new_with_max_length(lafsais);
+		}
+// else	  pw->wdg = gtk_entry_new_with_max_length(pl->laf);
  gtk_widget_set_size_request(pw->wdg, pl->laf * DIMC, DIMCH);
 
  g_signal_connect(G_OBJECT(pw->wdg), "activate", G_CALLBACK (activ_l_fnc),(void*) pw);

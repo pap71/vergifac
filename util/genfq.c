@@ -30,6 +30,7 @@ extern S_DAT da;
 
 DEF_S_FQ *svpzw;
 int bloqchfq=0; // inhibe signal change si affichage
+static char zmes[64];
 
 gboolean maj_fenq ()	//  controle, maj
 {
@@ -44,46 +45,51 @@ if ( svpzw == NULL)	{
 	printf("maj_fenq svpzw=NULL ?\n");
 	return TRUE;
 			}
- editable = GTK_EDITABLE (pzw->wdg);
- text = gtk_editable_get_chars (editable, 0, -1);
- lt = strlen(text);
+editable = GTK_EDITABLE (pzw->wdg);
+text = gtk_editable_get_chars (editable, 0, -1);
+lt = strlen(text);
+// test saisie trop longue
+if ( lt > pzw->laf)	{
+ sprintf(zmes,"zone saisie trop longue de %d car",lt-pzw->laf);
+ messavar(zmes);	//  message(1);
+  ret = -1;
+					}
+if (ret == 0) 	{
  pa = pzw->memcell;
-if (pzw->typ == SAISNUM)   {
+ if (pzw->typ == SAISNUM)    {
   paf = (double*) pa;
   *(paf) = g_strtod(text,NULL);
-			}
-else if (pzw->typ == SAISINT)   {
+							}
+ else if (pzw->typ == SAISINT)   {
   pai = (int*) pa;
   *(pai) = atoi(text);
-			}
-else if (pzw->typ == SAISDAT)   {
+								}
+ else if (pzw->typ == SAISDAT)   {
   if ( (ret = contdate((char*)text)) >= 0)
    strncpy((char*)pa,da.sdat,pzw->laf); 
   else message(13);
-			}
-else {  // SAISMON, SAICHAR,SSPEC 
- if (pzw->laf == 1)	{
+								}
+ else	{ 	 // SAISMON, SAICHAR,SSPEC 
+  if (pzw->laf == 1)	{
    if ( text[0] == ' ' && lt > 1)	text[0] = text[1];
    pa[0]=text[0];  
-				}
- else	{	
-  if ( lt > pzw->laf)  message(1); //lt=pzw->laf;
+					}
+  else	{	
   strncpy((char*)pa,text,pzw->laf); // efface fin de saisie precedente
-	}
-
-
-	}
-if (pzw->fonc && ret >= 0)  {		// ret =date vide ou ok
-	ret = (*(pzw->fonc)) (pzw,0) ;  
-		 }
+		}
+		}
+ if (pzw->fonc && ret >= 0) 	 {		// ret =date vide ou ok
+	ret = (*(pzw->fonc)) (pzw,0) ;  // fonctions utilisateur
+								 }
+		}	// fin ret == 0
 svpzw = NULL;	// tout le traitement apres saisie a du etre fait
 //printf("maj_fenq-2 pzw=%p ret=%d\n",pzw,ret);
 if (ret == -1) {
  if (pzw->laf == 1)  gtk_editable_delete_text((GtkEditable*) editable,0,-1);
-   gtk_editable_set_position((GtkEditable*) editable,0);
-   g_free(text);	
-   gtk_widget_grab_focus (pzw->wdg); 
-   return TRUE;
+ gtk_editable_set_position((GtkEditable*) editable,0);
+ g_free(text);	
+ gtk_widget_grab_focus (pzw->wdg); 
+ return TRUE;
 		}
 g_free(text);		
 return FALSE;
@@ -108,20 +114,23 @@ svpzw = pzw;	//sauvegarde du widget saisie  a traiter
 if (pzw->typ == SSPEC  || pzw->typ == DEFMAN) { // traitement specifique
  if (pzw->fonc)  {
   (*(pzw->fonc)) (pzw,1) ;  
-		 }
+				 }
   return;
- 			}
-else if (pzw->typ > 19 )     { //&& lt > 0)   {  
+ 											}
+else if (pzw->typ > 19 )  		    { //&& lt > 0)   {  
     lt=chang_ctrl(widls,pzw->typ);
-			}
-else 	{
+									}
+/* la suite de la fonction ne sert qu'au passage forcé 
+ à la zone suivante ce qui perturbe les modif (insertion) 
+  à reserver aux saisies d'un seul caractere ? */
+else if ( pzw->laf == 1)	{
     editable = GTK_EDITABLE (widls);
     text = gtk_editable_get_chars (editable, 0, -1);
     lt = strlen(text);
     g_free(text);
-	}
-if ( lt == pzw->laf )
- g_signal_emit_by_name(widls,"move-focus",GTK_DIR_TAB_FORWARD,pzw);
+	if ( lt == pzw->laf )
+  g_signal_emit_by_name(widls,"move-focus",GTK_DIR_TAB_FORWARD,pzw);
+							}
 }
 
 
@@ -140,7 +149,7 @@ return FALSE;
 
 void crefenq(FENQ* pf,void* pd)	// creation fenetre qq
 {
-int  iz;
+int  iz,lafsais;
 DEF_L_FQ *pli = pf->pdeflib;
 DEF_S_FQ *pz = pf->pdefz;
 GtkWidget* fixg;  //pf->vboxwin
@@ -183,7 +192,10 @@ else if ( (pz+iz)->typ == DEFMAN)	{ ++iz;	continue; }
 else 	{
 	// saisie sur 1 car force a 2
  if ((pz+iz)->laf == 1)  (pz+iz)->wdg = gtk_entry_new_with_max_length(2);  
- else	  (pz+iz)->wdg =  gtk_entry_new_with_max_length((pz+iz)->laf); 
+ else	{
+	lafsais = (pz+iz)->laf * 2;
+	(pz+iz)->wdg =  gtk_entry_new_with_max_length(lafsais); 
+		}
  gtk_fixed_put(GTK_FIXED(fixg), (pz+iz)->wdg, (pz+iz)->cox, (pz+iz)->lyg); 
  gtk_widget_set_size_request((pz+iz)->wdg, (pz+iz)->laf * DIMC + 15, 25);
 
@@ -200,7 +212,7 @@ g_signal_connect_after(G_OBJECT(pf->win), "destroy", G_CALLBACK (quit_fenq), pf)
 void creparfenq(DEF_L_FQ *pli,DEF_S_FQ *pz,GtkWidget* fixg,void* pd)
 	// creation partie fenetre qq
 {
-int  iz;
+int  iz,lafsais;
 char *pa;
 	// libelle
 iz=0;
@@ -225,7 +237,11 @@ else if ( (pz+iz)->typ == DEFMAN)	{ ++iz;	continue; }
 else 	{
 	// saisie sur 1 car force a 2
  if ((pz+iz)->laf == 1)  (pz+iz)->wdg = gtk_entry_new_with_max_length(2);  
- else	  (pz+iz)->wdg =  gtk_entry_new_with_max_length((pz+iz)->laf); 
+ else	{
+	lafsais = (pz+iz)->laf * 2;
+	(pz+iz)->wdg =  gtk_entry_new_with_max_length(lafsais); 
+		}
+// else	  (pz+iz)->wdg =  gtk_entry_new_with_max_length((pz+iz)->laf); 
  gtk_fixed_put(GTK_FIXED(fixg), (pz+iz)->wdg, (pz+iz)->cox, (pz+iz)->lyg); 
  gtk_widget_set_size_request((pz+iz)->wdg, (pz+iz)->laf * DIMC + 15, 25);
 

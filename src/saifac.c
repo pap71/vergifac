@@ -131,7 +131,7 @@ extern  void boutsfac(GtkWidget *box);
 //#define DEPS(zz) (void*)ligfac[0].zz-ligfac
 static DEF_L_FnC colsfac[CSFnco] ={
 {NULL,CSFcodprod,0,SSPEC,11,&traifac,"%s","Code Produit"},
-{NULL,CSFlibprod,DEPS(libprod),SAISCHAR,40,&traifac,"%s"," Libelle"},
+{NULL,CSFlibprod,DEPS(libprod),SAISCHAR,44,&traifac,"%s"," Libelle"},
 {NULL,CSFquant,DEPS(quant),SAISNUM,10,&traifac,"%f","Quantité"},
 //{NULL,CSFquant,DEPS(quant),SAISNUM,10,&traifac,"%#0.3f","Quantité"},
 {NULL,CSFunit,DEPS(unit),SAISCHAR,4,&traifac,"%s","Unite"},

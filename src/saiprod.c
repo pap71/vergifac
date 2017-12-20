@@ -73,7 +73,7 @@ DEF_S_FQ s_fsfprod[]= {
 {250,10,CMS,DEPS(cms),NULL,MEM,SAISCHAR,1,&fonc_sfprod,"%s"},
 //{10,53,LIBPROD,DEPS(libprod),NULL,MEM,SAISCHAR,39,&fonc_sfprod,"%s"},
 {105,160,PU,DEPS(spriunit),NULL,MEM,SAISMON,13,&fonc_sfprod,"%s"},
-{100,190,CTAX,DEPS(codtax),NULL,MEM,SAISCHAR,2,&fonc_sfprod,"%s"},
+{100,190,CTAX,DEPS(codtax),NULL,MEM,SAISCHAR,1,&fonc_sfprod,"%s"},
 {200,190,UNIT,DEPS(unit),NULL,MEM,SAISCHAR,4,&fonc_sfprod,"%s"},
 {170,355,DATCRE,DEPS(datcre),NULL,MEM,LIBCHAR,12,NULL,"%s"},
 {170,380,DATMOD,DEPS(datmod),NULL,MEM,LIBCHAR,12,NULL,"%s"},
