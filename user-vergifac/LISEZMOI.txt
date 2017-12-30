@@ -35,7 +35,7 @@ clic 'credesktop.sh'
 vergifac peut être lancé depuis le menu Application -> Bureautique
 
 REMARQUE
-Si les commandes précédentes sont éditer au lieu de s'exécuter.
+Si les commandes précédentes sont édités au lieu de s'exécuter.
 navigateur de fichier -> clic 'Editer' -> Préférences -> Comportement
 cocher 'demander à chaque fois'
 
@@ -51,10 +51,10 @@ glisser dans le lanceur
 ========  Autres informations si vergifac n'arrive pas à démarrer
 Suivant votre système Linux 32 bits ou 64 bits
 il faut lancer le programme 
-vergifac pour un système 32 bits
+vergifac32 pour un système 32 bits
 vergifac64 pour un système 64 bits
 
-Le répertoire actif doit être celui où ce trouve le programme vergifac(64).
+Le répertoire actif doit être celui où ce trouve le programme vergifac(32/64).
 Ceci permet au programme de trouver sans problème:
 -le ou les dossiers base de données
   -- pour le test dbtestfac.db

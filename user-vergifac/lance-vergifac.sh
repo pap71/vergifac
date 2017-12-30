@@ -5,7 +5,7 @@ if [ $ARCH = "x86_64" ]
 then
 prog="vergifac64"
 else
-prog="vergifac"
+prog="vergifac32"
 fi
 
 echo $PWD
@@ -13,6 +13,6 @@ DIRT=$PWD
 
 cd $DIRT
 
-#ls v*
+echo $DIRT/$prog
 
 ./$prog

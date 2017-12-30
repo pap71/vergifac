@@ -182,7 +182,7 @@ NBLIG
 //#define DETR(zl,zz) (char*)&senf.rg[zl].zz-(char*)&senf
 DEF_S_FQ s_fsenf[]= {
 {190,YAD2,NUMFAC,DEPS(numfac),NULL,MEM,SAISCHAR,14,&fonc_senf,"%s"},
-{40,YAD3,DATFAC,DEPS(datfac),NULL,MEM,SAISDAT,12,&fonc_senf,"%s"},
+{40,YAD3,DATFAC,DEPS(datfac),NULL,MEM,SAISDAT,10,&fonc_senf,"%s"},
 {350,YAD2,CLECLI,DEPS(clecli),NULL,MEM,SSPEC,11,&fonc_senf,"%s"},
 {455,YAD2,ADD1,DEPS(add1),NULL,MEM,SAISCHAR,50,&fonc_senf,"%s"},
 {455,YAD2+25,ADD2,DEPS(add2),NULL,MEM,SAISCHAR,50,&fonc_senf,"%s"},

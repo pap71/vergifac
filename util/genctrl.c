@@ -72,6 +72,7 @@ int contdate(char* sdat) // controle date return -1=erreur 0=vide 1=date ok
 int is,lt,tj,tm;
 //int jj,mm,aa;
 char zsdat[12];
+sdat[11] = '\0';    // au cas ou
 strcpy(zsdat,sdat);
 lt=strlen(zsdat);
 da.datq =0;
