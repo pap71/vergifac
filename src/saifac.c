@@ -224,6 +224,7 @@ long dvalor;
 int ret = 0, liga,ligg,i,j,llib,lt,temactu;
 GtkEditable *editable;
 gchar *text;
+ if (ligfac == NULL) return ret;    // destruction fenetre demandee
  if ( pw == NULL) return ret;
  pl = pw->pdefc;
  liga=pw->liga;
@@ -308,7 +309,7 @@ bloqchang = 0;	// inhibe chang
 					}
  break;
 case CSFpriunit:
-  if ( (ret = mdctoi(ligfac[liga].spriunit)) == 0) {
+  if ( (ret = mdctoi((char *)ligfac[liga].spriunit)) == 0) {
    ligfac[liga].priunit = zslon;		//maj ici
 					}
   else  {
@@ -321,7 +322,9 @@ case CSFpriunit:
 						}   */
 // break;  doit faire calcul de quant
 case CSFquant:
- dvalor = ligfac[liga].valor;
+ if (ligfac[liga].typlig == DETAIL)
+    dvalor = ligfac[liga].valor;
+ else dvalor = 0;
  ligfac[liga].valor = arron2(ligfac[liga].quant,ligfac[liga].priunit);
  afcell_sfac(CSFvalor,liga);
  //ligfac[liga].typlig = DETAIL; // modif 26:9:2015
@@ -851,8 +854,6 @@ if ( derlig > 0)	{
 			}
 if ( ligfac != NULL) free(ligfac);	ligfac=NULL;
 if ( ligfac_wgt != NULL) free(ligfac_wgt);	ligfac_wgt=NULL;
-//free(ligfac);
-//free(ligfac_wgt);
 return FALSE;
 }
 

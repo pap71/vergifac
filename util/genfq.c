@@ -75,7 +75,9 @@ if (ret == 0) 	{
    pa[0]=text[0];  
 					}
   else	{	
-  strncpy((char*)pa,text,pzw->laf); // efface fin de saisie precedente
+   memset ((char*)pa,0, pzw->laf);   //efface saisie prec si besoin
+   strcpy((char*)pa,text);
+//  strncpy((char*)pa,text,pzw->laf); // efface fin de saisie precedente
 		}
 		}
  if (pzw->fonc && ret >= 0) 	 {		// ret =date vide ou ok

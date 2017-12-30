@@ -112,7 +112,9 @@ if (ret == 0) 	{
    pa[0]=text[0];
 				}
   else	{
-   strncpy((char*)pa,text,pl->laf);
+   memset ((char*)pa,0, pl->laf);   //efface saisie prec si besoin
+   strcpy((char*)pa,text);
+//   strncpy((char*)pa,text,pl->laf);
 	}
 	}
  if (pl->fonc && ret >= 0)  {	// ret =date vide ou ok
