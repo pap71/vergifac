@@ -677,7 +677,8 @@ int cod_tax(int liga, int temht)
 double vtax,coef;
 int k,j,ligg;
 long taxe,bht;
-char libtax[40];
+/* char libtax[40]; */
+ gchar *libtax = NULL;
 char zt[17] = "                \0";
 quellestaxes(liga);
 	// pas de taxes (lignes detail pas encore saisies)
@@ -717,8 +718,10 @@ for ( k= 0; k < nbtax; ++k)	{
    afcell_sfac(CSFvalor,ligg);
    ligfac[ligg].typlig = TAX;
    if ( j >= 0)	{	// libelle taxe
-     sprintf(libtax,"%s %#0.1f %%", ligcod[j].lib, vtax);
+     libtax = g_strdup_printf ("%s %#0.1f %%", ligcod[j].lib, vtax);
+     /* sprintf(libtax,"%s %#0.1f %%", ligcod[j].lib, vtax); */
      strcpy(ligfac[ligg].libprod,libtax);
+     g_free (libtax);
 		}
 			}
  else if ( temht == TIX)	{	//  detail est toutes taxes
@@ -730,8 +733,10 @@ for ( k= 0; k < nbtax; ++k)	{
    ligfac[ligg].typlig = TIX;
    if ( j >= 0)	{	// libelle taxe
      ltof(taxe,zt,13);
-     sprintf(libtax,"%s %#0.1f %%  %s", ligcod[j].lib, vtax,zt);
+     libtax = g_strdup_printf ("%s %#0.1f %%  %s", ligcod[j].lib, vtax,zt);
+     /* sprintf(libtax,"%s %#0.1f %%  %s", ligcod[j].lib, vtax,zt); */
      strcpy(ligfac[ligg].libprod,libtax);
+     g_free (libtax);
 		}
 			}
  afcell_sfac(CSFlibprod,ligg);
