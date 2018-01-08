@@ -782,8 +782,8 @@ while ( ligcod[j].suit == '+')	{
 void init_sfac()
 {
 	// malloc tableaux
-if ( ligfac != NULL) free(ligfac);	ligfac=NULL;
-if ( ligfac_wgt != NULL) free(ligfac_wgt);	ligfac_wgt=NULL;
+  if ( ligfac != NULL) {free(ligfac);	ligfac=NULL;}
+  if ( ligfac_wgt != NULL) {free(ligfac_wgt);	ligfac_wgt=NULL;}
  init_para();
  fen_sfac.tli = CSFnli;
  ligfac = malloc( CSFnli * sizeof(S_LFAC));
@@ -857,8 +857,8 @@ gboolean sfac_quit(GtkWidget *widget, gpointer data)
 if ( derlig > 0)	{
  if ( question(21) != 0) return TRUE;
 			}
-if ( ligfac != NULL) free(ligfac);	ligfac=NULL;
-if ( ligfac_wgt != NULL) free(ligfac_wgt);	ligfac_wgt=NULL;
+ if ( ligfac != NULL) {free(ligfac);	ligfac=NULL;}
+ if ( ligfac_wgt != NULL) {free(ligfac_wgt);	ligfac_wgt=NULL;}
 return FALSE;
 }
 
