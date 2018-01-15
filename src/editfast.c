@@ -328,35 +328,51 @@ void interp()
   char *pze;
   if ( strcmp( ze,"ad1") == 0)
     {
-       if (param0() ==-1) return;	 cairotext();	cairo_show_text(cr,senf.add1);
+       if (param0() ==-1) return;
+       cairotext();
+       cairo_show_text(cr,senf.add1);
     }
   else if ( strcmp( ze,"ad2") == 0)
     {
-      if (param0() ==-1) return;	 cairotext();	cairo_show_text(cr,senf.add2);
+      if (param0() ==-1) return;
+      cairotext();
+      cairo_show_text(cr,senf.add2);
     }
   else if ( strcmp( ze,"ad3") == 0)
     {
-      if (param0() ==-1) return;	 cairotext();	cairo_show_text(cr,senf.add3);
+      if (param0() ==-1) return;
+      cairotext();
+      cairo_show_text(cr,senf.add3);
     }
   else if ( strcmp( ze,"pays") == 0)
     {
-      if (param0() ==-1) return;	 cairotext();	cairo_show_text(cr,senf.pays);
+      if (param0() ==-1) return;
+      cairotext();
+      cairo_show_text(cr,senf.pays);
     }
   else if ( strcmp( ze,"codpos") == 0)
     {
-      if (param0() ==-1) return;	 cairotext();	cairo_show_text(cr,senf.codpos);
+      if (param0() ==-1) return;
+      cairotext();
+      cairo_show_text(cr,senf.codpos);
     }
   else if ( strcmp( ze,"ad4") == 0)
     {
-      if (param0() ==-1) return;	 cairotext();	cairo_show_text(cr,senf.add4);
+      if (param0() ==-1) return;
+      cairotext();
+      cairo_show_text(cr,senf.add4);
     }
   else if ( strcmp( ze,"datdoc") == 0)
     {
-      if (param0() ==-1) return;	 cairotext();	cairo_show_text(cr,senf.datfac);
+      if (param0() ==-1) return;
+      cairotext();
+      cairo_show_text(cr,senf.datfac);
     }
   else if ( strcmp( ze,"numdoc") == 0)
     {
-      if (param0() ==-1) return;	 cairotext();	cairo_show_text(cr,senf.numfac);
+      if (param0() ==-1) return;
+      cairotext();
+      cairo_show_text(cr,senf.numfac);
     }
   else if ( strcmp( ze,"typdoc") == 0)
     {

@@ -1107,7 +1107,7 @@ fixg = gtk_fixed_new();
 gtk_container_add(GTK_CONTAINER(boxent), fixg);
 
 cbtypdoc = gtk_combo_box_new_text();
-  gtk_widget_set_size_request(cbtypdoc, 100, 25);
+  /* gtk_widget_set_size_request(cbtypdoc, 100, 25); */
   gtk_fixed_put(GTK_FIXED(fixg), cbtypdoc, 5,YAD2);
 gtk_combo_box_append_text(GTK_COMBO_BOX(cbtypdoc), "Facture_0");
 gtk_combo_box_append_text(GTK_COMBO_BOX(cbtypdoc), "Devis_1");
@@ -1116,34 +1116,34 @@ gtk_combo_box_append_text(GTK_COMBO_BOX(cbtypdoc), "Command_3");
 gtk_combo_box_append_text(GTK_COMBO_BOX(cbtypdoc), "Xxx_4");
  gtk_combo_box_set_active(GTK_COMBO_BOX(cbtypdoc), 0);
 bimprim = gtk_button_new_with_label("Impression");
-  gtk_widget_set_size_request(bimprim, 100, 24);
+  /* gtk_widget_set_size_request(bimprim, 100, 24); */
   gtk_fixed_put(GTK_FIXED(fixg), bimprim,295,YAD3);
 
 creparfenq((DEF_L_FQ*) &lib_fsenf,(DEF_S_FQ*) &s_fsenf,fixg,&senf);
 
 boutreli = gtk_button_new_with_label("Recharg.doc");
-  gtk_widget_set_size_request(boutreli, 100, 24);
+  /* gtk_widget_set_size_request(boutreli, 100, 24); */
   gtk_fixed_put(GTK_FIXED(fixg), boutreli, 15,YAD1);
 boutsauv = gtk_button_new_with_label("Sauv.doc");
-  gtk_widget_set_size_request(boutsauv, 90, 24);
+  /* gtk_widget_set_size_request(boutsauv, 90, 24); */
   gtk_fixed_put(GTK_FIXED(fixg), boutsauv, 245,YAD1);
 boutcdimp = gtk_button_new_with_label("Fic Mis en page");
-  gtk_widget_set_size_request(boutcdimp, 125, 24);
+  /* gtk_widget_set_size_request(boutcdimp, 125, 24); */
   gtk_fixed_put(GTK_FIXED(fixg), boutcdimp,460,YAD1);
 boutrazt = gtk_button_new_with_label("Efface tout");
-  gtk_widget_set_size_request(boutrazt, 95, 24);
+  /* gtk_widget_set_size_request(boutrazt, 95, 24); */
   gtk_fixed_put(GTK_FIXED(fixg), boutrazt,730,YAD1);
 boutcode = gtk_button_new_with_label("Codes");
-  gtk_widget_set_size_request(boutcode, 70, 24);
+  /* gtk_widget_set_size_request(boutcode, 70, 24); */
   gtk_fixed_put(GTK_FIXED(fixg), boutcode, 5,YAD4);
 boutinsl = gtk_button_new_with_label(libinsN);	// button ins.ligne
-  gtk_widget_set_size_request(boutinsl, 80, 24);
+  /* gtk_widget_set_size_request(boutinsl, 80, 24); */
   gtk_fixed_put(GTK_FIXED(fixg), boutinsl,85,YAD4);
 boutsupl = gtk_button_new_with_label("Sup.ligne");
-  gtk_widget_set_size_request(boutsupl, 80, 24);
+  /* gtk_widget_set_size_request(boutsupl, 80, 24); */
   gtk_fixed_put(GTK_FIXED(fixg), boutsupl,175,YAD4);
 bouefface = gtk_button_new_with_label("Efface Ligne");
-  gtk_widget_set_size_request(bouefface, 100, 24);
+  /* gtk_widget_set_size_request(bouefface, 100, 24); */
   gtk_fixed_put(GTK_FIXED(fixg), bouefface,260,YAD4);
 gtk_widget_modify_bg (boutreli, GTK_STATE_NORMAL, &colorbut);
 gtk_widget_modify_bg (boutsauv, GTK_STATE_NORMAL, &colorbut);
