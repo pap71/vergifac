@@ -227,8 +227,8 @@ if (pf->fenlarg != 0)
 
 	//   bouton cree sa box
  if (pf->fbouton)  {
-	 (*(pf->fbouton)) (boxglob) ;
-		 }
+ 	 (*(pf->fbouton)) (boxglob) ;
+ 		 }
 	//  box libel
 boxlib = gtk_hbox_new(FALSE, 1);
 gtk_box_pack_start(GTK_BOX(boxglob), boxlib, FALSE, TRUE, 1);

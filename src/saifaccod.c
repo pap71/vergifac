@@ -277,22 +277,22 @@ colortabs.blue=0;
   boxlibel = gtk_hbox_new(FALSE, 1);	// horizontal
   gtk_box_pack_start(GTK_BOX(box), boxlibel, FALSE, FALSE, 0);
 boutinsl = gtk_button_new_with_label("Ins.ligne");
-  gtk_widget_set_size_request(boutinsl, 80, 25);
+  /* gtk_widget_set_size_request(boutinsl, 80, 25); */
   gtk_box_pack_start(GTK_BOX(boxlibel), boutinsl, FALSE, FALSE, 0);
 boutsupl = gtk_button_new_with_label("Sup.ligne");
-  gtk_widget_set_size_request(boutsupl, 80, 25);
+  /* gtk_widget_set_size_request(boutsupl, 80, 25); */
   gtk_box_pack_start(GTK_BOX(boxlibel), boutsupl, FALSE, FALSE, 0);
 bouefface = gtk_button_new_with_label("Efface Ligne");
-  gtk_widget_set_size_request(bouefface, 100, 20);
+  /* gtk_widget_set_size_request(bouefface, 100, 20); */
   gtk_box_pack_start(GTK_BOX(boxlibel), bouefface, FALSE, FALSE, 0);
 boutsauv = gtk_button_new_with_label("SAUVE");
-  gtk_widget_set_size_request(boutsauv, 80, 25);
+  /* gtk_widget_set_size_request(boutsauv, 80, 25); */
   gtk_box_pack_start(GTK_BOX(boxlibel), boutsauv, FALSE, FALSE, 0);
 /*bouton2 = gtk_button_new_with_label("Duplic");
   gtk_widget_set_size_request(bouton2, 80, 25);
   gtk_box_pack_start(GTK_BOX(boxlibel), bouton2, FALSE, FALSE, 0);*/
 lablig = gtk_label_new(NULL);
-  gtk_widget_set_size_request(lablig, 100, 25);
+  /* gtk_widget_set_size_request(lablig, 100, 25); */
   gtk_box_pack_start(GTK_BOX(boxlibel), lablig, FALSE, FALSE, 0);
 gtk_widget_modify_bg (boutinsl, GTK_STATE_NORMAL, &colortabs);
 gtk_widget_modify_bg (boutsupl, GTK_STATE_NORMAL, &colortabs);

@@ -35,7 +35,7 @@ void boutpara(GtkWidget *widx, gpointer data);
 void bchoix_para(GtkWidget *widget, gpointer data);
 
 //extern double zsdoubl;
-extern GtkWidget *winp;
+/* extern GtkWidget *winp; */
 extern long zslon;
 extern int bloqchfq; // inhibe signal change si affichage
 extern char ficcdimp[];
@@ -402,7 +402,7 @@ g_signal_connect(G_OBJECT(bcancel), "clicked", G_CALLBACK (bcancel_para),NULL);
 g_signal_connect(G_OBJECT(bchoix), "clicked", G_CALLBACK (bchoix_para),NULL);
 }
 
-int dialogtext(char* tit,char* mes,char* initex, char* ss)
+int dialogtext(GtkWidget *winp, char* tit,char* mes,char* initex, char* ss)
 {
 int ret;
 GtkWidget* pBoite;

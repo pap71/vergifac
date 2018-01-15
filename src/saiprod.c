@@ -438,7 +438,7 @@ gtk_fixed_put(GTK_FIXED(widx),wscrolib,10,53);
 wlibel = gtk_text_view_new();
 //s_fsfprod[NOTES].wdg = wlibel;
 gtk_container_add (GTK_CONTAINER (wscrolib) ,wlibel);
- gtk_widget_set_size_request (wlibel ,300 ,100);// necessaire
+ /* gtk_widget_set_size_request (wlibel ,300 ,100);// necessaire */
  g_signal_connect_after(G_OBJECT(wlibel), "focus-out-event", G_CALLBACK (focout_libelle), (void*) (s_fsfprod));
 
  // La scrolled_window notes
