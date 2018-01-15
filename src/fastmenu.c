@@ -26,13 +26,13 @@
 #include <shellapi.h>
 #endif
 
-void 	inifen ();
-void 	menup ();
-void 	act_sfcli (GtkWidget *widget, gpointer data);
-void 	act_db (GtkButton *boutopen, gpointer data);
-void 	act_licli (GtkWidget *widget, gpointer data);
-void 	act_liprod (GtkWidget *widget, gpointer data);
-void 	act_sfprod (GtkWidget *widget, gpointer data);
+void inifen ();
+GtkWidget *menup ();
+void act_sfcli (GtkWidget *widget, gpointer data);
+void act_db (GtkButton *boutopen, gpointer data);
+void act_licli (GtkWidget *widget, gpointer data);
+void act_liprod (GtkWidget *widget, gpointer data);
+void act_sfprod (GtkWidget *widget, gpointer data);
 void cbparam_sfac(GtkWidget *widget, gpointer data);
 
 /* Permet de retrouver un widget inclus dans le widget transmis. Il faut pour
@@ -56,7 +56,7 @@ extern FCBOX  fen_taux;
 extern FENQ fen_para;
 extern void* para; 
 
-GtkWidget *winp;	// globale pour messages
+/* GtkWidget *winp; */	// globale pour messages
 /* GtkWidget *cbparam; */
 extern S_DAT da;
 S_DAT today;
@@ -142,7 +142,7 @@ get_widget_from_window (GtkWidget *winp, const gchar *name)
   return NULL;
 }
 
-void deactiv_bmenu()
+void deactiv_bmenu(GtkWidget *winp)
 {
   gtk_widget_set_sensitive(get_widget_from_window (winp, "boutsfac"), FALSE);
   gtk_widget_set_sensitive(get_widget_from_window (winp, "boutlicli"), FALSE);
@@ -157,7 +157,7 @@ void deactiv_bmenu()
   /* gtk_widget_set_sensitive(cbparam,FALSE); */
 }
 
-void activ_bmenu()
+void activ_bmenu(GtkWidget *winp)
 {
   gtk_widget_set_sensitive(get_widget_from_window (winp, "boutsfac"), TRUE);
   gtk_widget_set_sensitive(get_widget_from_window (winp, "boutlicli"), TRUE);
@@ -172,9 +172,9 @@ void activ_bmenu()
   /* gtk_widget_set_sensitive(cbparam,TRUE); */
 }
 
-void inifen()
+void inifen(GtkWidget *winp)
 {
-  activ_bmenu();
+  activ_bmenu(winp);
   inidatej();
   memcpy((char*)&today,(char*)&da,sizeof(S_DAT));
   lidb_taux();
@@ -279,15 +279,15 @@ void cbparam_sfac(GtkWidget *widget, gpointer data)
 static char nltit[]="CREATION d'un nouveau dossier (base de données)\nChoisir un nom (15 car max) +'.db'";
 static char nlini[]=".db";
 
-void crenewdb()
+void crenewdb(GtkWidget *winp)
 {
   //cp ./outils/credbini dbdb
   char ss[20],cdsys[80];
   int rc;
-  if ( dialogtext("Creation Dossier",nltit,nlini,ss) == 0)	{
+  if ( dialogtext(winp, "Creation Dossier",nltit,nlini,ss) == 0)	{
     // printf("new db %s\n",ss);
     sqlite3_close(db);
-    deactiv_bmenu();
+    deactiv_bmenu(winp);
     // test si existe
     rc = sqlite3_open(ss, &db);
     if   ( rc )	{
@@ -308,6 +308,7 @@ void crenewdb()
 
 void act_db(GtkButton *boutopen, gpointer data)
 {
+  GtkWidget *winp = (GtkWidget*) data;
   GtkWidget *dialog,*diames;
   char *filename;
   int rc;
@@ -329,7 +330,7 @@ void act_db(GtkButton *boutopen, gpointer data)
     if   ( rc )	{
       fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
       sqlite3_close(db);
-      deactiv_bmenu();
+      deactiv_bmenu(winp);
       diames = gtk_message_dialog_new(GTK_WINDOW(winp),
 				      GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,
 				      "Impossible d'ouvrir le fichier : \n%s",filename);
@@ -344,7 +345,7 @@ void act_db(GtkButton *boutopen, gpointer data)
       pnf = strrchr (nomdb, SLAF);
       if ( pnf != NULL)  
 	gtk_label_set_text(GTK_LABEL(get_widget_from_window (winp, "labdb")),pnf+1);
-      inifen();
+      inifen(winp);
     }
     g_free (filename);
   }
@@ -373,11 +374,11 @@ gboolean winp_quit(GtkWidget *widget, gpointer data)
   return FALSE;
 }
 
-void menup()  //    Menu principal
+GtkWidget *menup()  //    Menu principal
 {
-  //GtkWidget *winp;
+  GtkWidget *winp;
   GtkWidget *frawp;
-  GtkWidget *wman;
+  /* GtkWidget *wman; */
   GtkWidget *button = NULL;
   int py;
   winp = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -436,15 +437,16 @@ void menup()  //    Menu principal
   button = gtk_button_new_with_label("Ouvrir un Dossier");
   gtk_widget_set_size_request(button, 140, 25);
   gtk_fixed_put(GTK_FIXED(frawp), button, 5,py);
-  g_signal_connect(button, "clicked", G_CALLBACK(act_db), NULL);
+  g_signal_connect(button, "clicked", G_CALLBACK(act_db), winp);
   py += 30;
   button = gtk_label_new(NULL); 
   gtk_fixed_put(GTK_FIXED(frawp), button, 20,py);
   gtk_widget_set_name (button, "labdb");
   py += 25;
-  wman = gtk_button_new_with_label("Manuel d'aide");
-  gtk_widget_set_size_request(wman, 120, 25);
-  gtk_fixed_put(GTK_FIXED(frawp), wman,20,py);
+  button = gtk_button_new_with_label("Manuel d'aide");
+  gtk_widget_set_size_request(button, 120, 25);
+  gtk_fixed_put(GTK_FIXED(frawp), button,20,py);
+  g_signal_connect(button, "clicked", G_CALLBACK(act_manuel), NULL);
 
   gtk_widget_show_all(winp);
   //  g_signal_connect(winp, "destroy", G_CALLBACK (gtk_main_quit), NULL);
@@ -453,18 +455,21 @@ void menup()  //    Menu principal
   /* g_signal_connect(boutliprod, "clicked", G_CALLBACK(act_liprod), NULL); */
   /* g_signal_connect(boutopen, "clicked", G_CALLBACK(act_db), NULL); */
   /* g_signal_connect(boutlicli, "clicked", G_CALLBACK(act_licli), NULL); */
-  g_signal_connect(wman, "clicked", G_CALLBACK(act_manuel), NULL);
+  /* g_signal_connect(wman, "clicked", G_CALLBACK(act_manuel), NULL); */
   /* g_signal_connect(boutsfac, "clicked", G_CALLBACK(act_sfac), NULL); */
   /* g_signal_connect(cbparam, "changed", G_CALLBACK(cbparam_sfac), NULL); */
 
   g_signal_connect(winp, "delete_event", G_CALLBACK (winp_quit), NULL);
+
+  return winp;
 }
 
 int main(int argc, char** argv)
 {
+  GtkWidget *winp = NULL;
   gtk_init(&argc, &argv);
-  menup();
-  deactiv_bmenu();
+  winp = menup();
+  deactiv_bmenu(winp);
   gtk_main();
   sqlite3_close(db);
   return 0;

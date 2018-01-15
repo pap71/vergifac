@@ -149,7 +149,7 @@ gboolean sauvdoc(GtkWidget *widget, gpointer data);
 void relitdoc();
 //void nbligfac();
 void crenewdb();
-int dialogtext(char* tit,char* mes,char* initex, gchar* ss);
+int dialogtext(GtkWidget *winp, char* tit,char* mes,char* initex, gchar* ss);
 
 
 
