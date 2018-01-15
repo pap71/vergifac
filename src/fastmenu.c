@@ -29,7 +29,7 @@
 void 	inifen ();
 void 	menup ();
 void 	act_sfcli (GtkWidget *widget, gpointer data);
-void 	act_db (GtkButton *boutopen);
+void 	act_db (GtkButton *boutopen, gpointer data);
 void 	act_licli (GtkWidget *widget, gpointer data);
 void 	act_liprod (GtkWidget *widget, gpointer data);
 void 	act_sfprod (GtkWidget *widget, gpointer data);
@@ -306,7 +306,7 @@ void crenewdb()
   //free(ss);
 }
 
-void act_db(GtkButton *boutopen)
+void act_db(GtkButton *boutopen, gpointer data)
 {
   GtkWidget *dialog,*diames;
   char *filename;
