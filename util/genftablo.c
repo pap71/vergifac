@@ -1,7 +1,7 @@
 /*
- *  Copyright (c) 2015,2016 Michel Delorme
+ *  Copyright (c) 2015,2018 Michel Delorme
  *
- * This file is part of vergifac
+ * This file is part of vergifac vergisc etc
  *
  * vergifac is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with vergifac.  If not, see <http://www.gnu.org/licenses/>.
  */
-//  Routines de creation de fenetre et tableaux
 //  Routines de creation de fenetre et tableaux
 #include <gtk/gtk.h>
 //#include <gdk/gdkkeysyms.h>
@@ -58,8 +57,8 @@ if (pl->typ == SSPEC)	{ // traitement specifique
 else if (pl->typ > 19 )	{//&& lt > 0)   {
     lt=chang_ctrl(widls,pl->typ);
 										}
-/* la suite de la fonction ne sert qu'au passage forcé 
- à la zone suivante ce qui perturbe les modif (insertion) 
+/* la suite de la fonction ne sert qu'au passage forcé
+ à la zone suivante ce qui perturbe les modif (insertion)
   à reserver aux saisies d'un seul caractere ? */
 else if ( pl->laf == 1)	{
     editable = GTK_EDITABLE (widls);

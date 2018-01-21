@@ -78,12 +78,12 @@ libprod	x=45	pol=arial siz=9
 quant	x=280	pol=mono siz=9
 unit	x=350	pol=arial siz=9
 ctax	x=380	pol=arial siz=9
-pu	x=390	pol=mono siz=9
+pu	x=410	pol=mono siz=9
 val	x=500	pol=mono siz=9
 
 /*  les lignes de totalisation 
 
-stot	x=500	pol=mono siz=10 slant=italic
+stot	x=480	pol=mono siz=10 slant=italic
 libtot	x=30	pol=garuda siz=10
 valtot	x=500	pol=mono siz=10	w=bold 
 

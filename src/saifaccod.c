@@ -62,8 +62,8 @@ extern  void boutscod(GtkWidget *box);
 static DEF_L_FnC colscod[CODnco] ={
 {NULL,CODcode,DEPS(code),SAISCHAR,8,&traicod,"%s","Code"},
 {NULL,CODsuit,DEPS(suit),SAISCHAR,1,&traicod,"%c","Suite"},
-//{NULL,CODsuit,DEPS(suit),SAISCHAR,1,&traicod,"%s","Suite"},
-{NULL,CODlib,DEPS(lib),SAISCHAR,50,&traicod,"%s","Libelle"},
+//  long libelle idem saifac
+{NULL,CODlib,DEPS(lib),SAISCHAR,49,&traicod,"%s","Libelle"},
 };
 #undef DEPS
 

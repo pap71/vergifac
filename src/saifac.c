@@ -55,7 +55,6 @@ gboolean litdoc(GtkWidget *widget, gpointer data);
 extern void act_fenscod(GtkWidget *widget, gpointer data);
 
 extern MEMO_T_WIDG *inpw;
-extern long zslon;
 extern int bloqchang;
 extern S_CODFAC ligcod[];
 extern S_FCLI lsfcli; // struct de lecture de la db
@@ -67,9 +66,11 @@ extern S_DAT today;
 extern char ficcdimp[];
 extern char ficsauvdoc[];
 
+#define DEPCAP 9999999999999LL  // 13 '9' 99 999 999 999.99LL
+//#define DEPCAP 9999999999LL  // 10 '9' 99 999 999.99LL TEST
 static char tabtax[20];
 static int nbtax;
-static long btax;
+static long long int btax;
 static char rkey[12];
 static GtkWidget *boutinsl;
 static char libinsN[]="Ins.ligne";
@@ -97,9 +98,6 @@ GtkWidget *cbtypdoc;
 
 S_SENF senf;
 
-//   pour test
-//_______________ code produit ____________
-
 //_______________fenetre saisie facture ____________
 
 enum {
@@ -113,7 +111,6 @@ CSFvalor,
 CSFnco
 };
 
-//#define CSFnli 30
 int CSFnli=120;
 
 //S_LFAC ligfac[CSFnli];
@@ -131,13 +128,13 @@ extern  void boutsfac(GtkWidget *box);
 //#define DEPS(zz) (void*)ligfac[0].zz-ligfac
 static DEF_L_FnC colsfac[CSFnco] ={
 {NULL,CSFcodprod,0,SSPEC,11,&traifac,"%s","Code Produit"},
-{NULL,CSFlibprod,DEPS(libprod),SAISCHAR,44,&traifac,"%s"," Libelle"},
+{NULL,CSFlibprod,DEPS(libprod),SAISCHAR,49,&traifac,"%s"," Libelle"},
 {NULL,CSFquant,DEPS(quant),SAISNUM,10,&traifac,"%f","Quantité"},
 //{NULL,CSFquant,DEPS(quant),SAISNUM,10,&traifac,"%#0.3f","Quantité"},
 {NULL,CSFunit,DEPS(unit),SAISCHAR,4,&traifac,"%s","Unite"},
 {NULL,CSFcodtax,DEPS(codtax),SAISCHAR,1,&traifac,"%s","C.Taxe"},
-{NULL,CSFpriunit,DEPS(spriunit),SAISMON,13,&traifac,"%s","Prix.Unit"},
-{NULL,CSFvalor,DEPS(svalor),LIBNUM,13,&traifac,"%s","Valorisation"},
+{NULL,CSFpriunit,DEPS(spriunit),SAISMON,14,&traifac,"%s","Prix.Unit"},
+{NULL,CSFvalor,DEPS(svalor),LIBNUM,14,&traifac,"%s","Valorisation"},
 };
 #undef DEPS
 
@@ -220,7 +217,7 @@ return FALSE;
 int traifac(MEMO_T_WIDG *pw,int temchang)
 {
 DEF_L_FnC *pl;
-long dvalor;
+long long int dvalor;
 int ret = 0, liga,ligg,i,j,llib,lt,temactu;
 GtkEditable *editable;
 gchar *text;
@@ -378,7 +375,7 @@ case CSFquant:
  break;
 case CSFpriunit:
  if ( ligfac[liga].priunit != 0)  {
-   ltof(ligfac[liga].priunit,zt,13);
+   ltof(ligfac[liga].priunit,zt,14);
    strcpy(ligfac[liga].spriunit,zt);
 //printf("spri %s %d\n",ligfac[liga].spriunit,strlen(ligfac[liga].spriunit));
 				}
@@ -394,7 +391,7 @@ case CSFcodtax:
  break;
 case CSFvalor:
  if ( ligfac[liga].valor != 0)  {
-  ltof(ligfac[liga].valor,zt,13);
+  ltof(ligfac[liga].valor,zt,14);
   strcpy(ligfac[liga].svalor,zt);	// att copie \0 de zt soit 16 car
 //printf("sval %s %d\n",ligfac[liga].svalor,strlen(ligfac[liga].svalor));
   gtk_label_set_justify (GTK_LABEL (ligfac_wgt[liga*CSFnco+idcol].wdg), GTK_JUSTIFY_RIGHT );
@@ -567,10 +564,13 @@ return -1;
 void cod_tht(int liga)
 {
 int i;
-long tht = 0L;
+long long int tht = 0L;
 if ( code_double(".tht",liga) != -1) return;
 for (i = 0; i < liga; ++i)	{
- if (ligfac[i].typlig == DETAIL ) tht += ligfac[i].valor;
+ if (ligfac[i].typlig == DETAIL )   {
+  tht += ligfac[i].valor;
+  if (tht >= DEPCAP) message(27);
+                                    }
 				}
 ligfac[liga].valor = tht;
 sfac_afilib(".tht",liga);
@@ -583,7 +583,7 @@ afcell_sfac(CSFcodprod,liga);
 void cod_ttc(int liga)
 {
 int i;
-long ttc = 0L;
+long long int ttc = 0L;
 if ( code_double(".ttc",liga) != -1) return;
 i = wherecode(".tht");  // cherche ligne tht
 if ( i > liga)	return; // ligne .tht apres !
@@ -593,9 +593,9 @@ if ( i == -1)	{	// pas trouve on CALTOTcul tht et retour
  return;
 		}
 for ( ; i < liga; ++i)	{	//somme depuis tht
-// if (ligfac[i].codprod[0] != '.' )
  ttc += ligfac[i].valor;
-				}
+ if (ttc >= DEPCAP) message(27);
+                        }
 ligfac[liga].valor = ttc;
 sfac_afilib(".ttc",liga);
 afcell_sfac(CSFvalor,liga);
@@ -616,7 +616,7 @@ void cod_ttc2(int liga)
 void cod_ttx(int liga)
 {
 int i;
-long tex = 0L;
+long long int tex = 0L;
 for (i = 0; i < liga; ++i)	{
  if (ligfac[i].typlig == DETAIL ) tex += ligfac[i].valor;
 				}
@@ -631,7 +631,7 @@ afcell_sfac(CSFcodprod,liga);
 void cod_tpp(int liga)
 {
 int i;
-long tpp = 0L;
+long long int tpp = 0L;
 if ( liga == 0) return;
 for (i = liga - 1; i >= 0; --i)	{
  if (ligfac[i].typlig == TPP ) break;
@@ -675,9 +675,10 @@ for (i = 0; i < liga; ++i)	{
 int cod_tax(int liga, int temht)
 {
 double vtax,coef;
-int k,j,ligg;
-long taxe,bht;
-char libtax[40];
+int k,j,ligg,llib;
+long long int taxe,bht;
+/* char libtax[40]; */
+ gchar *libtax = NULL;
 char zt[17] = "                \0";
 quellestaxes(liga);
 	// pas de taxes (lignes detail pas encore saisies)
@@ -717,21 +718,40 @@ for ( k= 0; k < nbtax; ++k)	{
    afcell_sfac(CSFvalor,ligg);
    ligfac[ligg].typlig = TAX;
    if ( j >= 0)	{	// libelle taxe
-     sprintf(libtax,"%s %#0.1f %%", ligcod[j].lib, vtax);
-     strcpy(ligfac[ligg].libprod,libtax);
+     libtax = g_strdup_printf ("%s %#0.1f %%", ligcod[j].lib, vtax);
+     /* sprintf(libtax,"%s %#0.1f %%", ligcod[j].lib, vtax); */
+		// verif long libel
+	 llib = strlen(libtax);
+	 if ( llib <= colsfac[CSFlibprod].laf )
+     	strcpy(ligfac[ligg].libprod,libtax);
+	 else   {
+		llib -= colsfac[CSFlibprod].laf;
+     	strcpy(ligfac[ligg].libprod,libtax+llib);
+			}
+     g_free (libtax);
 		}
 			}
  else if ( temht == TIX)	{	//  detail est toutes taxes
    ligfac[ligg].valor = 0;
+   afcell_sfac(CSFvalor,ligg);	// efface si residu
    coef = 100 / ( 100 + vtax);
    bht = arron2(coef,btax);
    ligfac[ligg].priunit = bht;
    taxe = btax - bht;
    ligfac[ligg].typlig = TIX;
    if ( j >= 0)	{	// libelle taxe
-     ltof(taxe,zt,13);
-     sprintf(libtax,"%s %#0.1f %%  %s", ligcod[j].lib, vtax,zt);
-     strcpy(ligfac[ligg].libprod,libtax);
+     ltof(taxe,zt,14);
+     libtax = g_strdup_printf ("%s %#0.1f %%  %s", ligcod[j].lib, vtax,zt);
+     /* sprintf(libtax,"%s %#0.1f %%  %s", ligcod[j].lib, vtax,zt); */
+		// verif long libel
+	 llib = strlen(libtax);
+	 if ( llib <= colsfac[CSFlibprod].laf )
+     	strcpy(ligfac[ligg].libprod,libtax);
+	 else   {
+		llib -= colsfac[CSFlibprod].laf;
+     	strcpy(ligfac[ligg].libprod,libtax+llib);
+			}
+     g_free (libtax);
 		}
 			}
  afcell_sfac(CSFlibprod,ligg);
@@ -754,7 +774,7 @@ if ( isligvid_sfac(ligg) == -1 &&
 return ligg;
 }
 
-
+// affiche le ou les libelles du tableau des codes sauf .tax
 void sfac_afilib(char *code,int liga)
 {
 int j;
@@ -777,8 +797,8 @@ while ( ligcod[j].suit == '+')	{
 void init_sfac()
 {
 	// malloc tableaux
-if ( ligfac != NULL) free(ligfac);	ligfac=NULL;
-if ( ligfac_wgt != NULL) free(ligfac_wgt);	ligfac_wgt=NULL;
+  if ( ligfac != NULL) {free(ligfac);	ligfac=NULL;}
+  if ( ligfac_wgt != NULL) {free(ligfac_wgt);	ligfac_wgt=NULL;}
  init_para();
  fen_sfac.tli = CSFnli;
  ligfac = malloc( CSFnli * sizeof(S_LFAC));
@@ -852,8 +872,8 @@ gboolean sfac_quit(GtkWidget *widget, gpointer data)
 if ( derlig > 0)	{
  if ( question(21) != 0) return TRUE;
 			}
-if ( ligfac != NULL) free(ligfac);	ligfac=NULL;
-if ( ligfac_wgt != NULL) free(ligfac_wgt);	ligfac_wgt=NULL;
+ if ( ligfac != NULL) {free(ligfac);	ligfac=NULL;}
+ if ( ligfac_wgt != NULL) {free(ligfac_wgt);	ligfac_wgt=NULL;}
 return FALSE;
 }
 
@@ -1201,3 +1221,4 @@ return FALSE;
 }
 
 */
+

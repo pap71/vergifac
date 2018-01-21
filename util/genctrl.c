@@ -1,7 +1,8 @@
+//  Routines de controle et affiche divers
 /*
- *  Copyright (c) 2015,2016 Michel Delorme
+ *  Copyright (c) 2015,2018 Michel Delorme
  *
- * This file is part of vergifac
+ * This file is part of vergifac vergisc etc
  *
  * vergifac is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,14 +17,13 @@
  * You should have received a copy of the GNU General Public License
  * along with vergifac.  If not, see <http://www.gnu.org/licenses/>.
  */
-//  Routines de controle et affiche divers
 
 #include <gtk/gtk.h>
 #include <string.h>
 #include  <time.h>      /* pour   struct tm, mktime et ctime */
 #include "genfen.h"
 
-long zslon;
+long long int zslon;
 double zsdoubl;
 S_DAT da;
 int jactuelq;
@@ -217,8 +217,11 @@ if ( deci == 1)	{
 if (mdec > 1) return(-1);	// plusieurs marque deci
 if (deci !=0 && deci != 2 ) return(-1);  // si deci il faut 2
 if (deci == 0) ddl *=100;
-// La valeur stockee dans un long va de -2 147 483 648 (LONG_MIN) a 2 147 483 647 (LONG_MAX).   21 474 836.47
-if ( ddl > 2147000000) return (-1);
+// LONG_MAX 32 bits va de -2 147 483 648 (LONG_MIN) a 2 147 483 647 (LONG_MAX).   21 474 836.47
+// LONG_MAX 64 bits long : min = -9223372036854775808 ; max = 9223372036854775807
+//if ( ddl > 2147000000) return (-1);
+if ( ddl > 9999999999999LL) return (-1);  // mon max de format form12b
+//atic char form12b[]="999999999999.99"; valeur max 11 '9' + 2 '9' deci
 zslon = ddl * sign;
 return(0);
 }
@@ -265,15 +268,17 @@ return(0);
 //static char form10b[]="9zzzzzzzzzzz";
 static char form12[]="99,9zz zzz zzz zzz";
 static char form12b[]="99,9zzzzzzzzzzz";
+//atic char form12b[]="12 3456789 1234"; 14 car
+//atic char form12b[]="999999999999.99"; valeur max 11 '9' + 2 '9' deci
 //static char form14b[]="9999,9zzzzzzzzz";
 static char marqdeci =',';
 
-void ltof(long nl,char s[],int ll)           //  formate entier long
+void ltof(long long int nl,char s[],int ll)           //  formate entier long
 {
 short i,j;
 char sign,c;
 char *ptf;
-char ztrav2[16];
+char ztrav2[20];
 if (nl >= 0)     sign = ' ';
 else   {         sign = '-';
         nl = -nl;      }
@@ -309,7 +314,7 @@ for (i = 0, j = ll  ; j; ++ptf)  {
       }
 }
 
-long arron2(double ff, long ll)
+long arron2(double ff, long long int ll)
 {
 double  arron;
 double dmont;

@@ -40,3 +40,7 @@ $(TARGET): $(SRCOK) $(UTIL)
 exe:
 	cd user-vergifac;  ./$(TARGET0)
 
+clean:
+	rm $(SRCOK) $(UTIL)
+
+

@@ -57,8 +57,10 @@ static S_MES tlmes[] = {
 {24,"On change Date Facture en date du jour ?"},
 {25,"Fermer affichage du fichier 'factest.pdf'\nou Erreur création fichier pdf"},
 {26,"ERREUR Fichier Mise en page Paramètres absents ou erronés"},
+{27,"Montants de valorisation trop élevés ERREUR \n \
+   MONTANTS EDITéS ERRONéS "},
 {52," "}
-}; 
+};
 gboolean message(int num)
 {
 GtkWidget *pAbout;
@@ -98,7 +100,7 @@ int question(int num)
 GtkWidget *pDialog;
 int ret=0;
 	gdk_beep();
-pDialog = gtk_message_dialog_new(NULL, 
+pDialog = gtk_message_dialog_new(NULL,
 	GTK_DIALOG_MODAL,
 	GTK_MESSAGE_QUESTION,
 	GTK_BUTTONS_YES_NO,
@@ -107,13 +109,13 @@ pDialog = gtk_message_dialog_new(NULL,
 switch(gtk_dialog_run(GTK_DIALOG(pDialog)))
 {
 case GTK_RESPONSE_YES:
- ret = 0;  
+ ret = 0;
    break;
  case GTK_RESPONSE_NO:
- ret = -1;  
+ ret = -1;
    break;
  default:
- ret = -1;  
+ ret = -1;
    break;
     }
 gtk_widget_destroy(pDialog);

@@ -42,7 +42,6 @@ extern S_TAUX taux[];
 extern int bloqchfq; // inhibe signal change si affichage
 extern S_DAT today;
 extern void act_sfprod(GtkWidget *widget, gpointer data);
-extern long zslon;
 extern GtkWidget* winliprod;
 
 enum {	// pour saisie Fiche produit
@@ -239,6 +238,11 @@ gtk_text_buffer_get_start_iter(texbuflib,&start);
 gtk_text_buffer_get_end_iter(texbuflib,&end);
 buf =gtk_text_buffer_get_text(texbuflib,&start, &end,TRUE);
 lelibel = strlen(buf);
+// elimine car de fin de ligne  car=10
+while (lelibel > 0 && buf[lelibel-1] == 10) {
+    buf[lelibel-1] = '\0';
+    --lelibel;
+                                            }
 //printf(" taille libel= %d\n",lelibel);
 if ( lelibel < DIMNOTES)	{
  strcpy( sfprod.libprod,buf);
@@ -266,12 +270,12 @@ int  no, of;
  sfprod.ue.erreur[no] = sfprod.ue.erreur[no] ^ (1 << of);
 }
 
-static char sqlins_fprod[]="INSERT INTO Prod VALUES('%s',\"%s\",'%10.2f','%s','%s','%s','%s',\"%s\")";
-static char sqlmaj_fprod[]="UPDATE Prod SET Libprod=\"%s\",Priunit='%10.2f',Codtax='%s',Unit='%s',Datmod='%s',Notes=\"%s\" WHERE Cleprod='%s'";
+static char sqlins_fprod[]="INSERT INTO Prod VALUES('%s',\"%s\",'%12.2f','%s','%s','%s','%s',\"%s\")";
+static char sqlmaj_fprod[]="UPDATE Prod SET Libprod=\"%s\",Priunit='%12.2f',Codtax='%s',Unit='%s',Datmod='%s',Notes=\"%s\" WHERE Cleprod='%s'";
 
 void enreg_sfprod(GtkWidget *widget, gpointer x)
 {
-float ff;
+double ff;
 char datmod[13]="2012.12.24\0";
 char zr[12];
 if ( sfprod.ue.erd != 0)	{
@@ -280,7 +284,7 @@ if ( sfprod.ue.erd != 0)	{
    return;
 			}
 strncpy(datmod,today.sdat,12);
-  ff = (float)sfprod.priunit / 100;
+  ff = (double)sfprod.priunit / 100;
 //printf("tax=%s unit=%s pu=%ld\n",sfprod.codtax,sfprod.unit,sfprod.priunit);
 if ( sfprod.cms == 'm' ) {  // maj
  sprintf(zep,sqlmaj_fprod,
@@ -372,9 +376,9 @@ affi1c_sfprod();
 
 void affi_pu()
 {
-char zt[14] = "             \0";
+char zt[16] = "               \0";
  if ( sfprod.priunit != 0)  {
-   ltof(sfprod.priunit,zt,13);
+   ltof(sfprod.priunit,zt,14);
   strcpy(sfprod.spriunit,zt);
 				}
  else strcpy(sfprod.spriunit,"\0");	// pb ligne vide blanc si zéro

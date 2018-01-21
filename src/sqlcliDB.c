@@ -35,7 +35,6 @@ extern GtkListStore *prod_listor;
 extern GtkCList *prod_clist;
 extern S_CODFAC dbligcod;
 extern S_DBPARAM rdbp;
-extern long zslon;
 
 S_FCLI lsfcli; // a copier apres lecture
 S_PROD lsfprod; // a copier apres lecture

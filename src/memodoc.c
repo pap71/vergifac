@@ -28,12 +28,10 @@ void sauvd();
 void relitd();
 
 extern S_SENF senf;
-extern S_LFAC *ligfac;	
+extern S_LFAC *ligfac;
 extern GtkWidget *cbtypdoc;
 extern int derlig;
 extern int CSFnli;
-extern long zslon;
-
 
 char ficsauvdoc[160];
 static FILE *fiout = NULL;
@@ -88,13 +86,13 @@ gtk_widget_destroy (dialog);
 
 void sauvd()
 {
-char zt1[14] = "             \0";
-char zt2[14] = "             \0";
+char zt1[16] = "               \0";
+char zt2[16] = "               \0";
 int cbi,lf;
 char typdoc;
  cbi = gtk_combo_box_get_active(GTK_COMBO_BOX(cbtypdoc));
  typdoc= '0' + cbi;
-	// ignore date 
+	// ignore date
  sprintf(zout,"%c;%s;%s;\n",
   typdoc,senf.numfac,senf.clecli);
  fwrite(zout,1,strlen(zout),fiout);
@@ -114,8 +112,8 @@ for ( lf=0; lf < derlig; ++lf)	{
  PVI(ligfac[lf].libprod);
  PVI(ligfac[lf].unit);
  	// sauve avec deci car pb si gros montants
-  ltof(ligfac[lf].priunit,zt1,13); 
-  ltof(ligfac[lf].valor,zt2,13); 
+  ltof(ligfac[lf].priunit,zt1,14);
+  ltof(ligfac[lf].valor,zt2,14);
 // sprintf(zout,"%s;%s;%f;%s;%s;%ld;%ld;%d;\n",
  sprintf(zout,"%s;%s;%f;%s;%s;%s;%s;%d;\n",
   ligfac[lf].codprod,ligfac[lf].libprod,ligfac[lf].quant,ligfac[lf].unit,
@@ -200,13 +198,13 @@ if (nl > 2)	{
   DECOT(ligfac[lf].codtax);
   nbv =nbl;	nbl=isol(nbl);
   if ( zout[nbv] == '\0') ligfac[lf].priunit = 0;
-  else	{ 
+  else	{
     mdctoi(&zout[nbv]);
     ligfac[lf].priunit = zslon;
 	}
   nbv =nbl;	nbl=isol(nbl);
   if ( zout[nbv] == '\0') ligfac[lf].valor = 0;
-  else	{ 
+  else	{
     mdctoi(&zout[nbv]);
     ligfac[lf].valor = zslon;
 	}

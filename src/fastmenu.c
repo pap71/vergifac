@@ -36,16 +36,16 @@ void 	act_sfprod (GtkWidget *widget, gpointer data);
 void cbparam_sfac(GtkWidget *widget, gpointer data);
 
 extern FENQ fen_sfcli;
-extern void* sfcli; 
+extern void* sfcli;
 extern FENQ fen_sfprod;
-extern void* sfprod; 
+extern void* sfprod;
 extern sqlite3 *db;
 extern GtkWidget* winli;
 extern GtkWidget* winliprod;
 extern FnC  fen_sfac;
 extern FCBOX  fen_taux;
 extern FENQ fen_para;
-extern void* para; 
+extern void* para;
 
 GtkWidget *winp;	// globale pour messages
 GtkWidget *cbparam;
@@ -210,11 +210,12 @@ if ( dialogtext("Creation Dossier",nltit,nlini,ss) == 0)	{
   sprintf(cdsys,"cp ./outils/initdb.db %s",ss);
 #endif
   system(cdsys);
-	} 
+	}
 								}
 //free(ss);
 }
 
+static char lchoix[]="Choix d'un dossier VERGIFAC (base de données *.db)";
 void act_db(GtkButton *boutopen)
 {
 GtkWidget *dialog,*diames;
@@ -223,7 +224,7 @@ int rc;
 GtkFileFilter *filter = gtk_file_filter_new ();
 gtk_file_filter_add_pattern (filter, "*.db");
 //gtk_file_filter_add_pattern (filter, "*.sq*");
-dialog = gtk_file_chooser_dialog_new("Choix de dossiers",
+dialog = gtk_file_chooser_dialog_new( lchoix,
    	GTK_WINDOW(winp),
 	GTK_FILE_CHOOSER_ACTION_OPEN,
 	GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
@@ -251,7 +252,7 @@ if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT)   {
 char *pnf = NULL;
 //  pnf = strrchr (nomdb, '/');
   pnf = strrchr (nomdb, SLAF);
-  if ( pnf != NULL)  
+  if ( pnf != NULL)
    gtk_label_set_text(GTK_LABEL(labdb),pnf+1);
   inifen();
 	}
@@ -293,12 +294,12 @@ int py;
   gtk_window_set_default_size(GTK_WINDOW(winp), 150, 300);
   gtk_window_move(GTK_WINDOW(winp), 0, 700);
   gtk_window_set_title(GTK_WINDOW(winp), "Menu Vergifac");
-	
+
 	// frame fen principale
   frawp = gtk_fixed_new ();
   gtk_container_add(GTK_CONTAINER(winp), frawp);
 
-py=5; 
+py=5;
  boutsfac = gtk_button_new_with_label("Saisie Facture");
   gtk_widget_set_size_request(boutsfac, 120, 25);
   gtk_fixed_put(GTK_FIXED(frawp), boutsfac,20,py);
@@ -325,15 +326,15 @@ py += 30;
 gtk_combo_box_append_text(GTK_COMBO_BOX(cbparam), "Parametres");
 gtk_combo_box_append_text(GTK_COMBO_BOX(cbparam), "Taux T.V.A");
 gtk_combo_box_append_text(GTK_COMBO_BOX(cbparam), "Parametres divers");
-gtk_combo_box_append_text(GTK_COMBO_BOX(cbparam), "Creation Dossier");
+gtk_combo_box_append_text(GTK_COMBO_BOX(cbparam), "Creation Dossier (.db)");
  gtk_combo_box_set_active(GTK_COMBO_BOX(cbparam), 0);
 
 py += 60;
- boutopen = gtk_button_new_with_label("Ouvrir un Dossier");
+ boutopen = gtk_button_new_with_label("Ouvrir un Dossier (.db)");
   gtk_widget_set_size_request(boutopen, 140, 25);
   gtk_fixed_put(GTK_FIXED(frawp), boutopen, 5,py);
 py += 30;
- labdb=  gtk_label_new(NULL); 
+ labdb=  gtk_label_new(NULL);
  gtk_fixed_put(GTK_FIXED(frawp), labdb, 20,py);
 py += 25;
  wman = gtk_button_new_with_label("Manuel d'aide");

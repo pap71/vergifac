@@ -7,7 +7,7 @@ if [ $ARCH = "x86_64" ]
 then
 prog="vergifac64"
 else
-prog="vergifac"
+prog="vergifac32"
 fi
 
 if [ -f "$name".desktop ]; then

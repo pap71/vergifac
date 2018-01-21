@@ -164,6 +164,19 @@ int fenhaut;	//hauteur  fenetre
 int posx;	// coin gauche x
 int posy;	// coin gauche y
 } FENGRA;
+//********** fen image
+typedef struct  {
+GtkWidget *winimg;
+GtkWidget *imag;  // image
+GdkPixbuf *imbuf;
+//GtkWidget *da;  // drawing_area
+//GdkPixmap *pixmap;     //  pixmap
+char *fentit;     //    pointeur sur titre  fenetre
+int fenlarg;	//largeur fenetre
+int fenhaut;	//hauteur  fenetre
+int posx;	// coin gauche x
+int posy;	// coin gauche y
+} FENIMG;
 //**********************************
 typedef struct  {
 int num;
@@ -181,7 +194,7 @@ int a;
 //void message(int num); duplic avec compta
 gboolean message (int num);
 //void affich (FENEV *pf,void *pd);
-void ltof(long nl,char s[],int ll);           //  formate entier long
+void ltof(long long int nl,char s[],int ll);           //  formate entier long
 void dqdat(int q);
 void inidatej();
 int ctcar(char c, char *pt);
@@ -200,15 +213,18 @@ void combo_box_clear (GtkComboBox *p_combo_box);
 void testgch( gchar *p, int l, int ori);
 void choicoul(FENGRA* pfg,gint ccou);
 void crefengra(FENGRA* pf);
+void crefenimg(FENIMG* pf);
 void aff_fen2c_sais(F2C* pf,void* pd);
 void act_l_f2c (DEF_L_F2C *pl);
 void maj_l_f2c (GtkEntry *widls, DEF_L_F2C* pl);
 gboolean messavar(char* vmes);
 int question(int num);
-long arron2(double ff, long ll);
+long arron2(double ff, long long int ll);
 void creparfenq(DEF_L_FQ *pli,DEF_S_FQ *pz,GtkWidget* fixg,void* pd);
 void formfloat(char *ss,double ff);
 void charreplace(char *ss,char ci, char cf);
+gboolean getpixcolors(GdkPixbuf *pixbuf, gint x, gint y, guchar *red, guchar *green, guchar *blue, guchar *alph); 
+gboolean modifimg(GdkPixbuf *pixbuf, gint x, gint y, guchar red, guchar green, guchar blue);
 
 
 

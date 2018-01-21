@@ -41,7 +41,7 @@ char datcre[12];
 char datmod[12];
 char notes[DIMNOTES];
 char cms;
-char spriunit[14];
+char spriunit[16];
 int cleon;
 union {
 char erreur[8];
@@ -63,10 +63,10 @@ char libprod[50];
 double quant;   //  avec float imprécision à l'edition
 char unit[6];
 char codtax[2];
-long priunit;
-long valor;
-char spriunit[14];	//(LONG_MAX).   21 474 836.47 +\0 =14 car
-char svalor[14];
+long long int priunit;
+long long int valor; // 8 bytes 32 et 64 bits
+char spriunit[16];	//(LONG_MAX).   21 474 836.47 +\0 =14 car
+char svalor[16];
 short typlig;
 } S_LFAC;
 //typlig
@@ -115,6 +115,7 @@ int nuli;
 char don1[128];
 } S_DBPARAM;
 
+extern long long int zslon;
 void raz_cms ();
 //void raz_smc();
 void clear_sfprod();

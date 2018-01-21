@@ -18,7 +18,7 @@ CREATE TABLE Cli (
 CREATE TABLE Prod (
 	Cleprod VARCHAR(12),
 	Libprod BLOB,
-	Priunit float(10.2), 
+	Priunit float(12.2), 
 	Codtax VARCHAR(2),
 	Unit VARCHAR(4),
 	Datcre VARCHAR(12),
@@ -60,9 +60,10 @@ CREATE TABLE Ttaux (
 Idparam char(4) NOT NULL,
 Nuli Integer PRIMARY KEY NOT NULL,
 Don1 varchar(128) NOT NULL);
-INSERT INTO "Ttaux" VALUES('TAUX',1,'r 7');
-INSERT INTO "Ttaux" VALUES('TAUX',2,'s 5.5');
-INSERT INTO "Ttaux" VALUES('TAUX',3,'n 19.6');
+INSERT INTO "Ttaux" VALUES('TAUX',1,'z 0');
+INSERT INTO "Ttaux" VALUES('TAUX',2,'n 20');
+INSERT INTO "Ttaux" VALUES('TAUX',3,'r 10');
+INSERT INTO "Ttaux" VALUES('TAUX',4,'s 5.5');
 CREATE TABLE Param (
 Idparam char(4) NOT NULL,
 Nuli Integer PRIMARY KEY NOT NULL,

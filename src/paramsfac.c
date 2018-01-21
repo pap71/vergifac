@@ -36,7 +36,6 @@ void bchoix_para(GtkWidget *widget, gpointer data);
 
 //extern double zsdoubl;
 extern GtkWidget *winp;
-extern long zslon;
 extern int bloqchfq; // inhibe signal change si affichage
 extern char ficcdimp[];
 extern int CSFnli;
