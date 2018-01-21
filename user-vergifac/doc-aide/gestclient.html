@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+
+
+
+  
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type"><title>Gestion fichier clients - Vergifac</title></head><body>
+<a href="ManuelVERGIFAC.html">Menu</a> ---- <a href="saisiefac.html">Saisie
+Facture</a> ------ <a href="miseenpage.html">Mise en Page</a> ------- <a href="gestclient.html">Gestion Clients</a> -------- <a href="gestprod.html">Gestion Produits</a> --------- <a href="Param.html">Paramètres</a><br>
+
+<h1 style="text-align: center;">VERGIFAC&nbsp; --&nbsp; Gestion fichier clients ( ou tiers)</h1>
+
+Finalité: mémorisation des clients ou tiers destinataires des factures
+ou documents.<br>
+
+<br>
+
+Deux fenêtres: Saisie et Liste.<br>
+
+<br>
+
+============= SAISIE CLIENT<br>
+
+<br>
+
+Menu -&gt; bouton 'Saisie Clients'.<br>
+
+A l'usage il est judicieux d'activer en même temps la fenêtre 'Liste
+Clients'. Menu -&gt; bouton 'Liste Clients'.<br>
+
+La fenêtre 'Saisie Clients' peut être activée à partir de la liste.<br>
+
+Une donnée est validée par la touche 'retour' ou TAB.<br>
+
+<br>
+
+<table style="text-align: left; width: 100%;" cellpadding="2" cellspacing="2">
+
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; width: 385px;"><img style="width: 383px; height: 523px;" alt="Fiche Client" src="FicheClient.png"><br>
+      </td>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">==
+Clef Client (8 caractères maximum)</span><br>
+La saisie d'une clef et sa validation provoque:<br>
+1_ Affichage de la fiche mémorisée avec cette clef.<br>
+2_ Rien.&nbsp; C'est à dire&nbsp; que&nbsp; la fiche est inchangée. La
+clef&nbsp; n'existe pas.<br>
+&nbsp; Soit c'est une erreur de frappe, soit on s'apprête à créer une
+fiche.<br>
+&nbsp; <span style="font-weight: bold;">Pour une création, saisir 'c'
+dans 'cms' avant de commencer à saisir.</span><br>
+Si la fenêtre 'Liste Client' est activée, les clients correspondants à la
+saisie sont listés.<br>
+      <br>
+      <span style="font-weight: bold;">== cms ( création, modification,
+suppression)</span><br>
+valeurs acceptées: ' ' (blanc), 'c', 'm', 's'<br>
+      <span style="font-style: italic; text-decoration: underline;">' '
+(blanc)</span><span style="font-weight: bold;"> </span>= consultation
+de la fiche.<br>
+      <span style="font-weight: bold; text-decoration: underline;">'</span><span style="font-style: italic; text-decoration: underline;">s' =
+suppression de la fiche </span><br>
+&nbsp;active le bouton 'Supprime', un clic sur ce bouton supprime
+définitivement la fiche.<br>
+      <span style="font-style: italic; text-decoration: underline;">'m'
+= modification</span><br>
+&nbsp;active le bouton 'Enregistrer', un clic sur ce bouton enregistre
+les modifications saisies ( sauf Clef Client).<br>
+      <span style="font-style: italic; text-decoration: underline;">'c'
+= création d'une fiche</span><br>
+&nbsp;active le bouton 'Enregistrer' <span style="font-weight: bold;">et
+efface la fiche</span>.<br>
+L'utilisateur choisit la clef (ou code) de son client tel qu'il pourra
+par la suite la retrouver facilement. <br>
+conseil: coder avec lettres minuscules sans accent, chiffres, tiret
+sans espaces.<br>
+éviter tous les autres caractères: ';', '%' , etc<br>
+coder avec 2 caractères au minimum.<br>
+      <span style="text-decoration: underline;"></span></td>
+    </tr>
+    <tr>
+      <td colspan="2" style="vertical-align: top;"><span style="text-decoration: underline;"></span><span style="text-decoration: underline;">Modification de clef</span><br>
+Recréer une fiche avec la bonne clef et supprimer l'ancienne.<br>
+      <br>
+      <span style="font-weight: bold;">Informations de la fiche</span><br>
+Aucune information n'est obligatoire mis à part la clef.<br>
+      <br>
+      <span style="font-weight: bold;"></span>== Type<br>
+(1 caractère) zone libre pour éventuellement différencier les fiches <br>
+exemple clients 'c', fournisseurs 'f', etc<br>
+      <br>
+==Adresse<br>
+3 lignes de 50 caractères.<br>
+==Pays<br>
+4 caractères. Prendre soin de coder toujours de la même manière un pays
+.<br>
+Ne pas coder une fois 'JAP' et une autre 'jap',&nbsp; ou&nbsp; 'GB' et
+'UK'.<br>
+==Code Postal<br>
+7 caractères<br>
+==Ville<br>
+29 caractères<br>
+      <br>
+==Téléphone<br>
+17 caractères<br>
+      <br>
+==Mail<br>
+38 caractères<br>
+      <br>
+==Bouton mail<br>
+active la messagerie de votre machine<br>
+&nbsp;<br style="font-weight: bold;">
+      <span style="font-weight: bold;">==Notes</span> (510 caractères
+maximum)<br>
+Zones libres pour mémoriser notes, remarques,&nbsp; factures,
+devis,&nbsp; etc<br>
+conseil: le curseur se place en début. taper 'retour' pour libérer la
+première ligne afin que la dernière note soit au dessus. <br>
+      <br>
+=========== Liste Clients<br>
+      <br>
+      <table style="text-align: left; width: 100%;" cellpadding="2" cellspacing="2">
+        <tbody>
+          <tr>
+            <td style="vertical-align: top; width: 455px;"><img style="width: 452px; height: 428px;" alt="Liste Client" src="listeclient.png"><br>
+            </td>
+            <td style="vertical-align: top;">== zone de saisie au
+dessus de Clef.Client<span style="font-weight: bold;"><br>
+            </span>identique à 'Clef Client' de la fiche. Liste les
+clients correspondants à la saisie.<br>
+            <br>
+== activation d'une fiche<br>
+Dans la liste on clique sur le bon code: une fois bouton gauche de la
+souris,
+puis bouton droit et enfin sur la ligne 'Fiche Client'.<br>
+Voir la saisie facture pour insérer l'adresse dans la facture.<br>
+            <br>
+==SÉLECTION Recherche d'un client<br>
+But: lister les clients en sélectionnant le contenu d'une information.<br>
+La liste déroulante du haut permet de sélectionner l'information sur
+laquelle se fera la recherche. Dans la zone de saisie voisine , on
+saisit la valeur (le contenu) à rechercher. Un clic sur 'Sélection'
+lance la recherche.<br>
+Les informations sont:<br>"***", Liste de tout le fichier,<br>
+"Type",<br>
+"Add1","Add2","Add3","Pays","Codpos",<br>
+"Add4", Ville<br>
+"Datcre", Date de création de la fiche<br>
+"Datmod", Date de modification de la fiche<br>
+"Téléphone",<br>
+"Mail",<br>
+"Notes", Les Notes</td>
+          </tr>
+          <tr>
+            <td colspan="2" style="vertical-align: top;">"Pays", la
+recherche se fait sur le contenu complet et stricte, c'est à dire&nbsp;
+sur l'égalité parfaite.<br>
+"Codpos", la recherche peut se faire sur les premiers caractères. <br>
+&nbsp; exemple recherche sur "Codpos" de '75', liste tous les clients
+du département 75.<br>
+Pour les autres informations la recherche peut se faire sur une partie
+du contenu majuscule ou pas.<br>
+            <br>
+La deuxième liste déroulante fonctionne de la même manière, mais n'est
+active qu'en complément de la première et permet une recherche plus
+fine sur la même ou une autre information . Les deux recherche sont lié
+par 'ET'. <br>
+exemple ci-dessus recherche des clients dont la première ligne de
+l'adresse contient le mot 'anne' ET dans le pays 'F'.<br>
+            <br>
+La fenêtre 'Liste Clients' est étirable à droite pour visualiser les autres informations.<br>
+
+            <br>
+            <br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+<br>
+</body></html>

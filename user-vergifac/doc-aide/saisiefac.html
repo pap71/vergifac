@@ -1,0 +1,485 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+
+
+
+
+  
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type"><title>Manuel Saisie de Facture - Vergifac</title></head><body>
+<a href="ManuelVERGIFAC.html">Menu</a> ---- <a href="saisiefac.html">Saisie
+Facture</a> ------ <a href="miseenpage.html">Mise en Page</a> ------- <a href="gestclient.html">Gestion Clients</a> -------- <a href="gestprod.html">Gestion Produits</a> --------- <a href="Param.html">Paramètres</a><br>
+<br>
+<div style="text-align: center;">
+<h1><span style="font-weight: bold;">VERGIFAC&nbsp; -&nbsp; SAISIE
+FACTURE</span></h1>
+
+</div>
+
+Menu -&gt; bouton 'Saisie Facture'.<br>
+
+<br>
+
+Une donnée est validée par la touche 'retour' ou TAB. Les données
+numérique (montants) n'acceptent que des chiffres<br>
+
+et une marque décimale ( ',' ou '.').<br>
+
+<img style="width: 873px; height: 336px;" alt="Fenetre Saisie Factures" src="Saifac0.png"><br>
+<br>
+
+============= EN-TÊTE FACTURE =============<br>
+
+<br>
+
+<table style="text-align: left; width: 100%;" border="0">
+
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">======= Ligne déroulante
+Facture_0, Devis_1, etc <br>
+Choisir dans la liste le type de document à saisir.<br>
+Les choix possible sont:<br>
+Facture_0<br>
+Devis_1<br>
+Proforma_2<br>
+Command_3<br>
+Xxx_4<br>
+Ce choix a pour but d'afficher dans l'impression le type du document.<br>
+Il n'a aucune influence sur la saisie.<br>
+Le libellé imprimé est défini dans la fenêtre 'Codes' (voir plus loin).</td>
+      <td style="vertical-align: top;"><img style="width: 445px; height: 183px;" alt="type doc, numero, date" src="Saifac1.png"></td>
+    </tr>
+  </tbody>
+</table>
+
+======== Numéro<br>
+
+Donnée libre où l'utilisateur saisit son numéro de facture selon la
+codification qu'il souhaite.<br>
+
+<br>
+
+========= Date<br>
+Lors du chargement de la fenêtre 'saisie Facture' la date affichée est
+la date du jour, c'est à dire celle de l'ordinateur.<br>
+
+Si la date est modifiée, l'utilisateur devra vérifier pour la facture
+suivante si c'est toujours la bonne date.<br>
+Saisie sous forme jj/mm/aa où jj, mm,aa sont numériques et correspondent à une date réelle.<br>
+si aa est omis, c'est l'année en cours qui est prise. séparateurs possible '/' ou '.'.<br>
+exemple: 2.3.15 -&gt; 02/03/2015&nbsp; ---&nbsp; 4.9.14 -&gt;
+04/09/2014&nbsp; --&nbsp; 8.12&nbsp; -&gt;&nbsp; 08/12/AAAA (= année en
+cours)<br>
+30.2.15 -&gt; erreur&nbsp; --&nbsp; 31/11 -&gt; erreur<br>
+
+<br>
+
+<img style="width: 743px; height: 251px;" alt="adresse destinataire" src="Saifac2.png"><br>
+
+<br>
+
+========= Client / Adresse<br>
+
+Sert à charger l'adresse du destinataire du document enregistrée dans
+sa fiche du fichier client.<br>
+
+La donnée 'client' peut être laisser à blanc. Dans ce cas, il faut
+saisir les données adresses (si besoin).<br>
+
+Si la clef client est correcte, sa validation entraine l'affichage de
+l'adresse.<br>
+
+Il est très utile d'activer la fenêtre 'Liste Clients' qui va proposer
+les clefs clients correspondantes à la saisie en cours. Dans cette
+liste on clique sur la bonne clef: une fois bouton gauche de la souris,
+puis bouton droit et enfin sur la ligne 'Charge adresse facturation'.<br>
+
+S'il s'agit d'un nouveau client que l'on veut mémoriser, autant le
+faire
+avant tout de suite par la fenêtre 'Saisie Clients' et activer ensuite
+l'adresse.<br>
+
+<br>
+
+=========== LES LIGNES DE FACTURATION ================<br>
+
+<br>
+
+Action des <span style="font-weight: bold;">boutons</span> lorsque le curseur se trouve sur une ligne du
+tableau.<br>
+
+_Bouton 'Ins.ligne' insère une ligne vierge (voir plus loin 2ème usage)<br>
+
+_Bouton 'Sup.ligne' supprime la ligne.<br>
+
+_Bouton 'Efface.ligne' Efface le contenu de la ligne.<br>
+
+_'9/100' 9=lignes utilisées par la facture en cours, 100= maximum de
+lignes possibles.<br>
+
+Menu -&gt; 'Paramètres' -&gt;'Paramètres divers' pour modifier le
+maximum de lignes.<br>
+
+_Bouton 'Codes'<br>
+Active la fenêtre de codes (pour consultation ou les mettre à jour)
+dont les usages multiples sont expliqués plus bas dans cette page du
+manuel (entre autres activation de totalisations).<br>
+
+Au cours de la saisie, ces codes sont activés dans la colonne 'Code
+Produit'.<br>&nbsp; Les codes de la 'fenêtre de codes' commencent par '.' un point.<br>
+
+<br>
+
+<img style="width: 852px; height: 298px;" alt="lignes detail libelle" src="Saifac3.png"><br>
+
+== Lignes commentaires ou Titre <br>
+
+La colonne 'Libelle' peut être la seule saisie à des fin de
+présentation.<br>
+
+Un libelle fréquent peut être activé par un code '.xxx" mémorisé dans
+la fenêtre Codes.<br>
+
+<br>
+
+== Lignes détails = lignes de calcul quantité x Prix unitaire<br>
+
+<br>
+
+Pour générer un montant en fin de ligne il faut que soit renseigner:<br>
+
+_Prix unitaire<br>
+
+_Quantité à saisir dans tous les cas.<br>
+
+_Code Taxe (1 caractère obligatoire). Les codes et valeurs de TVA
+doivent être définis au préalable (Menu -&gt; 'Paramètres' -&gt; 'Taux
+TVA'. <br>
+&nbsp;Dans le cas où un montant n'est pas soumis à la TVA, il est possible de définir un code TVA avec un taux de 0%.<br>
+
+<br>
+
+Autres données en principe nécessaires:<br>
+
+_Libelle <br>
+
+_Unité (facultatif)<br>
+
+<br>
+
+<img style="width: 906px; height: 218px;" alt="produit vers ligne facture" src="Saifac4.png"><br>
+
+_Code Produit<br>
+
+Si laissé à blanc, il faut saisir toutes les informations précédentes.<br>
+
+<span style="font-weight: bold;">On se positionne sur une ligne vierge.</span><br>
+
+Sert à charger une ligne d'un produit (ou service) enregistré dans le
+fichier produit.<br>
+
+Si le code produit est correct, sa validation entraine l'affichage de
+la ligne avec les informations renseignées dans la fiche produit.<br>
+
+Il est très utile d'activer la fenêtre 'Liste Produits' qui va proposer
+les codes produits correspondants à la saisie en cours. Dans cette
+liste on clique sur le bon code: une fois bouton gauche de la souris,
+puis bouton droit et enfin sur la ligne 'Vers ligne facture'. Le bouton
+'Ins.ligne' change de couleur (linux) et de libellé qui devient
+'Ins.PROD'. On clique sur ce bouton pour afficher la ligne dans la
+'saisie facture'.<br>
+
+Attention la ligne réceptrice est la ligne vierge dans laquelle on a
+cliqué en dernier sur la colonne 'Code Produit'. <br>
+
+<br>
+
+<span style="font-weight: bold;">Remarques importantes</span> <br>
+
+Une ligne produit affichée automatiquement peut être modifiée ou
+complétée. D'où les conséquences suivantes:<br>
+
+Les informations d'un produit chargées à partir du fichier produits <span style="font-weight: bold;">ne seront pas actualisées automatiquement</span>
+si on a modifié la fiche produit correspondante. Il faut recharger le
+produit.<br>
+
+Si on remplace ou resaisit un code produit sur une ligne déjà saisie,
+les anciennes informations de cette ligne sont remplacées par les
+nouvelles. Par contre si le premier produit était multiligne il faudra effacer ou supprimer les lignes supplémentaires.<br>
+
+<br>
+
+=========== <span style="font-weight: bold;">Lignes Calculs (total
+hors taxes, taxes, total toutes taxes,total intermédiaire)</span><br>
+
+<br>
+
+<img style="width: 876px; height: 359px;" alt="totaux" src="Saifac5.png"><br>
+
+<br>
+
+Le déclenchement est provoqué par la saisie d'un code dans la colonne
+'code produit'.<br>
+
+A l'usage, l'utilisateur doit se souvenir des codes essentiels.<br>
+
+<br>
+
+== code '.ttt'<br>
+
+L'usage de ce code concerne une saisie de lignes détails avec des <span style="font-weight: bold;">montants hors taxes</span>. Il doit être
+saisi en dessous de toutes les lignes détails.<br>
+
+Ce code va déclencher sur plusieurs lignes:<br>
+
+-affichage d'un trait<br>
+
+-calcul du total hors taxes.<br>
+
+-calcul de (ou des) taxe(s).<br>
+
+-affichage d'un trait gras.<br>
+
+-calcul du total toutes taxes.<br>
+
+<br>
+
+== code '.eee'<br>
+
+L'usage de ce code concerne une saisie de lignes détails avec des <span style="font-weight: bold;">montants toutes taxes</span>. Il doit être
+saisi en dessous de toutes les lignes détails.<br>
+
+Ce code va déclencher sur plusieurs lignes:<br>
+
+-affichage d'un trait gras.<br>
+
+-calcul du total toutes taxes.<br>
+
+-calcul de (ou des) taxe(s) et du montant hors taxes correspondant.<br>
+
+<br>
+
+== code '.tex'<br>
+
+L'usage de ce code concerne une facture SANS taxes (export).<br>
+
+Il doit être saisi en dessous de toutes les lignes détails.<br>
+
+Ce code va déclencher les lignes:<br>
+
+-affichage d'un trait gras.<br>
+
+-calcul du total sans taxes.<br>
+
+<br>
+
+En fonction de sa facture l'utilisateur code le total par un seul des
+codes <span style="font-weight: bold;">'.ttt' OU '.eee' OU '.tex'.</span><br>
+
+<br>
+
+== code '.tpp' <br>
+
+Ce code permet de calculer des totaux intermédiaires.<br>
+
+Il peut être saisi plusieurs fois selon le désir de l'utilisateur.<br>
+
+Le total calculé est le total des lignes détails au dessus du code:<br>
+
+-total en remontant jusqu'à la ligne précédente codée avec '.tpp' <br>
+
+-pour la première ligne '.tpp' total depuis la 1ère ligne de la facture.<br>
+
+<br>
+
+== code '.spag' (n'est pas un code calcul mais à se souvenir)<br>
+
+Ce code agit uniquement à l'impression de la facture (et pour une
+longue facture multipage). Il force un saut de page pour améliorer la
+présentation.<br>
+
+A l'usage ce code est inséré après avoir visualiser l'impression.<br>
+
+<br>
+
+En fait il y a d'autres codes, mais dans un usage classique du
+programme, il n'est pas nécessaire de les mémoriser car ils sont
+générés automatiquement et figurent dans la fenêtre 'Codes'.<br>
+
+<br>
+
+=============== <span style="font-weight: bold;">Fenêtre 'Codes'
+(bouton 'Codes')</span><br>
+
+<br>
+
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">Dans cette fenêtre on retrouve
+pour mémoire les codes que l'on vient d'étudier.<br>
+.ttt , .eee, .tex, .spag<br>
+==Codes .tht, .tax, .ttc, .ttx, .tpp<br>
+Chacun de ces codes a un libellé que l'utilisateur peut modifier à son
+grès.<br>
+Ces libellés seront ceux qui seront générés dans la facture.<br>
+==Codes .doc0, .doc1, .doc2, .doc3, .doc4<br>
+Chacun de ces codes a un libellé que l'utilisateur peut modifier à son
+grès.<br>
+Il concerne le type de documents saisis (facture, devis,etc)
+sélectionné par la ligne déroulante du début de la saisie.<br>
+Ils sont utilisés pour l'impression finale.<br>
+exemples<br>
+Devis_1 c'est le libellé de la ligne .doc1 qui sera choisi.<br>
+Xxx_4 c'est le libellé de la ligne .doc4 qui sera choisi.<br>
+      <br>
+<span style="font-weight: bold;">IMPORTANT</span><br>
+Tous les codes précédents de cette fenêtre (jusqu'à .doc4) ne doivent pas être
+modifiés, seuls leur <span style="font-weight: bold;">libellé</span> peuvent l'être.<br>
+Pour le code .tax le libellé ne doit pas dépasser 20 caractères.
+      <br><br></b>
+==Codes .xxx<br>
+Les autres lignes sont à la disposition de l'utilisateur pour mémoriser
+des lignes de libellés qu'il utilise souvent dans sa facture.<br>
+Il choisit un code qui doit commencer obligatoirement par '.'.<br>
+Il saisit son libellé. Si le libellé se poursuit sur la ligne suivante,
+il faut saisir '+' dans la colonne suite.<br>
+REMARQUE&nbsp; Il existe une autre possibilité d'imprimer <span style="text-decoration: underline;">systèmatiquemen</span>t un texte quelconque (mention légales ou autres) en l'incluant dans le fichier de commande de la mise en page.<br>
+      <br>
+IMPORTANT<br>
+Après des modifications dans la fenêtre 'Codes' ne pas oublier le clic
+sur le bouton 'SAUVE' pour pouvoir les conserver.<br>
+      <br>
+      </td>
+      <td style="vertical-align: top;"><img style="width: 458px; height: 663px;" alt="Codes facture" src="CodeFacture.png"><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+======= Boutons du haut 'Saisie Facture'<br>
+
+<br>
+
+<img style="width: 860px; height: 206px;" alt="boutons" src="SaiFac-sauvdoc.png"><br>
+
+<br>
+
+== Efface tout<br>
+
+Toute la saisie est effacée pour pouvoir saisir une autre facture (ou
+un autre document). Les données sont perdus, sauf si on les a sauvées
+avant ('Sauv.doc' voir plus bas).<br>
+
+Vérifier la date et le type du document suivant qui va être saisi.<br>
+
+<br>
+
+== Sauv.doc<br>
+
+Permet d'enregistrer toute la saisie de la fenêtre 'Saisie Facture'. <span style="font-weight: bold;">(sauf la date)</span><br>
+
+Finalités principales:<br>
+
+- Mémoriser l'ébauche des documents les plus fréquents.<br>
+
+exemple: ébauche de facture courante avec les mentions habituelles. On
+charge ce fichier avant de commencer<br>
+
+la saisie et on saisit les informations nécessaires. <br>
+
+- Mémoriser un devis pour le transformer plus tard en facture.<br>
+
+- Mémoriser une saisie inachevée pour la compléter plus tard.<br>
+
+Clic sur le bouton donne accès à la fenêtre d'enregistrement de
+fichiers.<br>
+
+L'utilisateur saisie le nom du fichier à sauvegarder.<br>
+
+<br>
+
+== Recharg.doc<br>
+
+Permet de recharger la saisie sauvée par 'Sauv.doc'. <br>
+
+Attention: vérifier date et type du document ( devis devient facture
+par exemple)<br>
+
+<span style="font-weight: bold;">IMPORTANT</span>: Les données issues
+des fichiers clients et produits <span style="text-decoration: underline;">ne sont pas actualisées</span>.<br>
+
+Les calculs ne sont pas non plus actualisés, <span style="text-decoration: underline;">tant que l'on ne fait aucune
+modification dans les lignes détails</span>.<br>
+
+Concrètement les calculs sont refaits:<br>
+
+_en insérant ou supprimant une ligne détail (qui peut être une ligne vide).<br>
+
+_en modifiant une ligne détail. <br>
+
+Particulièrement entre un devis et la facture si on a modifié le taux de TVA
+qui a changé.
+<br>
+<br>
+
+== Fic Mis en page<br>
+
+Permet de choisir un fichier des paramètres de mise en page.<br>
+
+(voir le manuel impression).<br>
+
+On peut définir un fichier par défaut:<br>
+
+Menu principal -&gt; Paramètres -&gt; Paramètres divers.<br>
+
+<br>
+
+== Impression<br>
+
+Clic sur le bouton déclenche la mise en page du document saisi dans un
+fichier de type pdf, active le programme d'affichage de fichier pdf.<br>
+
+L'utilisateur vérifie son document final.<br>
+
+C'est OK:<br>
+
+-Impression sur papier à partir du programme d'affichage pdf.<br>
+
+-Une boite de dialogue propose d'archiver le document final dans
+le dossier 'histo-fac'. Cela permet de le retrouver pour l'imprimer ou
+pour le joindre à un mail.<br>
+
+Sinon:<br>
+
+On peut relancer l'impression <span style="font-weight: bold;">AUTANT
+DE FOIS QUE NECESSAIRE</span>.(*)<br>
+
+- après modification de la saisie<br>
+
+- après changement ou modification du fichier de mise page. <br>
+
+Le fichier de mise en page est un fichier texte qu'il suffit
+d'ouvrir dans un programme d'éditeur de texte, de le modifier et de le
+réenregistrer avant de relancer l'impression, facilitant grandement la
+mise au point. <br>
+
+(voir le manuel impression).<br>
+
+(*)_ Sur linux (Ubuntu et Evince afficheur de pdf) le fichier pdf
+modifié est automatiquement actualisé.<br>
+
+_Sur Windows ( Acrobat Reader afficheur de pdf) le fichier n'est pas
+actualisé tant que acrobat reader est actif. Donc entre deux essais, il
+faut fermer acrobat reader.<br>
+
+<br>
+
+<br>
+
+<br>
+
+</body></html>
