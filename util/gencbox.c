@@ -55,7 +55,7 @@ GtkWidget *pDialog;
 DEF_L_FCBOX *pti = pf->ptle;
 int j;
     /* Creation de boite de dialogue avec des boutons "Annuler" et "Ok" */
-pDialog = gtk_dialog_new_with_buttons(pf->titadd, 
+pDialog = gtk_dialog_new_with_buttons(pf->titadd,
 	GTK_WINDOW(pf->win),  GTK_DIALOG_MODAL,
         GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
         GTK_STOCK_OK, GTK_RESPONSE_OK,  NULL);
@@ -64,7 +64,7 @@ pDialog = gtk_dialog_new_with_buttons(pf->titadd,
 for (j=0; j < pf->nbdon; ++j)	{
    (pti+j)->wlibel =  gtk_label_new((char *) (pti+j)->libel);
    gtk_box_pack_start(GTK_BOX(GTK_DIALOG(pDialog)->vbox),(pti+j)->wlibel , FALSE, FALSE, 0);
-   (pti+j)->wdg = gtk_entry_new_with_max_length((pti+j)->laf); 
+   (pti+j)->wdg = gtk_entry_new_with_max_length((pti+j)->laf);
    gtk_widget_set_size_request((pti+j)->wdg, (pti+j)->laf * 8, 25);
    gtk_box_pack_start(GTK_BOX(GTK_DIALOG(pDialog)->vbox),(pti+j)->wdg , FALSE, FALSE, 0);
 					}
@@ -72,7 +72,7 @@ gtk_widget_show_all(GTK_DIALOG(pDialog)->vbox);
     /* Lancement de la boite de dialogue */
 switch(gtk_dialog_run(GTK_DIALOG(pDialog))){
 case GTK_RESPONSE_OK:
-	(*(pf->ftsais)) (pf);  
+	(*(pf->ftsais)) (pf);
    break;
  case GTK_RESPONSE_CANCEL:
    break;
@@ -119,7 +119,7 @@ pButcancel = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
   gtk_box_pack_start(GTK_BOX(pHBox), pButcancel, FALSE,FALSE, 0);
 pButsave = gtk_button_new_from_stock(GTK_STOCK_SAVE);
   gtk_box_pack_start(GTK_BOX(pHBox), pButsave, FALSE,FALSE, 0);
-    //  GtkComboBox  
+    //  GtkComboBox
 //pf->cbox = gtk_combo_box_text_new();  // creation cbox ici
 pf->cbox = gtk_combo_box_new_text();  // creation cbox ici
  gtk_box_pack_start(GTK_BOX(boxglob), pf->cbox, FALSE, FALSE, 0);
@@ -133,7 +133,8 @@ g_signal_connect(G_OBJECT(pButsup), "clicked", G_CALLBACK(OnRemove), pf);
 g_signal_connect(G_OBJECT(pButsave), "clicked", G_CALLBACK(pf->fquitfen), pf);
 g_signal_connect(G_OBJECT(pButcancel), "clicked", G_CALLBACK(OnCancel), pf);
 
-g_signal_connect(G_OBJECT(pf->win), "destroy", G_CALLBACK(pf->fquitfen), pf);
+//g_signal_connect(G_OBJECT(pf->win), "destroy", G_CALLBACK(pf->fquitfen), pf);
+g_signal_connect(G_OBJECT(pf->win), "delete_event", G_CALLBACK(pf->fquitfen), pf);
     gtk_widget_show_all(pf->win);
 
 }

@@ -159,7 +159,8 @@ case CLEPROD:
  erpOff(CLEPROD);
  break;
 case CMS:
- if (sfprod.cleprod == NULL)	{
+ if ( sfprod.cleprod[0] == ' ' || sfprod.cleprod[0] == '.')  {
+// if (sfprod.cleprod == NULL)	{
    raz_smc(); message(8);
    gtk_widget_grab_focus (s_fsfprod[CLEPROD].wdg); // ret = 0
    break;

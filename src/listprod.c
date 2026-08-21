@@ -38,7 +38,8 @@ static GtkWidget *val_rechp1;
 static GtkWidget *cb_rechp2;
 static GtkWidget *val_rechp2;
 //GtkTreeIter pIter_prod;
-char zx[256],zy[128];
+//char zx[256],zy[128];
+static char zx[256],zy[128]; // static car utilise dans lisprod liscli
 static char sn2[12];
 #ifdef WIN32
 static int inhibsel;    // vers windows inhibe sel crefen_prod

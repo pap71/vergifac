@@ -246,12 +246,14 @@ case CSFcodprod:
    gencode(ligfac[liga].codprod, liga);
    break;
 					}
- if (ligfac[liga].codprod == NULL)	{
+ if (ligfac[liga].codprod[0] == ' ' )	{
+// if (ligfac[liga].codprod == NULL)	{
    if ( isligvid_sfac(liga) == 0) ligfac[liga].typlig = LQQ;
    break;
 					}
 		// acces db prod
- if (ligfac[liga].codprod != NULL)	{
+ if (ligfac[liga].codprod[0] != ' ' )	{
+// if (ligfac[liga].codprod != NULL)	{
   lsfprod.cleon = lit1c_fprod(ligfac[liga].codprod);
   if ( lsfprod.cleon == 1)	{ // trouve
    temactu = 0;

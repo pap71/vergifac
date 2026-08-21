@@ -219,12 +219,13 @@ void act_l_f2c (DEF_L_F2C *pl);
 void maj_l_f2c (GtkEntry *widls, DEF_L_F2C* pl);
 gboolean messavar(char* vmes);
 int question(int num);
-long arron2(double ff, long long int ll);
+long long int arron2(double ff, long long int ll);
 void creparfenq(DEF_L_FQ *pli,DEF_S_FQ *pz,GtkWidget* fixg,void* pd);
 void formfloat(char *ss,double ff);
 void charreplace(char *ss,char ci, char cf);
 gboolean getpixcolors(GdkPixbuf *pixbuf, gint x, gint y, guchar *red, guchar *green, guchar *blue, guchar *alph); 
 gboolean modifimg(GdkPixbuf *pixbuf, gint x, gint y, guchar red, guchar green, guchar blue);
+gboolean grab_focus_md (GtkWidget *widget); // juil 2026 ia 
 
 
 

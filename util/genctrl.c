@@ -314,7 +314,7 @@ for (i = 0, j = ll  ; j; ++ptf)  {
       }
 }
 
-long arron2(double ff, long long int ll)
+long long int arron2(double ff, long long int ll)
 {
 double  arron;
 double dmont;

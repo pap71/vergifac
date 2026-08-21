@@ -121,7 +121,7 @@ if (ret == 0) 	{
 		 }
 //printf("maj col %d lig %d\n",pl->idcol,pw->liga);
 		}	// fin ret == 0
-svpw = NULL;	// tout le traitement apres saisie a du etre fait
+//svpw = NULL;	// tout le traitement apres saisie a du etre fait
 if (ret == -1) {
  if (pl->laf == 1)  gtk_editable_delete_text((GtkEditable*) editable,0,-1);
  gtk_editable_set_position((GtkEditable*) editable,0);
@@ -129,6 +129,7 @@ if (ret == -1) {
  gtk_widget_grab_focus (pw->wdg);
  return TRUE;
 		}
+svpw = NULL;	// tout le traitement apres saisie a du etre fait
 g_free(text);
 return FALSE;
 }
@@ -270,7 +271,7 @@ gtk_box_pack_start(GTK_BOX(boxglob), scrollbar, TRUE, TRUE, 0);
        crewdg_l_fnc(pwv);
  gtk_table_attach_defaults(GTK_TABLE(tabsais),(pwv)->wdg,kco,kco+1,jll,jll+1 );
 	} }
-g_signal_connect_after(G_OBJECT(pf->win), "destroy", G_CALLBACK (quit_fnc), pf);
+g_signal_connect_after(G_OBJECT(pf->win), "delete_event", G_CALLBACK (quit_fnc), pf);
 	// focus sur 1er widget
 gtk_widget_grab_focus (pw->wdg);
 }

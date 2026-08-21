@@ -1,46 +1,22 @@
-TARGET0 = ./vergifac
-
-LIB = `pkg-config --libs --cflags gtk+-2.0 sqlite3` 
-CFLAGS =  -Wall `pkg-config --cflags gtk+-2.0 sqlite3`
-#CFLAGS = -g  -Wall `pkg-config --cflags gtk+-2.0 sqlite3`  # debug
-
-DU = ./util/
 DS = ./src/
+DU = ./util/
+
+SRC =   $(DS)fast.h $(DS)fastmenu.c $(DS)saiscli.c $(DS)mesfast.c $(DS)sqlcliDB.c \
+	$(DS)listcli.c $(DS)listprod.c $(DS)saiprod.c \
+	$(DS)paramsfac.c $(DS)memodoc.c $(DS)editfast.c $(DS)saifaccod.c \
+	$(DS)saifac.c \
+    $(DU)genftablo.c  $(DU)genfq.c $(DU)genctrl.c $(DU)gencbox.c
 INC = ./util/
-
-# Nom des objets
-SRCOK =   $(DS)fastmenu.o $(DS)saiscli.o $(DS)mesfast.o $(DS)sqlcliDB.o \
-	$(DS)listcli.o $(DS)listprod.o $(DS)saiprod.o \
-	$(DS)paramsfac.o $(DS)memodoc.o $(DS)editfast.o $(DS)saifaccod.o \
-	$(DS)saifac.o 
-
-UTIL = $(DU)genfq.o $(DU)genctrl.o $(DU)genftablo.o $(DU)gencbox.o
-
-
-#SRC =  $(DS)memodoc.c $(DS)editfast.c $(DS)saifaccod.c \
-#	$(DS)saifac.c $(DS)paramsfac.c
-
-# $(DU)genfq.c $(DU)genctrl.c $(DU)genftablo.c
-
-TARGET = ./user-vergifac/$(TARGET0)
-
-all:	$(TARGET)
-
-%.o: %.c $(DS)fast.h $(DU)genfen.h
-	 echo fic%.o; gcc -o $@ $(CFLAGS) -I $(DU) -c $(LIB) $< 
-
-$(TARGET): $(SRCOK) $(UTIL)
-#	gcc -g -o $(TARGET) $(SRC) -Wall -I $(INC) $(LIB)
-	gcc -o $(TARGET) $(SRCOK) $(UTIL) -Wall -I $(INC) $(LIB)
-#	gcc -o $(TARGET) $(SRC) $(UTIL) -Wall  $(LIB)
-
-	cd user-vergifac;  ./$(TARGET0)
-#	gdb ./$(TARGET)
+LIB = `pkg-config --libs --cflags gtk+-2.0 sqlite3` 
+TARGET = vergifac
+all:
+#	gcc -o ./user-vergifac/$(TARGET) $(SRC) -Wall -Wno-deprecated-declarations -I $(INC) $(LIB) -lm
+	gcc -g -o ./user-vergifac/$(TARGET) $(SRC) -Wall -Wno-deprecated-declarations -I $(INC) $(LIB) -lm  #  -g  pour debug
 
 exe:
-	cd user-vergifac;  ./$(TARGET0)
+	cd user-vergifac;  ./vergifac
+#	gdb ./$(TARGET)
 
-clean:
-	rm $(SRCOK) $(UTIL)
-
+#valgrind  --leak-check=full --suppressions=fisupgtk.txt  ./vergisc64 
+#valgrind  --leak-check=full --suppressions=fisupgtk.txt --gen-suppressions=yes ./vergisc64
 

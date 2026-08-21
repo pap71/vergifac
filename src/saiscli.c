@@ -173,7 +173,8 @@ case CLECLI:
  errOff(CLECLI);
  break;
 case CMS:
- if (sfcli.clecli == NULL)	{
+ if ( sfcli.clecli[0] == ' ')  {
+// if (sfcli.clecli == NULL)	{
    raz_cms(); message(8);
    gtk_widget_grab_focus (s_fsfcli[CLECLI].wdg); // ret = 0
    break;

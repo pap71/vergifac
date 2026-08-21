@@ -29,7 +29,7 @@ gboolean quit_fenq (GtkWidget *widls, FENQ *pf);
 extern S_DAT da;
 
 DEF_S_FQ *svpzw;
-int bloqchfq=0; // inhibe signal change si affichage
+int bloqchfq=0; // inhibe signal change si affichage voir saiscpt.c
 static char zmes[64];
 
 gboolean maj_fenq ()	//  controle, maj
@@ -40,11 +40,12 @@ GtkEditable *editable;
 gchar *text;
 char *pa;
 double *paf; // modif 2/10/2015 pb edition float* paf;
-int* pai; 
+int* pai;
 if ( svpzw == NULL)	{
 	printf("maj_fenq svpzw=NULL ?\n");
 	return TRUE;
 			}
+printf("maj_fenq-1 pzw=%p ret=%d\n",pzw,ret);
 editable = GTK_EDITABLE (pzw->wdg);
 text = gtk_editable_get_chars (editable, 0, -1);
 lt = strlen(text);
@@ -66,15 +67,15 @@ if (ret == 0) 	{
 								}
  else if (pzw->typ == SAISDAT)   {
   if ( (ret = contdate((char*)text)) >= 0)
-   strncpy((char*)pa,da.sdat,pzw->laf); 
+   strncpy((char*)pa,da.sdat,pzw->laf);
   else message(13);
 								}
- else	{ 	 // SAISMON, SAICHAR,SSPEC 
+ else	{ 	 // SAISMON, SAICHAR,SSPEC
   if (pzw->laf == 1)	{
    if ( text[0] == ' ' && lt > 1)	text[0] = text[1];
-   pa[0]=text[0];  
+   pa[0]=text[0];
 					}
-  else	{	
+  else	{
    memset ((char*)pa,0, pzw->laf);   //efface saisie prec si besoin
    strcpy((char*)pa,text);
 //  strncpy((char*)pa,text,pzw->laf); // efface fin de saisie precedente
@@ -84,23 +85,36 @@ if (ret == 0) 	{
 	ret = (*(pzw->fonc)) (pzw,0) ;  // fonctions utilisateur
 								 }
 		}	// fin ret == 0
-svpzw = NULL;	// tout le traitement apres saisie a du etre fait
-//printf("maj_fenq-2 pzw=%p ret=%d\n",pzw,ret);
+//svpzw = NULL;	// tout le traitement apres saisie a du etre fait
+printf("maj_fenq-2 pzw=%p ret=%d\n",pzw,ret);
+if (gtk_editable_get_editable ((GtkEditable*) editable) == TRUE)  {
 if (ret == -1) {
  if (pzw->laf == 1)  gtk_editable_delete_text((GtkEditable*) editable,0,-1);
  gtk_editable_set_position((GtkEditable*) editable,0);
- g_free(text);	
- gtk_widget_grab_focus (pzw->wdg); 
+ if (text != NULL) g_free(text);  // mod juil 2026 ia
+ // grab_focus_md (pzw->wdg); ???
  return TRUE;
 		}
-g_free(text);		
+                                                        }
+svpzw = NULL;	// tout le traitement apres saisie a du etre fait
+ if (text != NULL) g_free(text); // juil 2026
+return FALSE;
+}
+
+gboolean grab_focus_md (GtkWidget *widget) // juil 2026 ia 
+{
+if (widget != NULL) {
+printf("grab_focus  widget=%p \n",widget);
+  gtk_widget_grab_focus(widget);
+    return TRUE;
+                    }
 return FALSE;
 }
 
 gboolean focout_fenq (GtkWidget *widget, GdkEventKey *event, DEF_S_FQ *pzw)
 {
-//pw fait ref au widget suivant
-//printf("focus-out  pzw=%p svpzw=%p\n",pzw,svpzw);
+//pzw fait ref au widget suivant
+printf("focus-out  pzw=%p svpzw=%p\n",pzw,svpzw);
 if (svpzw != NULL) maj_fenq ();
   return FALSE;
 }
@@ -110,26 +124,26 @@ void chang_fenq (GtkEntry *widls, DEF_S_FQ *pzw)	// CHANGE
 int lt;
 GtkEditable *editable;
 gchar *text;
-if (bloqchfq == 1) return;
-svpzw = pzw;	//sauvegarde du widget saisie  a traiter
-//printf("chang_fenq pzw=%p \n",pzw);
+if (bloqchfq == 1) return;  // si affiche contenu declanche changed
+svpzw = pzw;	//sauvegarde du widget saisie  a traiter pour maj sauvegarde saisie
+printf("chang_fenq pzw=%p widls=%p \n",pzw,widls);
 if (pzw->typ == SSPEC  || pzw->typ == DEFMAN) { // traitement specifique
  if (pzw->fonc)  {
-  (*(pzw->fonc)) (pzw,1) ;  
+  (*(pzw->fonc)) (pzw,1) ;
 				 }
   return;
  											}
-else if (pzw->typ > 19 )  		    { //&& lt > 0)   {  
-    lt=chang_ctrl(widls,pzw->typ);
+else if (pzw->typ > 19 )  		    { // saisie speciale reprise par fonc utilisateur
+    lt=chang_ctrl(widls,pzw->typ);  // controle SAIsDAT, SAINUM, SAISINT,SAIMON si numerique
 									}
-/* la suite de la fonction ne sert qu'au passage forcé 
- à la zone suivante ce qui perturbe les modif (insertion) 
+/* la suite de la fonction ne sert qu'au passage forcé
+ à la zone suivante ce qui perturbe les modif (insertion)
   à reserver aux saisies d'un seul caractere ? */
 else if ( pzw->laf == 1)	{
     editable = GTK_EDITABLE (widls);
     text = gtk_editable_get_chars (editable, 0, -1);
     lt = strlen(text);
-    g_free(text);
+     if (text != NULL) g_free(text);
 	if ( lt == pzw->laf )
   g_signal_emit_by_name(widls,"move-focus",GTK_DIR_TAB_FORWARD,pzw);
 							}
@@ -140,12 +154,14 @@ void activ_fenq (GtkWidget *widls, DEF_S_FQ *pzw)
 {
 //if (svpzw != NULL) maj_fenq (); //(widls); focout va le faire
 g_signal_emit_by_name(widls,"move-focus",GTK_DIR_TAB_FORWARD,pzw);
-//printf("activ-focus pw=%p svpw=%p\n",pw,svpw);
+printf("activ-focus pw=%p svpw=%p\n",pzw,svpzw);
 }
 
 gboolean quit_fenq (GtkWidget *widls, FENQ* pf)
 {
 pf->win = NULL;
+svpzw = NULL;
+printf("quit_fenq\n");
 return FALSE;
 }
 
@@ -167,15 +183,15 @@ gtk_container_set_border_width(GTK_CONTAINER(pf->win), 0);
 fixg = gtk_fixed_new();
 gtk_container_add(GTK_CONTAINER(pf->win), fixg);
 
-	//  box bouton 
+	//  box bouton
  if (pf->fbouton)  {
-	 (*(pf->fbouton)) (fixg) ;  
+	 (*(pf->fbouton)) (fixg) ;
 		 }
 	// libelle
 iz=0;
 while ((pli+iz)->cox > 0)	{
  (pli+iz)->wdgl =  gtk_label_new((pli+iz)->libel);
- gtk_fixed_put(GTK_FIXED(fixg), (pli+iz)->wdgl, (pli+iz)->cox, (pli+iz)->lyg); 
+ gtk_fixed_put(GTK_FIXED(fixg), (pli+iz)->wdgl, (pli+iz)->cox, (pli+iz)->lyg);
  ++iz;
 			}
 	// entry saisie zone variable
@@ -185,20 +201,20 @@ while ((pz+iz)->cox > 0)	{
  (pz+iz)->memcell = pa;
 if ( (pz+iz)->typ < 10)	{
  (pz+iz)->wdg = gtk_label_new(NULL);
- gtk_label_set_max_width_chars((GtkLabel*) (pz+iz)->wdg,(pz+iz)->laf); 
- gtk_fixed_put(GTK_FIXED(fixg), (pz+iz)->wdg, (pz+iz)->cox, (pz+iz)->lyg); 
+ gtk_label_set_max_width_chars((GtkLabel*) (pz+iz)->wdg,(pz+iz)->laf);
+ gtk_fixed_put(GTK_FIXED(fixg), (pz+iz)->wdg, (pz+iz)->cox, (pz+iz)->lyg);
  gtk_widget_set_size_request((pz+iz)->wdg, (pz+iz)->laf * DIMC, 25);
 			}
 	// DEFMAN definition  faite dans fbouton
 else if ( (pz+iz)->typ == DEFMAN)	{ ++iz;	continue; }
 else 	{
 	// saisie sur 1 car force a 2
- if ((pz+iz)->laf == 1)  (pz+iz)->wdg = gtk_entry_new_with_max_length(2);  
+ if ((pz+iz)->laf == 1)  (pz+iz)->wdg = gtk_entry_new_with_max_length(2);
  else	{
 	lafsais = (pz+iz)->laf * 2;
-	(pz+iz)->wdg =  gtk_entry_new_with_max_length(lafsais); 
+	(pz+iz)->wdg =  gtk_entry_new_with_max_length(lafsais);
 		}
- gtk_fixed_put(GTK_FIXED(fixg), (pz+iz)->wdg, (pz+iz)->cox, (pz+iz)->lyg); 
+ gtk_fixed_put(GTK_FIXED(fixg), (pz+iz)->wdg, (pz+iz)->cox, (pz+iz)->lyg);
  gtk_widget_set_size_request((pz+iz)->wdg, (pz+iz)->laf * DIMC + 15, 25);
 
  g_signal_connect(G_OBJECT((pz+iz)->wdg), "activate", G_CALLBACK (activ_fenq),(void*) (pz+iz));
@@ -207,7 +223,8 @@ else 	{
 	}
  ++iz;
 			}
-g_signal_connect_after(G_OBJECT(pf->win), "destroy", G_CALLBACK (quit_fenq), pf);
+//g_signal_connect_after(G_OBJECT(pf->win), "destroy", G_CALLBACK (quit_fenq), pf);
+g_signal_connect_after(G_OBJECT(pf->win), "delete_event", G_CALLBACK (quit_fenq), pf);
 
 }
 
@@ -220,7 +237,7 @@ char *pa;
 iz=0;
 while ((pli+iz)->cox > 0)	{
  (pli+iz)->wdgl =  gtk_label_new((pli+iz)->libel);
- gtk_fixed_put(GTK_FIXED(fixg), (pli+iz)->wdgl, (pli+iz)->cox, (pli+iz)->lyg); 
+ gtk_fixed_put(GTK_FIXED(fixg), (pli+iz)->wdgl, (pli+iz)->cox, (pli+iz)->lyg);
  ++iz;
 				}
 	// entry saisie zone variable
@@ -230,21 +247,21 @@ while ((pz+iz)->cox > 0)	{
  (pz+iz)->memcell = pa;
 if ( (pz+iz)->typ < 10)	{
  (pz+iz)->wdg = gtk_label_new(NULL);
- gtk_label_set_max_width_chars((GtkLabel*) (pz+iz)->wdg,(pz+iz)->laf); 
- gtk_fixed_put(GTK_FIXED(fixg), (pz+iz)->wdg, (pz+iz)->cox, (pz+iz)->lyg); 
+ gtk_label_set_max_width_chars((GtkLabel*) (pz+iz)->wdg,(pz+iz)->laf);
+ gtk_fixed_put(GTK_FIXED(fixg), (pz+iz)->wdg, (pz+iz)->cox, (pz+iz)->lyg);
  gtk_widget_set_size_request((pz+iz)->wdg, (pz+iz)->laf * DIMC, 25);
 			}
 	// DEFMAN definition  faite dans fbouton
 else if ( (pz+iz)->typ == DEFMAN)	{ ++iz;	continue; }
 else 	{
 	// saisie sur 1 car force a 2
- if ((pz+iz)->laf == 1)  (pz+iz)->wdg = gtk_entry_new_with_max_length(2);  
+ if ((pz+iz)->laf == 1)  (pz+iz)->wdg = gtk_entry_new_with_max_length(2);
  else	{
 	lafsais = (pz+iz)->laf * 2;
-	(pz+iz)->wdg =  gtk_entry_new_with_max_length(lafsais); 
+	(pz+iz)->wdg =  gtk_entry_new_with_max_length(lafsais);
 		}
-// else	  (pz+iz)->wdg =  gtk_entry_new_with_max_length((pz+iz)->laf); 
- gtk_fixed_put(GTK_FIXED(fixg), (pz+iz)->wdg, (pz+iz)->cox, (pz+iz)->lyg); 
+// else	  (pz+iz)->wdg =  gtk_entry_new_with_max_length((pz+iz)->laf);
+ gtk_fixed_put(GTK_FIXED(fixg), (pz+iz)->wdg, (pz+iz)->cox, (pz+iz)->lyg);
  gtk_widget_set_size_request((pz+iz)->wdg, (pz+iz)->laf * DIMC + 15, 25);
 
  g_signal_connect(G_OBJECT((pz+iz)->wdg), "activate", G_CALLBACK (activ_fenq),(void*) (pz+iz));
