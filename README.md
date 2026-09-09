@@ -19,8 +19,6 @@ vergifac.exe for Windows
 Test Database: dbtestfac.db
 Access user documentation
 
-'User-vergifac is available in zip to this page:
-## Http: //www.pouillyfuisse-delorme.com/mdcpt/cc.html
 
 ##Logiciel de Facturation       #VERGIFAC
 
@@ -41,6 +39,4 @@ vergifac.exe pour Windows
 base de données de test: dbtestfac.db
 accés à la documentation utilisateur
 
-'user-vergifac' est disponible en zip à cette page:
-##http://www.pouillyfuisse-delorme.com/mdcpt/cc.html
 
