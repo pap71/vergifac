@@ -21,7 +21,6 @@
 #include "genfen.h"
 #include "fast.h"
 
-//gboolean sfac_dupli (GtkWidget *widget, gpointer data);
 void afcell_sfac(int idcol, int liga);
 int gencode(char *code,int liga);
 gboolean sfac_efflig (GtkWidget *widget, gpointer data);
@@ -166,6 +165,7 @@ ADD3,
 PAYS,
 CODPOS,
 ADD4,
+SIRET,
 DOCLU,
 FICCDE,
 NBLIG
@@ -179,7 +179,7 @@ NBLIG
 //#define DETR(zl,zz) (char*)&senf.rg[zl].zz-(char*)&senf
 DEF_S_FQ s_fsenf[]= {
 {190,YAD2,NUMFAC,DEPS(numfac),NULL,MEM,SAISCHAR,14,&fonc_senf,"%s"},
-{40,YAD3,DATFAC,DEPS(datfac),NULL,MEM,SAISDAT,10,&fonc_senf,"%s"},
+{40,YAD3,DATFAC,DEPS(datfac),NULL,MEM,SAISDAT,12,&fonc_senf,"%s"},
 {350,YAD2,CLECLI,DEPS(clecli),NULL,MEM,SSPEC,11,&fonc_senf,"%s"},
 {455,YAD2,ADD1,DEPS(add1),NULL,MEM,SAISCHAR,50,&fonc_senf,"%s"},
 {455,YAD2+25,ADD2,DEPS(add2),NULL,MEM,SAISCHAR,50,&fonc_senf,"%s"},
@@ -187,6 +187,7 @@ DEF_S_FQ s_fsenf[]= {
 {455,YAD2+75,PAYS,DEPS(pays),NULL,MEM,SAISCHAR,5,&fonc_senf,"%s"},
 {515,YAD2+75,CODPOS,DEPS(codpos),NULL,MEM,SAISCHAR,8,&fonc_senf,"%s"},
 {565,YAD2+75,ADD4,DEPS(add4),NULL,MEM,SAISCHAR,30,&fonc_senf,"%s"},
+{800,YAD2+75,SIRET,DEPS(siret),NULL,MEM,SAISCHAR,16,&fonc_senf,"%s"},
 {120,YAD1,DOCLU,DEPS(doclu),NULL,MEM,LIBCHAR,18,NULL,"%s"},
 {590,YAD1,FICCDE,DEPS(ficdi),NULL,MEM,LIBCHAR,22,NULL,"%s"},
 {380,YAD4,NBLIG,DEPS(nblig),NULL,MEM,LIBCHAR,8,NULL,"%s"},
@@ -198,6 +199,7 @@ DEF_L_FQ lib_fsenf[]= {
 {130,YAD2+5,NULL,0,"Numero"},
 {305,YAD2+5,NULL,0,"Client"},
 {5,YAD3+5,NULL,0,"Date"},
+{840,YAD2+60,NULL,0,"Siret"},
 {-1,-1,NULL,0,NULL}
 };
 
@@ -237,7 +239,7 @@ gchar *text;
 					       	}
    g_free(text);
 					}
-   return ret;
+   return ret;  // = 0
 			}
 switch (pl->idcol)
 {
@@ -308,7 +310,8 @@ bloqchang = 0;	// inhibe chang
 					}
  break;
 case CSFpriunit:
-  if ( (ret = mdctoi((char *)ligfac[liga].spriunit)) == 0) {
+//  if ( (ret = mdctoi((char *)ligfac[liga].spriunit)) == 0) {
+  if (  mdctoi((char *)ligfac[liga].spriunit) == 0) {
    ligfac[liga].priunit = zslon;		//maj ici
 					}
   else  {
@@ -330,19 +333,24 @@ case CSFquant:
  if ( ligfac[liga].valor != 0)  {
   ligfac[liga].typlig = DETAIL;
  // modif 27:9:2015 verif taxe que si calcul valor
-   if ( valtau(ligfac[liga].codtax[0]) == -1)	{
+/*   if ( valtau(ligfac[liga].codtax[0]) == -1)	{
     ret = -1;   message(10);
+    gtk_widget_grab_focus(ligfac_wgt[liga*CSFcodtax].wdg);
+    break;
 						}
+*/
                                 }
  else  ligfac[liga].typlig = LQQ;
  if ( ligfac[liga].valor != dvalor) actu_sfac();
  break;
 case CSFcodtax:
  if ( valtau(ligfac[liga].codtax[0]) == -1)	{
-   ret = -1;   message(10); break;
+   ret = -1;   message(10); 
+    gtk_widget_grab_focus(ligfac_wgt[liga*CSFcodtax].wdg);
+    break;
 //printf("errtax taxe\n");
 						}
- actu_sfac();
+ if (ret == 0) actu_sfac();
  break;
 //default:
 }
@@ -965,7 +973,6 @@ bloqchang = 1;	// inhibe chang
 if ( sfac_inslig2(liga) == TRUE) return TRUE;
 actu_sfac();
 bloqchang = 0;	// inhibe chang
-//gtk_widget_grab_focus(ligfac_wgt[liga*CSFnco+CSFnco].wdg);
 gtk_widget_grab_focus(ligfac_wgt[liga*CSFnco].wdg);
 return FALSE;
 }
@@ -1044,6 +1051,7 @@ gtk_entry_set_text(GTK_ENTRY (s_fsenf[CLECLI].wdg), klecli);
   strcpy(senf.pays,lsfcli.pays);
   strcpy(senf.codpos,lsfcli.codpos);
   strcpy(senf.add4,lsfcli.add4);
+  strcpy(senf.siret,lsfcli.siret);
 afadres2_cli();
 				}
 }
@@ -1056,6 +1064,7 @@ gtk_entry_set_text(GTK_ENTRY (s_fsenf[ADD3].wdg), senf.add3);
 gtk_entry_set_text(GTK_ENTRY (s_fsenf[PAYS].wdg), senf.pays);
 gtk_entry_set_text(GTK_ENTRY (s_fsenf[CODPOS].wdg), senf.codpos);
 gtk_entry_set_text(GTK_ENTRY (s_fsenf[ADD4].wdg), senf.add4);
+gtk_entry_set_text(GTK_ENTRY (s_fsenf[SIRET].wdg), senf.siret);
 }
 
 void raz_senf()
@@ -1068,6 +1077,7 @@ senf.add3[0]= '\0';
 senf.pays[0]= '\0';
 senf.codpos[0]= '\0';
 senf.add4[0]= '\0';
+senf.siret[0]= '\0';
 gtk_entry_set_text(GTK_ENTRY (s_fsenf[CLECLI].wdg), senf.clecli);
 gtk_entry_set_text(GTK_ENTRY (s_fsenf[NUMFAC].wdg), senf.numfac);
 afadres2_cli();
@@ -1181,46 +1191,9 @@ gtk_widget_modify_bg (bouefface, GTK_STATE_NORMAL, &colorbut);
  g_signal_connect(G_OBJECT(bouefface), "clicked", G_CALLBACK (sfac_efflig),NULL);
  g_signal_connect(G_OBJECT(boutinsl), "clicked", G_CALLBACK (sfac_inslig),NULL);
  g_signal_connect(G_OBJECT(boutsupl), "clicked", G_CALLBACK (sfac_suplig),NULL);
-// g_signal_connect(G_OBJECT(bouton2), "clicked", G_CALLBACK (sfac_dupli),NULL);
 
   g_signal_connect(fen_sfac.win, "delete_event", G_CALLBACK (sfac_quit), NULL);
 
 }
 
-/*
-
-gboolean sfac_dupli (GtkWidget *widget, gpointer data)
-{
-int liga;
-DEF_L_FnC *pl;
-char *par,*por;
-pl = inpw->pdefc;
-liga=inpw->liga;
-if (liga == 0) return (-1);
-switch (pl->idcol)
-{
-case CSFquant:
- ligfac[liga].quant = ligfac[liga-1].quant;
- break;
-case CSFpriunit:
- ligfac[liga].priunit = ligfac[liga-1].priunit;
- break;
-default:
-par= inpw->memcell;
-//por = (inpw - CSFnco*sizeof(MEMO_T_WIDG))->memcell;
-por = (inpw - CSFnco)->memcell;
-printf("click bout dupli w=%p \n",inpw->wdg);
-	// verif si click vient du bon tableau
-if (por < (char*) &ligfac || par > (char*) &ligfac[CSFnli-1].priunit) {
-  printf("dupli hors table\n");
-  return (-1);	}
-strncpy(par,por,pl->laf);
-				}
-afcell_sfac(pl->idcol,liga);
-gtk_widget_grab_focus (inpw->wdg);
-//aftablo((FnC*) &fen_sfac,(S_LFAC*) &ligfac,liga);
-return FALSE;
-}
-
-*/
 

@@ -18,6 +18,7 @@ char add3[50];
 char pays[6];
 char codpos[8];
 char add4[32];
+char siret[16];
 char datcre[12];
 char datmod[12];
 char teleph[18];
@@ -91,6 +92,7 @@ char add3[50];
 char pays[6];
 char codpos[8];
 char add4[32];
+char siret[16];
 char doclu[20];
 char ficdi[20];	// ne sert pas
 char nblig[8];

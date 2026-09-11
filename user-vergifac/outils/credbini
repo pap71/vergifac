@@ -9,6 +9,7 @@ CREATE TABLE Cli (
 	Pays VARCHAR(4),
 	Codpos VARCHAR(8),
 	Add4 VARCHAR(40),
+	Siret VARCHAR(16),
 	Datcre VARCHAR(12),
 	Datmod VARCHAR(12),
 	Tel VARCHAR(18),

@@ -38,7 +38,7 @@ static S_MES tlmes[] = {
 {7,"Erreur création ou Clef/Dossier existe déjà"},
 {8,"Clef Inconnue"},
 {9,"pas de blanc en début de saisie"},
-{10,"Code taxe inconnu"},
+{10,"Code taxe inconnu z = 0%"},
 {11,"Tableau plein ! "},
 {12,"Code calcul en double\n un seul possible"},
 {13,"Erreur de date"},

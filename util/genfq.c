@@ -45,7 +45,11 @@ if ( svpzw == NULL)	{
 	printf("maj_fenq svpzw=NULL ?\n");
 	return TRUE;
 			}
-printf("maj_fenq-1 pzw=%p ret=%d\n",pzw,ret);
+//printf("maj_fenq-1 pzw=%p ret=%d\n",pzw,ret);
+if ( pzw->wdg == NULL)	{
+	printf("maj_fenq entry =NULL ?\n");
+	return TRUE;
+			}
 editable = GTK_EDITABLE (pzw->wdg);
 text = gtk_editable_get_chars (editable, 0, -1);
 lt = strlen(text);
@@ -126,7 +130,7 @@ GtkEditable *editable;
 gchar *text;
 if (bloqchfq == 1) return;  // si affiche contenu declanche changed
 svpzw = pzw;	//sauvegarde du widget saisie  a traiter pour maj sauvegarde saisie
-printf("chang_fenq pzw=%p widls=%p \n",pzw,widls);
+//printf("chang_fenq pzw=%p widls=%p \n",pzw,widls);
 if (pzw->typ == SSPEC  || pzw->typ == DEFMAN) { // traitement specifique
  if (pzw->fonc)  {
   (*(pzw->fonc)) (pzw,1) ;
@@ -159,6 +163,7 @@ printf("activ-focus pw=%p svpw=%p\n",pzw,svpzw);
 
 gboolean quit_fenq (GtkWidget *widls, FENQ* pf)
 {
+//gtk_widget_destroy(pf->win); plante
 pf->win = NULL;
 svpzw = NULL;
 printf("quit_fenq\n");
@@ -229,7 +234,7 @@ g_signal_connect_after(G_OBJECT(pf->win), "delete_event", G_CALLBACK (quit_fenq)
 }
 
 void creparfenq(DEF_L_FQ *pli,DEF_S_FQ *pz,GtkWidget* fixg,void* pd)
-	// creation partie fenetre qq
+	// creation partie fenetre qq  saifac
 {
 int  iz,lafsais;
 char *pa;

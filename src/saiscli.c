@@ -38,6 +38,7 @@ void 	activ_sfcli ();
 void 	deactiv_sfcli ();
 void activ_supcli();
 void 	chang_sfcli (DEF_S_FQ *pzw);
+gboolean sfic_quit(GtkWidget *widget, gpointer data);
 
 #define MEM 0
 extern S_FCLI lsfcli; // a copier apres lecture
@@ -56,6 +57,7 @@ ADD3,
 PAYS,
 CODPOS,
 ADD4,
+SIRET,
 DATCRE,
 DATMOD,
 TEL,
@@ -86,10 +88,12 @@ DEF_S_FQ s_fsfcli[]= {
 {10,YAD+95,PAYS,DEPS(pays),NULL,MEM,SAISCHAR,5,&fonc_sfcli,"%s"},
 {60,YAD+95,CODPOS,DEPS(codpos),NULL,MEM,SAISCHAR,8,&fonc_sfcli,"%s"},
 {130,YAD+95,ADD4,DEPS(add4),NULL,MEM,SAISCHAR,30,&fonc_sfcli,"%s"},
-{180,415,DATCRE,DEPS(datcre),NULL,MEM,LIBCHAR,12,NULL,"%s"},
-{180,430,DATMOD,DEPS(datmod),NULL,MEM,LIBCHAR,12,NULL,"%s"},
-{80,YAD+120,TEL,DEPS(teleph),NULL,MEM,SAISCHAR,18,&fonc_sfcli,"%s"},
-{80,YAD+145,MAIL,DEPS(mail),NULL,MEM,SAISCHAR,39,&fonc_sfcli,"%s"},
+{80,YAD+125,SIRET,DEPS(siret),NULL,MEM,SAISCHAR,16,&fonc_sfcli,"%s"},
+
+{180,450,DATCRE,DEPS(datcre),NULL,MEM,LIBCHAR,12,NULL,"%s"},
+{180,470,DATMOD,DEPS(datmod),NULL,MEM,LIBCHAR,12,NULL,"%s"},
+{80,YAD+150,TEL,DEPS(teleph),NULL,MEM,SAISCHAR,18,&fonc_sfcli,"%s"},
+{80,YAD+175,MAIL,DEPS(mail),NULL,MEM,SAISCHAR,39,&fonc_sfcli,"%s"},
 //{10,YAD+205,NOTES,DEPS(notes),NULL,MEM,DEFMAN,70,&fonc_sfcli,"%s"},
 {-1,-1,0,0,NULL,0,0,0,NULL,NULL}
 };
@@ -101,13 +105,14 @@ DEF_L_FQ lib_fsfcli[]= {
 //{6,22,NULL,0,"Mnemo"},
 {180,15,NULL,0,"cms"},
 {235,15,NULL,0,"Type"},
-{30,420,NULL,0,"Dat.creation"},
-{30,435,NULL,0,"Dat.modification"},
+{30,452,NULL,0,"Dat.creation"},//{30,420,NULL,0,"Dat.creation"},
+{30,472,NULL,0,"Dat.modification"},//{30,435,NULL,0,"Dat.modification"},
 {15,YAD-20,NULL,0,"Adresse"},
 {15,YAD+75,NULL,0,"Pays    Code.Postal       Ville"},
-{6,YAD+125,NULL,0,"Telephone"},
-//{6,YAD+150,NULL,0,"Ad.Mails"},
-{10,YAD+185,NULL,0,"Notes"},
+{15,YAD+128,NULL,0,"SIRET"},
+{6,YAD+156,NULL,0,"Telephone"},
+{6,YAD+180,NULL,0,"Ad.Mails"},
+{10,YAD+210,NULL,0,"Notes"}, //{10,YAD+185,NULL,0,"Notes"},
 {-1,-1,NULL,0,NULL}
 };
 
@@ -115,7 +120,7 @@ FENQ fen_sfcli = {
 NULL,//GtkWidget *win;
 "Saisie Fiche Client",	//char *fentit;
 355,	//int fenlarg;	/*largeur fenetre*/
-330,	//int fenhaut;	/*hauteur  fenetre*/
+375,	//int fenhaut;	/*hauteur  fenetre  330+45-375*/
 650,	//int posx;	/* coin gauche x*/
 650,	//int posy;	/* coin gauche y*/
 //0,	//int sizsvt;	// sizeof struct des variables
@@ -123,6 +128,13 @@ NULL,//GtkWidget *win;
 &lib_fsfcli[0],	// pointeur sur definition libelle
 &bout_sfcli	// fonction ajout de bouton
 };
+
+gboolean sfic_quit(GtkWidget *widget, gpointer data)
+{
+printf("quit fen_sfcli\n");
+fen_sfcli.win = NULL;
+return TRUE;
+}
 
 void deactiv_sfcli()
 {
@@ -253,8 +265,8 @@ int  no, of;
  sfcli.ue.erreur[no] = sfcli.ue.erreur[no] ^ (1 << of);
 }
 
-static char sqlins_fcli[]="INSERT INTO Cli VALUES('%s','%s',\"%s\",\"%s\",\"%s\",'%s','%s',\"%s\", '%s','%s','%s','%s',\"%s\")";
-static char sqlmaj_fcli[]="UPDATE Cli SET Type='%s',Add1=\"%s\",Add2=\"%s\",Add3=\"%s\",Pays='%s',Codpos='%s',Add4=\"%s\",Datmod='%s',Tel='%s',Mail='%s',Notes=\"%s\" WHERE Clefacc='%s'";
+static char sqlins_fcli[]="INSERT INTO Cli VALUES('%s','%s',\"%s\",\"%s\",\"%s\",'%s','%s',\"%s\", '%s','%s','%s','%s','%s',\"%s\")";
+static char sqlmaj_fcli[]="UPDATE Cli SET Type='%s',Add1=\"%s\",Add2=\"%s\",Add3=\"%s\",Pays='%s',Codpos='%s',Add4=\"%s\",Siret='%s',Datmod='%s',Tel='%s',Mail='%s',Notes=\"%s\" WHERE Clefacc='%s'";
 //Datcre='%s',
 
 void enreg_sfcli(GtkWidget *widget, gpointer x)
@@ -269,12 +281,12 @@ if ( sfcli.ue.erd != 0)	{
 strncpy(datmod,today.sdat,12);
 if ( sfcli.cms == 'm' ) {  // maj
  sprintf(zz,sqlmaj_fcli,
-sfcli.typcli,sfcli.add1,sfcli.add2,sfcli.add3,sfcli.pays,sfcli.codpos,sfcli.add4,
+sfcli.typcli,sfcli.add1,sfcli.add2,sfcli.add3,sfcli.pays,sfcli.codpos,sfcli.add4,sfcli.siret,
 datmod,sfcli.teleph,sfcli.mail,sfcli.notes,sfcli.clecli);
 			}
 else if (sfcli.cms == 'c') {			// creation
  sprintf(zz,sqlins_fcli,
-sfcli.clecli,sfcli.typcli,sfcli.add1,sfcli.add2,sfcli.add3,sfcli.pays,sfcli.codpos,sfcli.add4,
+sfcli.clecli,sfcli.typcli,sfcli.add1,sfcli.add2,sfcli.add3,sfcli.pays,sfcli.codpos,sfcli.add4,sfcli.siret,
 datmod,datmod,sfcli.teleph,sfcli.mail,sfcli.notes);
      }
 else printf("pb enreg sfcli !\n");
@@ -330,6 +342,7 @@ void raz_sfcli()
  sfcli.pays[0] = '\0';
  sfcli.codpos[0] = '\0';
  sfcli.add4[0] = '\0';
+ sfcli.siret[0] = '\0';
  sfcli.datcre[0] = '\0';
  sfcli.datmod[0] = '\0';
  sfcli.teleph[0] = '\0';
@@ -369,6 +382,7 @@ gtk_entry_set_text(GTK_ENTRY (s_fsfcli[ADD3].wdg), sfcli.add3);
 gtk_entry_set_text(GTK_ENTRY (s_fsfcli[PAYS].wdg), sfcli.pays);
 gtk_entry_set_text(GTK_ENTRY (s_fsfcli[CODPOS].wdg), sfcli.codpos);
 gtk_entry_set_text(GTK_ENTRY (s_fsfcli[ADD4].wdg), sfcli.add4);
+gtk_entry_set_text(GTK_ENTRY (s_fsfcli[SIRET].wdg), sfcli.siret);
  gtk_label_set_text(GTK_LABEL (s_fsfcli[DATCRE].wdg), sfcli.datcre);
  gtk_label_set_text(GTK_LABEL (s_fsfcli[DATMOD].wdg), sfcli.datmod);
 gtk_entry_set_text(GTK_ENTRY (s_fsfcli[TEL].wdg), sfcli.teleph);
@@ -432,10 +446,9 @@ colortabs.blue=0;
 				   ,GTK_POLICY_AUTOMATIC
 				   ,GTK_POLICY_AUTOMATIC);
 //gtk_container_add (GTK_CONTAINER (widx) ,wscro);// il faut put
-gtk_fixed_put(GTK_FIXED(widx),wscro,10,255);
+gtk_fixed_put(GTK_FIXED(widx),wscro,10,280);
 
 wtext = gtk_text_view_new();
-//s_fsfcli[NOTES].wdg = wtext;
 gtk_container_add (GTK_CONTAINER (wscro) ,wtext);
  gtk_widget_set_size_request (wtext ,350 ,140);// necessaire
 
@@ -443,26 +456,25 @@ gtk_container_add (GTK_CONTAINER (wscro) ,wtext);
 
 boutenreg = gtk_button_new_with_label("Enregistrer");
   gtk_widget_set_size_request(boutenreg, 90, 25);
-  gtk_fixed_put(GTK_FIXED(widx), boutenreg,260,470);
+  gtk_fixed_put(GTK_FIXED(widx), boutenreg,260,495);
   gtk_widget_modify_bg (boutenreg, GTK_STATE_NORMAL, &colortabs);
 g_signal_connect(G_OBJECT(boutenreg), "clicked", G_CALLBACK (enreg_sfcli),NULL);
-//gtk_widget_hide(boutenreg);
 boutefface = gtk_button_new_with_label("Efface");
   gtk_widget_set_size_request(boutefface, 70, 25);
-  gtk_fixed_put(GTK_FIXED(widx), boutefface,150,470);
+  gtk_fixed_put(GTK_FIXED(widx), boutefface,150,495);
   gtk_widget_modify_bg (boutefface, GTK_STATE_NORMAL, &colortabs);
 g_signal_connect(G_OBJECT(boutefface), "clicked", G_CALLBACK (efface),NULL);
 boutsuprim= gtk_button_new_with_label("Supprime");
   gtk_widget_set_size_request(boutsuprim, 85, 25);
-  gtk_fixed_put(GTK_FIXED(widx), boutsuprim,10,470);
+  gtk_fixed_put(GTK_FIXED(widx), boutsuprim,10,495);
   gtk_widget_modify_bg (boutsuprim, GTK_STATE_NORMAL, &colortabs);
 g_signal_connect(G_OBJECT(boutsuprim), "clicked", G_CALLBACK (suprim_sfcli),NULL);
 boutmail= gtk_button_new_with_label("Mail");
-  gtk_widget_set_size_request(boutmail, 70, 25);
-  gtk_fixed_put(GTK_FIXED(widx), boutmail,6,200);
+  gtk_widget_set_size_request(boutmail, 50, 45);
+  gtk_fixed_put(GTK_FIXED(widx), boutmail,285,440);
   gtk_widget_modify_bg (boutmail, GTK_STATE_NORMAL, &colortabs);
 g_signal_connect(G_OBJECT(boutmail), "clicked", G_CALLBACK (mail_sfcli),NULL);
-//printf("bou 2\n");
+// g_signal_connect(fen_sfcli.win, "delete_event", G_CALLBACK (sfic_quit), NULL); genfq destroy
 
 }
 

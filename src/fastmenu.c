@@ -146,9 +146,10 @@ gtk_widget_show_all(winli);
 
 void act_sfcli(GtkWidget *widget, gpointer data)
 {
+printf("fen_sfcli.win =%p \n",fen_sfcli.win);
 if ( !GTK_IS_WINDOW (fen_sfcli.win)) {
  crefenq ((FENQ*) &fen_sfcli, (void*) &sfcli);
- deactiv_sfcli();
+ deactiv_sfcli();  // les boutons
  raz_cms();
 		}
 gtk_window_deiconify((GtkWindow*)fen_sfcli.win);

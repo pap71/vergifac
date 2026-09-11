@@ -331,6 +331,10 @@ else if ( strcmp( ze,"ad4") == 0)   {
      if (param0() ==-1) return;	
 	 cairotext();	cairo_show_text(cr,senf.add4);
 								    }
+else if ( strcmp( ze,"siret") == 0)   {
+     if (param0() ==-1) return;	
+	 cairotext();	cairo_show_text(cr,senf.siret);
+								    }
 else if ( strcmp( ze,"datdoc") == 0)    {
     if (param0() ==-1) return;	 
 	cairotext();	cairo_show_text(cr,senf.datfac);

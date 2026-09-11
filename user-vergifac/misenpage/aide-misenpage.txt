@@ -76,12 +76,13 @@ typdoc	 x=50	y=150	pol=garuda siz=12 w=bold
 /* ad1 , ad2, ad3, pays, codpos, ad4(ville) = adresse destinataire
 numdoc	 x=160	y=150	pol=arial siz=11
 datdoc	 x=140	y=180	pol=arial siz=10
-ad1	 x=320	y=160	pol=sans siz=10
-ad2 	 x=320	y=175	pol=arial siz=10
-ad3 	 x=320	y=190	pol=arial siz=10
-pays	 x=320	y=205	pol=arial siz=9
-codpos	 x=360	y=205	pol=arial siz=10
-ad4	 x=400	y=205	pol=arial siz=10
+ad1	 x=320	y=140	pol=sans siz=10
+ad2 	 x=320	y=155	pol=arial siz=10
+ad3 	 x=320	y=170	pol=arial siz=10
+pays	 x=320	y=185	pol=arial siz=9
+codpos	 x=360	y=185	pol=arial siz=10
+ad4	 x=400	y=185	pol=arial siz=10
+siret	 x=360	y=205	pol=arial siz=10
 /* si une des lignes précédente est absente ou mis en commentaire
 /* l'information correspondante n'est pas imprimée.
 
@@ -101,6 +102,9 @@ Capital 150000 euros €      -      SIRET 987 654 321 00002
 
 entvar	 x=60	y=180	pol=garuda siz=9
 Aix en Brousse le 
+
+entvar	 x=320	y=205	pol=garuda siz=8
+Siret 
 
 entvar	 x=95	y=235	pol=garuda siz=9
 Libelle

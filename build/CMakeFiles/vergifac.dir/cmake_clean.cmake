@@ -1,0 +1,41 @@
+file(REMOVE_RECURSE
+  "/home/MhomMD/md/git-md/vergifac3/master/user-vergifac/vergifac"
+  "/home/MhomMD/md/git-md/vergifac3/master/user-vergifac/vergifac.pdb"
+  "CMakeFiles/vergifac.dir/src/editfast.c.o"
+  "CMakeFiles/vergifac.dir/src/editfast.c.o.d"
+  "CMakeFiles/vergifac.dir/src/fastmenu.c.o"
+  "CMakeFiles/vergifac.dir/src/fastmenu.c.o.d"
+  "CMakeFiles/vergifac.dir/src/listcli.c.o"
+  "CMakeFiles/vergifac.dir/src/listcli.c.o.d"
+  "CMakeFiles/vergifac.dir/src/listprod.c.o"
+  "CMakeFiles/vergifac.dir/src/listprod.c.o.d"
+  "CMakeFiles/vergifac.dir/src/memodoc.c.o"
+  "CMakeFiles/vergifac.dir/src/memodoc.c.o.d"
+  "CMakeFiles/vergifac.dir/src/mesfast.c.o"
+  "CMakeFiles/vergifac.dir/src/mesfast.c.o.d"
+  "CMakeFiles/vergifac.dir/src/paramsfac.c.o"
+  "CMakeFiles/vergifac.dir/src/paramsfac.c.o.d"
+  "CMakeFiles/vergifac.dir/src/saifac.c.o"
+  "CMakeFiles/vergifac.dir/src/saifac.c.o.d"
+  "CMakeFiles/vergifac.dir/src/saifaccod.c.o"
+  "CMakeFiles/vergifac.dir/src/saifaccod.c.o.d"
+  "CMakeFiles/vergifac.dir/src/saiprod.c.o"
+  "CMakeFiles/vergifac.dir/src/saiprod.c.o.d"
+  "CMakeFiles/vergifac.dir/src/saiscli.c.o"
+  "CMakeFiles/vergifac.dir/src/saiscli.c.o.d"
+  "CMakeFiles/vergifac.dir/src/sqlcliDB.c.o"
+  "CMakeFiles/vergifac.dir/src/sqlcliDB.c.o.d"
+  "CMakeFiles/vergifac.dir/util/gencbox.c.o"
+  "CMakeFiles/vergifac.dir/util/gencbox.c.o.d"
+  "CMakeFiles/vergifac.dir/util/genctrl.c.o"
+  "CMakeFiles/vergifac.dir/util/genctrl.c.o.d"
+  "CMakeFiles/vergifac.dir/util/genfq.c.o"
+  "CMakeFiles/vergifac.dir/util/genfq.c.o.d"
+  "CMakeFiles/vergifac.dir/util/genftablo.c.o"
+  "CMakeFiles/vergifac.dir/util/genftablo.c.o.d"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang C)
+  include(CMakeFiles/vergifac.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

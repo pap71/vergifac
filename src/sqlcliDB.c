@@ -121,6 +121,7 @@ strcpy(lsfcli.add3,argv[++i]);
 strcpy(lsfcli.pays,argv[++i]);
 strcpy(lsfcli.codpos,argv[++i]);
 strcpy(lsfcli.add4,argv[++i]);
+strcpy(lsfcli.siret,argv[++i]);
 strcpy(lsfcli.datcre,argv[++i]);
 strcpy(lsfcli.datmod,argv[++i]);
 strcpy(lsfcli.teleph,argv[++i]);
