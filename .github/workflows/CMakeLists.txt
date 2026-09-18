@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 3.10)
 project(vergifac C)
 
 # Répertoires des sources et includes
-set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
-set(UTIL_DIR ${CMAKE_SOURCE_DIR}/util)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/user-vergifac)
+set(SRC_DIR ${PROJECT_SOURCE_DIR}/src)
+set(UTIL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/util)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/user-vergifac)
 
 # Fichiers sources
 set(SOURCES
@@ -41,7 +41,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 )
 
 # Flags de compilation
-target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wno-deprecated-declarations -g)
+target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wno-deprecated-declarations )
 
 # Trouver GTK+ et SQLite
 find_package(PkgConfig REQUIRED)
