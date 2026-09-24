@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(vergifac C)
 
 # Répertoires des sources et includes
-set(SRC_DIR ${PROJECT_SOURCE_DIR}/src)
+set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(UTIL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/util)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/user-vergifac)
 
