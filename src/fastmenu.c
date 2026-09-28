@@ -324,7 +324,7 @@ py += 30;
 // cbparam = gtk_combo_box_text_new();  // creation cbox ici
  cbparam = gtk_combo_box_new_text();  // creation cbox ici
   gtk_fixed_put(GTK_FIXED(frawp), cbparam, 5,py);
-gtk_combo_box_append_text(GTK_COMBO_BOX(cbparam), "Parametres");
+gtk_combo_box_append_text(GTK_COMBO_BOX(cbparam), "Parametres / TVA");
 gtk_combo_box_append_text(GTK_COMBO_BOX(cbparam), "Taux T.V.A");
 gtk_combo_box_append_text(GTK_COMBO_BOX(cbparam), "Parametres divers");
 gtk_combo_box_append_text(GTK_COMBO_BOX(cbparam), "Creation Dossier (.db)");

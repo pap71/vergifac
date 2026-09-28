@@ -90,7 +90,7 @@ if (ret == 0) 	{
 								 }
 		}	// fin ret == 0
 //svpzw = NULL;	// tout le traitement apres saisie a du etre fait
-printf("maj_fenq-2 pzw=%p ret=%d\n",pzw,ret);
+//printf("maj_fenq-2 pzw=%p ret=%d\n",pzw,ret);
 if (gtk_editable_get_editable ((GtkEditable*) editable) == TRUE)  {
 if (ret == -1) {
  if (pzw->laf == 1)  gtk_editable_delete_text((GtkEditable*) editable,0,-1);
@@ -118,7 +118,7 @@ return FALSE;
 gboolean focout_fenq (GtkWidget *widget, GdkEventKey *event, DEF_S_FQ *pzw)
 {
 //pzw fait ref au widget suivant
-printf("focus-out  pzw=%p svpzw=%p\n",pzw,svpzw);
+//printf("focus-out  pzw=%p svpzw=%p\n",pzw,svpzw);
 if (svpzw != NULL) maj_fenq ();
   return FALSE;
 }

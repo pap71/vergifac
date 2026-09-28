@@ -7,17 +7,21 @@ Document layout is fully customizable.
 The program includes a management client or third parties' as well as management 'products or services' storing the information necessary for easy billing.
 
 ###Version: Linux (2026) 
+To generate the vergisc program in the 'user-vergifac' directory
 Open Terminal on ../master/build
+delete all files from the build directory
+cmake ..
+Check dependencies. If needed, install gtk+.2.0 sqlite3 and restart cmake ..
 make
-generate the vergisc program in the 'user-vergifac' directory
 
-###Version: Windows(2018, need GTK) in projet !
+###Old Version: Windows(2018, need GTK) new in projet !
 
 ###Test
 The directory 'user-vergifac' contains the files for use vergifac
 Open Terminal on 'user-vergifac'
 to choose
 ./vergifac for Linux
+./vergifac-raspi (raspberry) for Raspbian GNU/Linux 13 (trixie) (32 b)
 vergifac.exe for Windows
 
 <<<<<<< HEAD
@@ -40,17 +44,22 @@ La présentation du document est complètement paramétrable.
 Le programme inclut une gestion 'client ou tiers' ainsi qu'une gestion 'produits ou services' mémorisant les informations nécessaires à une facturation aisée.
 
 ###Version: Linux (2026) 
+pour generer le prog vergisfac dans le répertoire 'user-vergifac'
 ouvrir un terminal sur ../master/build
+supprimer tous les fichiers du répertoire build
+cmake ..
+vérification des dépendances 
+si besoin apt install gtk+.2.0 sqlite3 et relancer cmake ..
 make
-genere le prog vergisc dans le répertoire 'user-vergifac'
 
-###Version: Windows(2018, utilise GTK) reprise en projet !
+###Old Version: Windows(2018, utilise GTK) reprise en projet !
 
 ### Test
 Le répertoire 'user-vergifac' contient les fichiers pour utiliser vergifac
 Ouvrir un terminal sur 'user-vergifac'
 choisir
 ./vergifac pour linux 
+./vergifac-raspi (raspberry) for Raspbian GNU/Linux 13 (trixie) (32 b)
 vergifac.exe pour Windows
 
 <<<<<<< HEAD

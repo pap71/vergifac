@@ -1,3 +1,0 @@
-/home/MhomMD/md/git-md/vergifac3/master/build/CMakeFiles/vergifac.dir
-/home/MhomMD/md/git-md/vergifac3/master/build/CMakeFiles/edit_cache.dir
-/home/MhomMD/md/git-md/vergifac3/master/build/CMakeFiles/rebuild_cache.dir
