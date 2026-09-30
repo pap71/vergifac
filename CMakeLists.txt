@@ -34,6 +34,13 @@ set(HEADERS
 # Créer l'exécutable
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 
+
+find_package(PkgConfig REQUIRED)
+
+pkg_check_modules(GTK2 REQUIRED IMPORTED_TARGET gtk+-2.0)
+pkg_check_modules(SQLITE3 REQUIRED IMPORTED_TARGET sqlite3)
+
+
 # Inclure les répertoires util/ et GTK+
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${UTIL_DIR}
@@ -44,17 +51,22 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wno-deprecated-declarations )
 
 # Trouver GTK+ et SQLite
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(GTK2 REQUIRED gtk+-2.0)
-pkg_check_modules(SQLITE3 REQUIRED sqlite3)
+#find_package(PkgConfig REQUIRED)
+#pkg_check_modules(GTK2 REQUIRED gtk+-2.0)
+#pkg_check_modules(SQLITE3 REQUIRED sqlite3)
 # Après pkg_check_modules
 include_directories(${GTK2_INCLUDE_DIRS})
 
 # Lier les bibliothèques
 target_link_libraries(${PROJECT_NAME} PRIVATE
-    ${GTK2_LIBRARIES}
-    ${SQLITE3_LIBRARIES}
+    PkgConfig::GTK2
+    PkgConfig::SQLITE3
     m
+
+#target_link_libraries(${PROJECT_NAME} PRIVATE
+#    ${GTK2_LIBRARIES}
+#    ${SQLITE3_LIBRARIES}
+#   m
 )
 
 # Ancienne version (incorrecte si user-vergifac est à la racine)
